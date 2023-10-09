@@ -21,7 +21,7 @@ class ResPartner(models.Model):
             ("invalidated", "No validado"),
             ("validated", "Validado"),
         ],
-        string="Estado",
+        string="Situación",
         default="invalidated",
     )
 
