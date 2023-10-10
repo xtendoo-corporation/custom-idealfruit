@@ -46,12 +46,11 @@ class VendorChecklistDocumentRelation(models.Model):
     )
     partner_id = fields.Many2one(
         comodel_name="res.partner",
-        inverse_name="vendor_checklist_document_relation_ids",
         string="Proveedor",
     )
     vendor_checklist_document_id = fields.Many2one(
         comodel_name="vendor.checklist.document",
-        string="Checklist",
+        string="Checklist Relación de Documentos",
     )
     date_validated = fields.Date(
         string="Fecha de Validez",

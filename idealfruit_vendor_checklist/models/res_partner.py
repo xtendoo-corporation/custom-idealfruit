@@ -8,7 +8,6 @@ class ResPartner(models.Model):
 
     vendor_checklist_id = fields.Many2one(
         comodel_name="vendor.checklist",
-        inverse_name="partner_id",
         string="Checklist",
     )
     vendor_checklist_document_relation_ids = fields.One2many(
