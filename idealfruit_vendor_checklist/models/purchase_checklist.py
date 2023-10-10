@@ -55,3 +55,4 @@ class PurchaseChecklistDocumentRelation(models.Model):
 
     _sql_constraints = [("purchase_uniq", "UNIQUE(purchase_checklist_document_id, purchase_order_id)",
                          "Tipo de documento repetido en el checklist.")]
+
