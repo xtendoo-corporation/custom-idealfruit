@@ -2,9 +2,9 @@
 
 from odoo import api, fields, models
 
+
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
-
 
     purchase_checklist_document_relation_ids = fields.One2many(
         comodel_name="purchase.checklist.document.relation",
@@ -23,7 +23,7 @@ class PurchaseOrder(models.Model):
 
     @api.onchange("purchase_checklist_document_relation_ids")
     def check_purchase_state(self):
-        documents = self.env["purchase.checklist.document"].search([]) # [1,2,3]
+        documents = self.env["purchase.checklist.document"].search([])  # [1,2,3]
         for purchase in self:
             if (purchase.purchase_checklist_document_relation_ids
                 and len(documents) == len(purchase.purchase_checklist_document_relation_ids)):
