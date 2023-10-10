@@ -37,17 +37,32 @@
         </field>
     </record>
 
-<!--        <record id="isr_invoice_search_view" model="ir.ui.view">-->
-<!--            <field name="name">l10n_ch.invoice.select</field>-->
-<!--            <field name="model">account.move</field>-->
-<!--            <field name="inherit_id" ref="account.view_account_invoice_filter"/>-->
-<!--            <field name="mode">primary</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <xpath expr="//search" position="inside">-->
-<!--                    <field name="l10n_ch_isr_number" string="ISR reference number"/>-->
-<!--                </xpath>-->
-<!--            </field>-->
-<!--        </record>    -->
+    <record id="purchase_order_view_search_idealfruit" model="ir.ui.view">
+        <field name="name">purchase.order.search.custom</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter name="purchase_state_validated" string="Validado"
+                        domain="[('purchase_state', '=', 'validated')]"/>
+                <filter name="purchase_state_invalidated" string="No Validado"
+                        domain="[('purchase_state', '=', 'invalidated')]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--        <record id="isr_invoice_search_view" model="ir.ui.view">-->
+    <!--            <field name="name">l10n_ch.invoice.select</field>-->
+    <!--            <field name="model">account.move</field>-->
+    <!--            <field name="inherit_id" ref="account.view_account_invoice_filter"/>-->
+    <!--            <field name="mode">primary</field>-->
+    <!--            <field name="arch" type="xml">-->
+    <!--                <xpath expr="//search" position="inside">-->
+    <!--                    <field name="l10n_ch_isr_number" string="ISR reference number"/>-->
+    <!--                </xpath>-->
+    <!--            </field>-->
+    <!--        </record>    -->
 
     <!--    <record id="purchase_order_view_tree_idealfruit_status_text_tree_inherit" model="ir.ui.view">-->
     <!--        <field name="name">purchase.order.form</field>-->
