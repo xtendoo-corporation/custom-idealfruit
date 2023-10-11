@@ -62,28 +62,7 @@
                         <field name="purchase_checklist_document_id"/>
                     </group>
                     <group >
-
-                        // mete el campo attachment_ids en un tree view y que se pueda previsualizar el archivo adjunto
-
-<!--                        <field name="attachment_ids" widget="attachment_preview" string="Adjuntar archivo" nolabel="1" colspan="2"/>-->
-
-                        <field name="attachment_ids" widget="many2many_binary" string="Adjuntar archivo" nolabel="1" colspan="2"/>
-
-<!--                        <field name="attachment_ids" string="Adjuntar archivo" nolabel="1" colspan="2">-->
-<!--                            <tree>-->
-<!--                                <field name="res_id" invisible="1" />-->
-<!--                                <field name="name" />-->
-<!--                                <field name="datas" filename="name" />-->
-<!--                            </tree>-->
-<!--                            <form>-->
-<!--                                <sheet>-->
-<!--                                    <group>-->
-<!--                                        <field name="file" filename="filename" />-->
-<!--                                        <field name="filename" invisible="1" />-->
-<!--                                    </group>-->
-<!--                                </sheet>-->
-<!--                            </form>-->
-<!--                        </field>-->
+                        <field name="attachment_ids" widget="many2many_attachment_preview" string="Adjuntar archivo" nolabel="1" colspan="2"/>
                     </group>
                 </sheet>
             </form>

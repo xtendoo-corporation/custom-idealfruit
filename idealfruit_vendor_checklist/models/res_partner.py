@@ -34,8 +34,8 @@ class ResPartner(models.Model):
                         0,
                         0,
                         {
-                            "vendor_checklist_document_id": document.id,
                             "name": document.name,
+                            "vendor_checklist_document_id": document.id,
                         },
                     )
                 ]

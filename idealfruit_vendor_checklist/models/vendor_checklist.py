@@ -55,7 +55,12 @@ class VendorChecklistDocumentRelation(models.Model):
     date_validated = fields.Date(
         string="Fecha de Validez",
     )
-
+    attachment_ids = fields.One2many(
+        comodel_name="ir.attachment",
+        inverse_name="res_id",
+        string="Adjuntos",
+        tracking=True,
+    )
 
 
 

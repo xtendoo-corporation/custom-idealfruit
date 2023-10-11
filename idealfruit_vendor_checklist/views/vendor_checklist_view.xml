@@ -4,8 +4,8 @@
     // create an action to open the form view of the model vendor.checklist
 
     <record id="action_vendor_checklist_form" model="ir.actions.act_window">
-        <field name="name">Vendor Checklist</field>
-        <field name="res_model">vendor.checklist.document</field>
+        <field name="name">Checklist de proveedores</field>
+        <field name="res_model">vendor.checklist</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
     </record>

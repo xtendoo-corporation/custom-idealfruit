@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": [
         "purchase",
+        "odx_m2m_attachment_preview",
     ],
     "data": [
         "security/ir.model.access.csv",

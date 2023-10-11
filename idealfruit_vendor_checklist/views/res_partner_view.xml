@@ -16,7 +16,13 @@
                    position="after"
                    attrs="{'invisible': [('vendor_checklist_id','=','')]}">
                 <page string="Vendor Checklist">
-                    <field name="vendor_checklist_document_relation_ids"/>
+                    <field name="vendor_checklist_document_relation_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="date_validated"/>
+                            <field name="attachment_ids"/>
+                        </tree>
+                    </field>
                 </page>
             </xpath>
         </field>
@@ -43,5 +49,26 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_vender_checklist_document_relation_form" model="ir.ui.view">
+        <field name="name">Vendor Checklist Document Relation Form</field>
+        <field name="model">vendor.checklist.document.relation</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Checklist Document Relation">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="vendor_checklist_document_id"/>
+                        <field name="date_validated"/>
+                    </group>
+                    <group>
+                        <field name="attachment_ids" widget="many2many_attachment_preview" string="Adjuntar archivo"
+                               nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
 
 </odoo>
