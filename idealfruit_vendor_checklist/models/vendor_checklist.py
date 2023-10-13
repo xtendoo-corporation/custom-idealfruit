@@ -39,7 +39,8 @@ class VendorChecklistDocument(models.Model):
         default=True,
     )
 
-    _sql_constraints = [("name_uniq", "UNIQUE(name, vendor_checklist_id)", "El nombre del documento ya existe en el checklist.")]
+    _sql_constraints = [
+        ("name_uniq", "UNIQUE(name, vendor_checklist_id)", "El nombre del documento ya existe en el checklist.")]
 
 
 class VendorChecklistDocumentRelation(models.Model):
@@ -53,9 +54,16 @@ class VendorChecklistDocumentRelation(models.Model):
         comodel_name="res.partner",
         string="Proveedor",
     )
+    vendor_checklist_id = fields.Many2one(
+        comodel_name="vendor.checklist",
+        related="partner_id.vendor_checklist_id",
+        string="Checklist",
+    )
     vendor_checklist_document_id = fields.Many2one(
         comodel_name="vendor.checklist.document",
-        string="Checklist Relación de Documentos",
+        domain="[('vendor_checklist_id', '=', vendor_checklist_id)]",
+        string="Documento",
+        required=True,
     )
     date_validated = fields.Date(
         string="Fecha de Validez",
@@ -67,11 +75,5 @@ class VendorChecklistDocumentRelation(models.Model):
         tracking=True,
     )
 
-
-
-
-
-
-
-
-
+    _sql_constraints = [("checklist_uniq", "UNIQUE(partner_id, vendor_checklist_document_id)",
+                         "El tipo de documento ya existe en el checklist.")]

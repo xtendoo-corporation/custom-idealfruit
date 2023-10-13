@@ -16,7 +16,7 @@ class PurchaseOrder(models.Model):
             ("invalidated", "No validado"),
             ("validated", "Validado"),
         ],
-        string="Situacion Compra",
+        string="Situación",
         default="invalidated",
         readonly=True,
     )

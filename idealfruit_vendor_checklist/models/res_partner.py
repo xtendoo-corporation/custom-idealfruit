@@ -44,14 +44,25 @@ class ResPartner(models.Model):
     def check_vendor_state(self):
         for record in self:
             if not record.vendor_checklist_id:
+                print("*", 80)
+                print("not record.vendor_checklist_id", not record.vendor_checklist_id)
+                print("*", 80)
+
                 record.vendor_state = "invalidated"
                 break
 
             if not record.vendor_checklist_document_relation_ids:
+                print("*", 80)
+                print("record.vendor_checklist_document_relation_ids", record.vendor_checklist_document_relation_ids)
+                print("*", 80)
+
                 record.vendor_state = "invalidated"
                 break
 
             mandatory_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(lambda d: d.is_mandatory)
+            print("*", 80)
+            print("mandatory_documents", mandatory_documents)
+            print("*", 80)
 
             for document in record.vendor_checklist_document_relation_ids:
                 print("*", 80)
@@ -59,8 +70,28 @@ class ResPartner(models.Model):
                 print("*", 80)
 
                 if document.vendor_checklist_document_id in mandatory_documents:
-                    if not document.date_validated or document.date_validated > fields.Date.today() or not document.attachment_ids:
-                        record.vendor_state = "invalidated"
-                        break
+                    print("*", 80)
+                    print("El documento esta en la lista de valores", document.vendor_checklist_document_id)
+                    print("document.date_validated", document.date_validated)
+                    print("document.attachment_ids", document.attachment_ids)
+                    print("*", 80)
+                    if not document.date_validated or document.date_validated < fields.Date.today() or not document.attachment_ids:
 
-                record.vendor_state = "validated"
+                        print("not document.date_validated", not document.date_validated)
+                        print("not document.attachment_ids", not document.attachment_ids)
+                        print("El documento esta invalidated")
+
+                        record.vendor_state = "invalidated"
+                    else:
+                        print("*", 80)
+                        print("El documento esta validated")
+                        print("*", 80)
+                        record.vendor_state = "validated"
+                        mandatory_documents = mandatory_documents - document.vendor_checklist_document_id
+
+                        print("*", 80)
+                        print("mandatory_documents", mandatory_documents)
+                        print("*", 80)
+
+                if mandatory_documents:
+                    record.vendor_state = "invalidated"
