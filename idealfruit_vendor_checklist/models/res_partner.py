@@ -40,14 +40,27 @@ class ResPartner(models.Model):
                     )
                 ]
 
+    @api.onchange("vendor_checklist_id","vendor_checklist_document_relation_ids")
     def check_vendor_state(self):
         for record in self:
-            if record.vendor_checklist_document_relation_ids:
-                for document in record.vendor_checklist_document_relation_ids:
-                    if not document.date_validated or document.date_validated > fields.Date.today():
+            if not record.vendor_checklist_id:
+                record.vendor_state = "invalidated"
+                break
+
+            if not record.vendor_checklist_document_relation_ids:
+                record.vendor_state = "invalidated"
+                break
+
+            mandatory_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(lambda d: d.is_mandatory)
+
+            for document in record.vendor_checklist_document_relation_ids:
+                print("*", 80)
+                print("document", document.vendor_checklist_document_id)
+                print("*", 80)
+
+                if document.vendor_checklist_document_id in mandatory_documents:
+                    if not document.date_validated or document.date_validated > fields.Date.today() or not document.attachment_ids:
                         record.vendor_state = "invalidated"
                         break
-                    else:
-                        record.vendor_state = "validated"
-            else:
-                record.vendor_state = "invalidated"
+
+                record.vendor_state = "validated"

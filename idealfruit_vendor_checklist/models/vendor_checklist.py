@@ -14,7 +14,7 @@ class VendorChecklist(models.Model):
         comodel_name="vendor.checklist.document",
         inverse_name="vendor_checklist_id",
         string="Documentos",
-        isMandatory=True,
+        is_mandatory=True,
     )
     partner_id = fields.One2many(
         comodel_name="res.partner",
@@ -34,7 +34,7 @@ class VendorChecklistDocument(models.Model):
         comodel_name="vendor.checklist",
         string="Checklist",
     )
-    isMandatory = fields.Boolean(
+    is_mandatory = fields.Boolean(
         string="Requerido",
         default=True,
     )
