@@ -14,6 +14,7 @@ class VendorChecklist(models.Model):
         comodel_name="vendor.checklist.document",
         inverse_name="vendor_checklist_id",
         string="Documentos",
+        isMandatory=True,
     )
     partner_id = fields.One2many(
         comodel_name="res.partner",
@@ -32,6 +33,10 @@ class VendorChecklistDocument(models.Model):
     vendor_checklist_id = fields.Many2one(
         comodel_name="vendor.checklist",
         string="Checklist",
+    )
+    isMandatory = fields.Boolean(
+        string="Requerido",
+        default=True,
     )
 
     _sql_constraints = [("name_uniq", "UNIQUE(name, vendor_checklist_id)", "El nombre del documento ya existe en el checklist.")]
