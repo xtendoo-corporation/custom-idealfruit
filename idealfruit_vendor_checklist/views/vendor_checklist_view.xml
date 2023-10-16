@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    // create an action to open the form view of the model vendor.checklist
-
     <record id="action_vendor_checklist_form" model="ir.actions.act_window">
         <field name="name">Checklist de proveedores</field>
         <field name="res_model">vendor.checklist</field>
@@ -10,14 +8,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    // create a menu item to open the action in purchase configuration menu
-
     <menuitem action="action_vendor_checklist_form"
               id="menu_action_vendor_checklist_form"
               parent="purchase.menu_purchase_config"
               sequence="2"/>
-
-    // create a view to display the vendor checklist model
 
     <record id="view_vendor_checklist_form" model="ir.ui.view">
         <field name="name">Vendor Checklist Form</field>
@@ -38,8 +32,6 @@
             </form>
         </field>
     </record>
-
-    // create a view to display the vendor checklist document model
 
     <record id="view_vendor_checklist_document_form" model="ir.ui.view">
         <field name="name">Vendor Checklist Document Form</field>

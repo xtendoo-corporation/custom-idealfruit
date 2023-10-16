@@ -21,11 +21,12 @@
                    attrs="{'invisible': [('vendor_checklist_id','=','')]}">
                 <page string="Vendor Checklist">
                     <field name="vendor_checklist_document_relation_ids">
-                        <tree>
+                        <tree decoration-danger="not is_validated">
+                            <field name="is_validated" invisible="1"/>
                             <field name="name"/>
                             <field name="vendor_checklist_document_id"/>
                             <field name="date_validated"/>
-                            <field name="attachment_ids" widget="many2many_tags"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
                         </tree>
                     </field>
                 </page>
@@ -39,7 +40,7 @@
         <field name="inherit_id" ref="base.res_partner_kanban_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='email']" position="after">
-                <field name="vendor_state"/>
+                <field name="vendor_state" widget="badge" decoration-success="vendor_state == 'validated'" decoration-danger="not vendor_state == 'not validated'"/>
             </xpath>
         </field>
     </record>
@@ -50,7 +51,7 @@
         <field name="inherit_id" ref="base.view_partner_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='display_name']" position="after">
-                <field name="vendor_state"/>
+                <field name="vendor_state" widget="badge" decoration-success="vendor_state == 'validated'" decoration-danger="not vendor_state == 'not validated'"/>
             </xpath>
         </field>
     </record>
@@ -68,7 +69,7 @@
                         <field name="date_validated"/>
                     </group>
                     <group>
-                        <field name="attachment_ids" widget="many2many_attachment_preview" string="Adjuntar archivo"
+                        <field name="attachment_ids" widget="many2many_binary" string="Adjuntar archivo"
                                nolabel="1" colspan="2"/>
                     </group>
                 </sheet>

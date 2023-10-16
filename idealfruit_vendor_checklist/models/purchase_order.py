@@ -36,3 +36,4 @@ class PurchaseOrder(models.Model):
                         purchase.purchase_state = "validated"
             else:
                 purchase.purchase_state = "invalidated"
+

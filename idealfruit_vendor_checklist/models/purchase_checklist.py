@@ -49,10 +49,9 @@ class PurchaseChecklistDocumentRelation(models.Model):
     attachment_ids = fields.One2many(
         comodel_name="ir.attachment",
         inverse_name="res_id",
-        string="Media Attachments",
+        string="Adjuntos",
         tracking=True,
     )
 
     _sql_constraints = [("purchase_uniq", "UNIQUE(purchase_checklist_document_id, purchase_order_id)",
                          "Tipo de documento repetido en el checklist.")]
-

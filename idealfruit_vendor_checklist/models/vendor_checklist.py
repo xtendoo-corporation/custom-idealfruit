@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class VendorChecklist(models.Model):
@@ -74,6 +74,15 @@ class VendorChecklistDocumentRelation(models.Model):
         string="Adjuntos",
         tracking=True,
     )
+    is_validated = fields.Boolean(
+        string="Validado",
+        compute="_compute_is_validated",
+    )
+
+    @api.depends("date_validated", "attachment_ids")
+    def _compute_is_validated(self):
+        for record in self:
+            record.is_validated = record.date_validated and record.date_validated >= fields.Date.today() and record.attachment_ids
 
     _sql_constraints = [("checklist_uniq", "UNIQUE(partner_id, vendor_checklist_document_id)",
                          "El tipo de documento ya existe en el checklist.")]
