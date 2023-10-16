@@ -39,8 +39,22 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.res_partner_kanban_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='email']" position="after">
-                <field name="vendor_state" widget="badge" decoration-success="vendor_state == 'validated'" decoration-danger="not vendor_state == 'not validated'"/>
+            <xpath expr="//div[hasclass('ribbon')]" position="replace">
+                <!--            <xpath expr="//field[@name='email']" position="after">-->
+                <field name="vendor_state" invisible="1"/>
+                <div class="ribbon ribbon-top-right"
+                     attrs="{'invisible': [('vendor_state', '=', 'validated')]}">
+                    <span class="bg-danger">No validado</span>
+                </div>
+                <div class="ribbon ribbon-top-right"
+                     attrs="{'invisible': [('vendor_state', '=', 'invalidated')]}">
+                    <span class="bg-success">Validado</span>
+                </div>
+                <div class="ribbon ribbon-top-right" attrs="{'invisible': [('active', '=', True)]}">
+                    <span class="bg-danger">Archived</span>
+                </div>
+                <!--                <span t-if="vendor_state == 'validated'" class="badge badge-success">Validado</span>-->
+                <!--                <field name="vendor_state" widget="badge" decoration-success="vendor_state == 'validated'" decoration-danger="not vendor_state == 'not validated'"/>-->
             </xpath>
         </field>
     </record>
@@ -51,7 +65,8 @@
         <field name="inherit_id" ref="base.view_partner_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='display_name']" position="after">
-                <field name="vendor_state" widget="badge" decoration-success="vendor_state == 'validated'" decoration-danger="not vendor_state == 'not validated'"/>
+                <field name="vendor_state" widget="badge" decoration-success="vendor_state == 'validated'"
+                       decoration-danger="not vendor_state == 'not validated'"/>
             </xpath>
         </field>
     </record>
