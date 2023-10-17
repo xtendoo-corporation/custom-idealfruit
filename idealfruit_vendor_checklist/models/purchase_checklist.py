@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class PurchaseChecklist(models.Model):
@@ -14,7 +14,18 @@ class PurchaseChecklist(models.Model):
         comodel_name="purchase.checklist.document",
         inverse_name="purchase_checklist_id",
         string="Documentos",
+        is_mandatory=True,
     )
+    partner_id = fields.One2many(
+        comodel_name="res.partner",
+        inverse_name="vendor_checklist_id",
+        string="Proveedor",
+    )
+    # purchase_id = fields.One2many(
+    #     comodel_name="purchase.order",
+    #     inverse_name="purchase_checklist_id",
+    #     string="Compra",
+    # )
 
 
 class PurchaseChecklistDocument(models.Model):
@@ -28,6 +39,10 @@ class PurchaseChecklistDocument(models.Model):
         comodel_name="purchase.checklist",
         string="Checklist",
     )
+    is_mandatory = fields.Boolean(
+        string="Requerido",
+        default=True,
+    )
 
     _sql_constraints = [
         ("name_uniq", "UNIQUE(name, purchase_checklist_id)", "El nombre del documento ya existe en el checklist.")]
@@ -35,16 +50,29 @@ class PurchaseChecklistDocument(models.Model):
 
 class PurchaseChecklistDocumentRelation(models.Model):
     _name = "purchase.checklist.document.relation"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    #_inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Purchase Checklist Document Relation"
 
-    purchase_checklist_document_id = fields.Many2one(
-        comodel_name="purchase.checklist.document",
-        string="Checklist Relación de Documentos",
+    name = fields.Char(
+        string="Nombre",
     )
     purchase_order_id = fields.Many2one(
         comodel_name="purchase.order",
         string="Orden de Compra",
+    )
+    purchase_checklist_id = fields.Many2one(
+        comodel_name="purchase.checklist",
+        related="partner_id.vendor_checklist_id",
+        string="Checklist",
+    )
+    purchase_checklist_document_id = fields.Many2one(
+        comodel_name="purchase.checklist.document",
+        domain="[('purchase_checklist_id', '=', purchase_checklist_id)]",
+        string="Documentos",
+        required=True,
+    )
+    date_validated = fields.Date(
+        string="Fecha de Validez",
     )
     attachment_ids = fields.One2many(
         comodel_name="ir.attachment",
@@ -52,6 +80,15 @@ class PurchaseChecklistDocumentRelation(models.Model):
         string="Adjuntos",
         tracking=True,
     )
+    is_validated = fields.Boolean(
+        string="Validado",
+        compute="_compute_is_validated",
+    )
+
+    @api.depends("date_validated", "attachment_ids")
+    def _compute_is_validated(self):
+        for record in self:
+            record.is_validated = record.date_validated and record.date_validated >= fields.Date.today() and record.attachment_ids
 
     _sql_constraints = [("purchase_uniq", "UNIQUE(purchase_checklist_document_id, purchase_order_id)",
                          "Tipo de documento repetido en el checklist.")]

@@ -6,6 +6,10 @@ from odoo import api, fields, models
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
+    purchase_checklist_id = fields.Many2one(
+        comodel_name="purchase.checklist",
+        string="Checklist",
+    )
     purchase_checklist_document_relation_ids = fields.One2many(
         comodel_name="purchase.checklist.document.relation",
         inverse_name="purchase_order_id",
