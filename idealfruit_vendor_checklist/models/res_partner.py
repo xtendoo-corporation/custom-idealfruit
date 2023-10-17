@@ -24,6 +24,17 @@ class ResPartner(models.Model):
         default="invalidated",
     )
 
+    type = fields.Selection(
+        selection_add=[("productor", "Productor")],
+        default="productor",
+        ondelete={"contact": "cascade"},
+    )
+
+    global_gap = fields.Char(
+        string="Global Gap",
+        help="Global Gap",
+    )
+
     @api.onchange("vendor_checklist_id")
     def _onchange_vendor_checklist_id(self):
         for record in self:

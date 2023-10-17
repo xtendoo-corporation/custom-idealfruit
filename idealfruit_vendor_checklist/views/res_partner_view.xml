@@ -31,6 +31,11 @@
                     </field>
                 </page>
             </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='contact_addresses']/field[@name='child_ids']/form[1]/sheet[1]/group[1]/group[2]/field[@name='mobile']"
+                   position="after">
+                <field name="global_gap"/>
+            </xpath>
+
         </field>
     </record>
 
@@ -40,7 +45,6 @@
         <field name="inherit_id" ref="base.res_partner_kanban_view"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('ribbon')]" position="replace">
-                <!--            <xpath expr="//field[@name='email']" position="after">-->
                 <field name="vendor_state" invisible="1"/>
                 <div class="ribbon ribbon-top-right"
                      attrs="{'invisible': [('vendor_state', '=', 'validated')]}">
@@ -53,8 +57,6 @@
                 <div class="ribbon ribbon-top-right" attrs="{'invisible': [('active', '=', True)]}">
                     <span class="bg-danger">Archived</span>
                 </div>
-                <!--                <span t-if="vendor_state == 'validated'" class="badge badge-success">Validado</span>-->
-                <!--                <field name="vendor_state" widget="badge" decoration-success="vendor_state == 'validated'" decoration-danger="not vendor_state == 'not validated'"/>-->
             </xpath>
         </field>
     </record>
