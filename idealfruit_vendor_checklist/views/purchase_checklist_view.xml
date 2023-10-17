@@ -14,8 +14,8 @@
 
     <menuitem action="action_purchase_checklist_form"
               id="menu_action_purchase_checklist_form"
-              parent="purchase.menu_purchase_config"
-              sequence="20"/>
+              parent="idealfruit_vendor_checklist.menu_separator_vendor_checklist"
+              sequence="3"/>
 
     // create a view to display the purchase checklist model
 

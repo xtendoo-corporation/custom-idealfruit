@@ -2,16 +2,22 @@
 <odoo>
 
     <record id="action_vendor_checklist_form" model="ir.actions.act_window">
-        <field name="name">Checklist de proveedores</field>
+        <field name="name">Checklist de Proveedores</field>
         <field name="res_model">vendor.checklist</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem action="action_vendor_checklist_form"
-              id="menu_action_vendor_checklist_form"
+    // create a menuitem separator to separate the menu items
+    <menuitem id="menu_separator_vendor_checklist"
+              name="Checklist"
               parent="purchase.menu_purchase_config"
               sequence="2"/>
+
+    <menuitem action="action_vendor_checklist_form"
+              id="menu_action_vendor_checklist_form"
+              parent="idealfruit_vendor_checklist.menu_separator_vendor_checklist"
+              sequence="3"/>
 
     <record id="view_vendor_checklist_form" model="ir.ui.view">
         <field name="name">Vendor Checklist Form</field>
