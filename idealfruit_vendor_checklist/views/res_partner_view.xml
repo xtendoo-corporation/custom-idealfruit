@@ -13,26 +13,37 @@
                 <widget name="web_ribbon" title="No validado" bg_color="bg-danger"
                         attrs="{'invisible': [('vendor_state', '=', 'validated')]}"/>
             </xpath>
-            <xpath expr="//field[@name='category_id']" position="after">
-                <field name="vendor_checklist_id"/>
-            </xpath>
+            <!--            <xpath expr="//field[@name='category_id']" position="after">-->
+            <!--                <field name="vendor_checklist_id"/>-->
+            <!--            </xpath>-->
             <xpath expr="//page[@name='internal_notes']"
                    position="after"
                    attrs="{'invisible': [('vendor_checklist_id','=','')]}">
                 <page string="Vendor Checklist">
-                    <field name="vendor_checklist_document_relation_ids">
-                        <tree decoration-danger="not is_validated">
-                            <field name="is_validated" invisible="1"/>
-                            <field name="name"/>
-                            <field name="vendor_checklist_document_id"/>
-                            <field name="date_validated"/>
-                            <field name="attachment_ids" widget="many2many_binary"/>
-                        </tree>
-                    </field>
+                    <group>
+                        <field name="global_gap"/>
+                        <field name="a3_code"/>
+                    </group>
+                    <group>
+                        <field name="vendor_checklist_id"/>
+                    </group>
+                    <group>
+                        <field name="vendor_checklist_document_relation_ids">
+                            <tree decoration-danger="not is_validated">
+                                <field name="is_validated" invisible="1"/>
+                                <field name="name"/>
+                                <field name="vendor_checklist_document_id"/>
+                                <field name="date_validated"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </tree>
+                        </field>
+                    </group>
+
                 </page>
             </xpath>
-            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='contact_addresses']/field[@name='child_ids']/form[1]/sheet[1]/group[1]/group[2]/field[@name='mobile']"
-                   position="after">
+            <xpath
+                expr="//form[1]/sheet[1]/notebook[1]/page[@name='contact_addresses']/field[@name='child_ids']/form[1]/sheet[1]/group[1]/group[2]/field[@name='mobile']"
+                position="after">
                 <field name="global_gap"/>
             </xpath>
 
