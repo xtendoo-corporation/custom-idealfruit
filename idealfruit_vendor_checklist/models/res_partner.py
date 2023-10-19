@@ -4,6 +4,7 @@ import re
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
+
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
@@ -58,7 +59,7 @@ class ResPartner(models.Model):
                     )
                 ]
 
-    @api.onchange("vendor_checklist_id","vendor_checklist_document_relation_ids")
+    @api.onchange("vendor_checklist_id", "vendor_checklist_document_relation_ids")
     def check_vendor_state(self):
         for record in self:
             if not record.vendor_checklist_id:
@@ -77,7 +78,8 @@ class ResPartner(models.Model):
                 record.vendor_state = "invalidated"
                 break
 
-            mandatory_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(lambda d: d.is_mandatory)
+            mandatory_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(
+                lambda d: d.is_mandatory)
             print("*", 80)
             print("mandatory_documents", mandatory_documents)
             print("*", 80)
@@ -116,12 +118,22 @@ class ResPartner(models.Model):
 
     @api.model
     def _cron_recurring_validated(self):
-        partners = self.env["res.partner"].search(['|',('is_company','=',True),('type','=','productor'),('supplier_rank','>',0)])
-        for partner in partners.filtered(lambda p: p.vendor_state == "invalidated"):
-            print("-"*80)
-            print("self name", partner.name)
-            print("self state", partner.vendor_state)
-            print("-"*80)
+        email = self.env['ir.config_parameter'].sudo().get_param('idealfruit_vendor_checklist.idealfruit_vendor_email')
+        if not email:
+            return
+
+        partners = self.env['res.partner'].search(
+            ['|', ('is_company', '=', True), ('type', '=', 'productor'), ('supplier_rank', '>', 0),
+             ('vendor_state', '=', 'invalidated')]
+        )
+        if partners:
+            template_id = self.env.ref('idealfruit_vendor_checklist.idealfruit_vendor_invalidated')
+            if not template_id:
+                return
+
+            template = self.env['mail.template'].browse(template_id.id)
+            template.write({'email_to': email})
+            template.with_context({'partners': partners}).send_mail(self.id, force_send=True)
 
     @api.model
     def cron_recurring_validated(self):

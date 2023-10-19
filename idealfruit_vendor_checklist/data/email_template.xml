@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="idealfruit_vendor_invalidated" model="mail.template">
+            <field name="name">Correo Electrónico de Evento</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="email_from">{{ object.company_id.email_formatted or user.email_formatted }}</field>
+            <field name="email_to">{{object.user_id.email}}</field>
+            <field name="subject">Proveedores no validados.</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hola,</p>
+                    <p>Los siguientes proveedores no están validados.</p>
+                    <div>
+                        <ul>
+                            <li t-foreach="ctx['partners']" t-as="partner">
+                                <b>
+                                    <t t-out="partner.name"/>.
+                                </b>
+                            </li>
+                            <br/>
+                        </ul>
+                    </div>
+                    <p>Por favor, tome las acciones que sean necesarias.</p>
+                </div>
+            </field>
+            <field name="lang">{{object.user_id.lang}}</field>
+        </record>
+    </data>
+</odoo>
+

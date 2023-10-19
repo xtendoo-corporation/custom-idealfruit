@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <record id="validacion_de_proveedor" model="vendor.checklist">
+        <field name="name">Validación de proveedor</field>
+    </record>
+
+    <record model="vendor.checklist.document">
+        <field name="name">Certificado BRC / IFS</field>
+        <field name="vendor_checklist_id" ref="validacion_de_proveedor"/>
+    </record>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_idealfruit_vendor_email" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.purchase</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25"/>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='purchase']" position="inside">
+                <h2>Idealfruit</h2>
+                <div class="row mt16 o_settings_container" name="idealfruit_vendor_email_setting_container">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <label
+                            for="idealfruit_vendor_email"
+                            string="Idealfruit Email"
+                        />
+                        <div class="text-muted">
+                            Introduzca el email para notificaciones.
+                        </div>
+                        <field
+                            name="idealfruit_vendor_email"
+                            class="oe_inline"
+                        />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
