@@ -106,3 +106,16 @@ class ResPartner(models.Model):
 
                 if mandatory_documents:
                     record.vendor_state = "invalidated"
+
+    @api.model
+    def _cron_recurring_validated(self):
+        partners = self.env["res.partner"].search(['|',('is_company','=',True),('type','=','productor'),('supplier_rank','>',0)])
+        for partner in partners.filtered(lambda p: p.vendor_state == "invalidated"):
+            print("-"*80)
+            print("self name", partner.name)
+            print("self state", partner.vendor_state)
+            print("-"*80)
+
+    @api.model
+    def cron_recurring_validated(self):
+        return self._cron_recurring_validated()
