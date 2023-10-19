@@ -1,7 +1,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
+import re
 from odoo import api, fields, models
-
+from odoo.exceptions import ValidationError
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -13,7 +14,7 @@ class ResPartner(models.Model):
     vendor_checklist_document_relation_ids = fields.One2many(
         comodel_name="vendor.checklist.document.relation",
         inverse_name="partner_id",
-        string="Checklist",
+        string="Documentos",
     )
     vendor_state = fields.Selection(
         selection=[
@@ -23,17 +24,23 @@ class ResPartner(models.Model):
         string="Situación",
         default="invalidated",
     )
-
     type = fields.Selection(
         selection_add=[("productor", "Productor")],
         default="productor",
         ondelete={"contact": "cascade"},
     )
-
     global_gap = fields.Char(
         string="Global Gap",
-        help="Global Gap",
     )
+    a3_code = fields.Char(
+        string="Código A3",
+    )
+
+    @api.constrains('global_gap')
+    def _check_is_numeric(self):
+        for record in self:
+            if record.global_gap and not re.match("^[0-9]+$", record.global_gap):
+                raise ValidationError("El campo debe contener solo valores numéricos.")
 
     @api.onchange("vendor_checklist_id")
     def _onchange_vendor_checklist_id(self):
