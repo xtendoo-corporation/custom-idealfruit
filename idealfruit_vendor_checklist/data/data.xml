@@ -1,12 +1,103 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo noupdate="1">
+<odoo noupdate="0">
 
-    <record id="validacion_de_proveedor" model="vendor.checklist">
+    <record id="vendor_checklist_1" model="vendor.checklist">
         <field name="name">Validación de proveedor</field>
     </record>
 
-    <record model="vendor.checklist.document">
+    <record id="vendor_checklist_document_1" model="vendor.checklist.document">
         <field name="name">Certificado BRC / IFS</field>
-        <field name="vendor_checklist_id" ref="validacion_de_proveedor"/>
+        <field name="vendor_checklist_id" ref="vendor_checklist_1"/>
     </record>
+
+    <record id="vendor_checklist_document_2" model="vendor.checklist.document">
+        <field name="name">Certificado Global GAP Cadena de Custodia</field>
+        <field name="vendor_checklist_id" ref="vendor_checklist_1"/>
+    </record>
+
+    <record id="vendor_checklist_document_3" model="vendor.checklist.document">
+        <field name="name">Fichas técnicas material de envasado</field>
+        <field name="vendor_checklist_id" ref="vendor_checklist_1"/>
+    </record>
+
+    <record id="vendor_checklist_document_4" model="vendor.checklist.document">
+        <field name="name">Análisis de migración de los materiales de envasado</field>
+        <field name="vendor_checklist_id" ref="vendor_checklist_1"/>
+    </record>
+
+    <record id="vendor_checklist_document_5" model="vendor.checklist.document">
+        <field name="name">Certificado de conformidad de envases</field>
+        <field name="vendor_checklist_id" ref="vendor_checklist_1"/>
+    </record>
+
+    <record id="vendor_checklist_document_6" model="vendor.checklist.document">
+        <field name="name">Cuestionario de homologación</field>
+        <field name="vendor_checklist_id" ref="vendor_checklist_1"/>
+    </record>
+
+    <record id="vendor_checklist_document_7" model="vendor.checklist.document">
+        <field name="name">Contrato de cadena alimentaria en caso de ser empresa nacional</field>
+        <field name="vendor_checklist_id" ref="vendor_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_1" model="purchase.checklist">
+        <field name="name">Validación de compra</field>
+    </record>
+
+    <record id="purchase_checklist_document_1" model="purchase.checklist.document">
+        <field name="name">Certificado Global GAP</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_2" model="purchase.checklist.document">
+        <field name="name">Certificado Social</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_3" model="purchase.checklist.document">
+        <field name="name">Certificado SPRING o RFA</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_4" model="purchase.checklist.document">
+        <field name="name">Análisis multiresiduo completo</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_5" model="purchase.checklist.document">
+        <field name="name">Análisis de Cadmio-Metales pesados y Fosetil</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_6" model="purchase.checklist.document">
+        <field name="name">Análisis microbiológico</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_7" model="purchase.checklist.document">
+        <field name="name">Análisis de cloratos y percloratos</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_8" model="purchase.checklist.document">
+        <field name="name">Análisis de amonios cuaternarios</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_9" model="purchase.checklist.document">
+        <field name="name">Spray Récords: listado de aplicaciones fitosanitarias o cuaderno de campo</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_10" model="purchase.checklist.document">
+        <field name="name">PPPL: lista de materias activas propuestas</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
+    <record id="purchase_checklist_document_11" model="purchase.checklist.document">
+        <field name="name">Listado de materias activas aprobadas en el país de origen</field>
+        <field name="purchase_checklist_id" ref="purchase_checklist_1"/>
+    </record>
+
 </odoo>
+

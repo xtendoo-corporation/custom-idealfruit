@@ -41,7 +41,7 @@ class PurchaseChecklistDocument(models.Model):
 
 class PurchaseChecklistDocumentRelation(models.Model):
     _name = "purchase.checklist.document.relation"
-    #_inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Purchase Checklist Document Relation"
 
     name = fields.Char(
