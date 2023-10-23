@@ -14,6 +14,7 @@ class PurchaseOrder(models.Model):
         comodel_name="purchase.checklist.document.relation",
         inverse_name="purchase_order_id",
         string="Documentos",
+        tracking=True,
     )
     purchase_state = fields.Selection(
         selection=[

@@ -13,4 +13,11 @@ class PurchaseOrderLine(models.Model):
         domain="[('parent_id','=',partner_id),('type','=','productor')]",
         required=True,
     )
-
+    format_qty = fields.Float(
+        string="Unidades formato",
+        digits=(16,2),
+    )
+    format_id = fields.Many2one(
+        comodel_name="idealfruit.format",
+        string="Formato",
+    )
