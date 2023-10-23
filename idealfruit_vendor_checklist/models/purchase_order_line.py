@@ -13,7 +13,7 @@ class PurchaseOrderLine(models.Model):
         required=True,
     )
     format_qty = fields.Float(
-        string="Unidades formato",
+        string="Und. formato",
         digits=(16,2),
     )
     format_id = fields.Many2one(
