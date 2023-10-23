@@ -1,0 +1,87 @@
+<!-- Copyright 2023 Manuel Calero
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+
+    <record id="idealfruit_format_view_form" model="ir.ui.view">
+        <field name="name">idealfruit.format.form</field>
+        <field name="model">idealfruit.format</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <label for="format" />
+                            <div name="format">
+                                <field name="format" class="oe_inline" /> Kg
+                            </div>
+                            <field name="units"/>
+                            <field name="pieces"/>
+                            <field name="quality_category"/>
+                            <label for="container_field" />
+                            <div name="container_field">
+                                <field name="container_field" class="oe_inline" /> gr
+                            </div>
+                            <label for="container_sale" />
+                            <div name="container_sale">
+                                <field name="container_sale" class="oe_inline" /> gr
+                            </div>
+                        </group>
+                        <group>
+                            <field name="kg_cost"
+                                   widget="monetary"
+                                   options="{'currency_field': 'company_currency_id'}"/>
+                            <field name="bulk"/>
+                            <field name="input_output"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="idealfruit_vendor_checklist.idealfruit_format_view_tree" model="ir.ui.view">
+        <field name="name">idealfruit.format.view.tree</field>
+        <field name="model">idealfruit.format</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="idealfruit_vendor_checklist.idealfruit_format_view_filter" model="ir.ui.view">
+        <field name="name">idealfruit.format.view.filter</field>
+        <field name="model">idealfruit.format</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <search string="Search Campaign">
+                <group expand="0" string="Group By">
+                    <filter string="Name" name="name" context="{'group_by': 'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_idealfruit_format" model="ir.actions.act_window">
+        <field name="name">Formato</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">idealfruit.format</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id"
+               ref="idealfruit_format_view_tree"/>
+        <field name="search_view_id"
+               ref="idealfruit_format_view_filter"/>
+    </record>
+
+    <menuitem action="action_idealfruit_format"
+              id="menu_action_idealfruit_format_form"
+              parent="idealfruit_vendor_checklist.menu_separator_vendor_checklist"
+              sequence="4"/>
+
+</odoo>

@@ -16,6 +16,7 @@ class ResPartner(models.Model):
         comodel_name="vendor.checklist.document.relation",
         inverse_name="partner_id",
         string="Documentos",
+        tracking=True,
     )
     vendor_state = fields.Selection(
         selection=[

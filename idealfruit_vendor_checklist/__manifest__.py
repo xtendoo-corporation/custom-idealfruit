@@ -21,6 +21,7 @@
         "views/purchase_checklist_view.xml",
         "views/res_partner_view.xml",
         "views/purchase_order_view.xml",
+        "views/idealfruit_format_view.xml",
         "views/res_config_settings_views.xml",
     ],
     "installable": True,

@@ -28,6 +28,10 @@
                     </group>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="before">
+                <field name="format_qty"/>
+                <field name="format_id"/>
+            </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
                 <field name="partner_id" invisible="1"/>
                 <field name="product_partner_id"/>

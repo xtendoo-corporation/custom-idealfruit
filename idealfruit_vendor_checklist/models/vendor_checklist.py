@@ -45,6 +45,7 @@ class VendorChecklistDocument(models.Model):
 
 class VendorChecklistDocumentRelation(models.Model):
     _name = "vendor.checklist.document.relation"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Vendor Checklist Document Relation"
 
     name = fields.Char(
