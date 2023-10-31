@@ -18,15 +18,3 @@ class TemplateQuality(models.Model):
     )
 
 
-class TemplateQualityLine(models.Model):
-    _name = "template.quality.line"
-    _description = "Template Quality Line"
-
-    template_quality_id = fields.Many2one(
-        comodel_name="template.quality",
-        string="Template Quality",
-    )
-    name = fields.Char(
-        string="Nombre",
-        required=True,
-    )

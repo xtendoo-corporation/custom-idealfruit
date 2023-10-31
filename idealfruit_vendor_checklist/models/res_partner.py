@@ -139,3 +139,7 @@ class ResPartner(models.Model):
     @api.model
     def cron_recurring_validated(self):
         return self._cron_recurring_validated()
+
+
+
+

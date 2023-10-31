@@ -6,4 +6,5 @@ from . import purchase_order_line
 from . import res_config
 from . import idealfruit_format
 from . import template_quality
+from . import template_quality_line
 from . import purchase_quality
