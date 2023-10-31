@@ -19,6 +19,7 @@
         "data/email_template.xml",
         "views/vendor_checklist_view.xml",
         "views/purchase_checklist_view.xml",
+        "views/template_quality_view.xml",
         "views/res_partner_view.xml",
         "views/purchase_order_view.xml",
         "views/idealfruit_format_view.xml",
