@@ -8,3 +8,4 @@ from . import idealfruit_format
 from . import template_quality
 from . import template_quality_line
 from . import purchase_quality
+from . import template_quality_document

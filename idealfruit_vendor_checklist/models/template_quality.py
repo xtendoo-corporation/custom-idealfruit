@@ -11,6 +11,10 @@ class TemplateQuality(models.Model):
         string="Nombre",
         required=True,
     )
+    purchase_order_id = fields.Many2one(
+        comodel_name="purchase.order",
+        string="Purchase Order",
+    )
     template_quality_line_ids = fields.One2many(
         comodel_name="template.quality.line",
         inverse_name="template_quality_id",

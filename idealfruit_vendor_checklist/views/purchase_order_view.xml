@@ -13,7 +13,7 @@
                         attrs="{'invisible': [('purchase_state', '=', 'validated')]}"/>
             </xpath>
             <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
-                <page string="Checklist Compra">
+                <page string="Checklist Compra" name="purchase_checklist">
                     <group>
                         <field name="purchase_checklist_id"/>
                     </group>
@@ -27,9 +27,13 @@
                     </group>
                 </page>
             </xpath>
-<!--            <xpath expr="//div[@name='date_planned_div']" position="after">-->
-<!--                <field name="purchase_quality_ids"/>-->
-<!--            </xpath>-->
+            <xpath expr="//page[@name='purchase_checklist']" position="after">
+                <page string="Plantilla de Calidad" name="template_quality">
+                    <group>
+                        <field name="purchase_template_quality_document_ids"/>
+                    </group>
+                </page>
+            </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="before">
                 <field name="format_qty"/>
                 <field name="format_id"/>
