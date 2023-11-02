@@ -1,15 +1,15 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import fields, models, api
+from odoo import api, fields, models
 
 
-class TemplateQualityLine(models.Model):
-    _name = "template.quality.line"
-    _description = "Template Quality Line"
+class TemplateQualityDocumentRelation(models.Model):
+    _name = "template.quality.document.relation"
+    _description = "Relación de documentos de la plantilla de calidad"
 
-    template_quality_id = fields.Many2one(
-        comodel_name="template.quality",
-        string="Template Quality",
+    template_quality_document_id = fields.Many2one(
+        comodel_name="template.quality.document",
+        string="Documento",
     )
     name = fields.Char(
         string="Nombre",

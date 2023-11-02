@@ -9,3 +9,4 @@ from . import template_quality
 from . import template_quality_line
 from . import purchase_quality
 from . import template_quality_document
+from . import template_quality_document_relation

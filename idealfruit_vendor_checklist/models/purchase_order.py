@@ -35,11 +35,6 @@ class PurchaseOrder(models.Model):
     def _onchange_purchase_checklist_id(self):
         for purchase in self:
             purchase.purchase_checklist_document_relation_ids = [(5, 0, 0)]
-
-            print("*"*80)
-            print("purchase.purchase_checklist_id.purchase_checklist_document_ids", purchase.purchase_checklist_id.purchase_checklist_document_ids)
-            print("*"*80)
-
             for document in purchase.purchase_checklist_id.purchase_checklist_document_ids:
                 purchase.purchase_checklist_document_relation_ids = [
                     (
@@ -51,7 +46,6 @@ class PurchaseOrder(models.Model):
                         },
                     )
                 ]
-
 
     @api.onchange("purchase_checklist_id","purchase_checklist_document_relation_ids")
     def check_purchase_state(self):
