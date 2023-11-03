@@ -16,8 +16,8 @@ class PurchaseOrder(models.Model):
         string="Documentos",
         tracking=True,
     )
-    purchase_template_quality_document_ids = fields.One2many(
-        comodel_name="template.quality.document",
+    quality_document_ids = fields.One2many(
+        comodel_name="quality.document",
         inverse_name="purchase_order_id",
         string="Documentos de Calidad",
     )

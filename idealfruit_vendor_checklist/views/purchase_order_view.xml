@@ -30,7 +30,7 @@
             <xpath expr="//page[@name='purchase_checklist']" position="after">
                 <page string="Plantilla de Calidad" name="template_quality">
                     <group>
-                        <field name="purchase_template_quality_document_ids"/>
+                        <field name="quality_document_ids"/>
                     </group>
                 </page>
             </xpath>

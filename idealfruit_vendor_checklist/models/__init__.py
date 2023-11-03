@@ -5,8 +5,8 @@ from . import purchase_order
 from . import purchase_order_line
 from . import res_config
 from . import idealfruit_format
-from . import template_quality
-from . import template_quality_line
+from . import quality_template
+from . import quality_template_line
 from . import purchase_quality
-from . import template_quality_document
-from . import template_quality_document_relation
+from . import quality_document
+from . import quality_document_line

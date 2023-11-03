@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_quality_document_line_form" model="ir.ui.view">
+        <field name="name">Quality Document Line Form</field>
+        <field name="model">quality.document.line</field>
+        <field name="arch" type="xml">
+            <form string="Líneas de documentos de calidad">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="apellido"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
