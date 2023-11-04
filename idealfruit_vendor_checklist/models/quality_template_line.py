@@ -11,18 +11,12 @@ class TemplateQualityLine(models.Model):
         comodel_name="quality.template",
         string="Plantilla de Calidad",
     )
-    name = fields.Char(
-        string="Nombre",
+    parameter_id = fields.Many2one(
+        comodel_name="quality.parameter",
+        string="Parámetro",
         required=True,
     )
-    apellido = fields.Char(
-        string="Apellido",
-    )
-    type = fields.Selection(
-        selection=[
-            ("peso", "Peso en gr"),
-            ("unidad", "Unidad"),
-        ],
+    parameter_type = fields.Selection(
+        related="parameter_id.type",
         string="Tipo",
-        required=True,
     )

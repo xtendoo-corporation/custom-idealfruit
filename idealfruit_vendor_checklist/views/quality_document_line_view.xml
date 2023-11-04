@@ -8,9 +8,10 @@
             <form string="Líneas de documentos de calidad">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="apellido"/>
-                        <field name="type"/>
+                        <field name="parameter_id" readonly="1"/>
+                        <field name="parameter_type" readonly="1"/>
+                        <field name="value"/>
+                        <field name="percentage" type="char" />
                     </group>
                 </sheet>
             </form>

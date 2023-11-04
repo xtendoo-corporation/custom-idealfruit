@@ -8,9 +8,8 @@
             <form string="Líneas de plantilla de calidad">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="apellido"/>
-                        <field name="type"/>
+                        <field name="parameter_id"/>
+                        <field name="parameter_type"/>
                     </group>
                 </sheet>
             </form>

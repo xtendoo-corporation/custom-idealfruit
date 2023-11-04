@@ -21,6 +21,7 @@
         "views/purchase_checklist_view.xml",
         "views/quality_template_view.xml",
         "views/quality_template_line_view.xml",
+        "views/quality_parameter_view.xml",
         "views/quality_document_view.xml",
         "views/quality_document_line_view.xml",
         "views/res_partner_view.xml",

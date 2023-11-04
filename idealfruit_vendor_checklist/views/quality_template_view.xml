@@ -21,9 +21,9 @@
                     <group>
                         <field name="name"/>
                         <field name="quality_template_line_ids">
-                            <tree>
-                                <field name="name"/>
-                                <field name="type"/>
+                            <tree editable="bottom">
+                                <field name="parameter_id"/>
+                                <field name="parameter_type"/>
                             </tree>
                         </field>
                     </group>

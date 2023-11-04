@@ -11,41 +11,59 @@ class QualityDocumentLine(models.Model):
         comodel_name="quality.document",
         string="Documento",
     )
-    name = fields.Char(
-        string="Nombre",
+    net_weight = fields.Float(
+        string="Peso neto",
+        related="quality_document_id.net_weight",
+    )
+    parameter_id = fields.Many2one(
+        comodel_name="quality.parameter",
+        string="Parámetro",
         required=True,
     )
-    apellido = fields.Char(
-        string="Apellido",
-    )
-    type = fields.Selection(
-        selection=[
-            ("peso", "Peso en gr"),
-            ("unidad", "Unidad"),
-        ],
+    parameter_type = fields.Selection(
+        related="parameter_id.type",
         string="Tipo",
-        required=True,
     )
     value = fields.Float(
         string="Valor",
     )
-    text = fields.Char(
-        string="Texto",
-        compute="_compute_text",
+    percentage = fields.Float(
+        string="Porcentaje %",
+        compute="_compute_percentage",
     )
 
-    @api.depends("type", "value")
+    @api.depends("parameter_type", "value", "net_weight")
+    def _compute_percentage(self):
+        for record in self:
+            if record.net_weight == 0:
+                record.percentage = 0
+            elif record.parameter_type == "porcentaje":
+                record.percentage = record.value / record.net_weight * 100
+            else:
+                record.percentage = record.value
+
+    result = fields.Selection(
+        selection=[
+            ("1", "Excelente (1)"),
+            ("2", "Bueno (2)"),
+            ("3", "Aceptable (3)"),
+            ("4", "Menos que la media (4)"),
+            ("5", "Pobre (5)"),
+            ("6", "Perdida total (6)"),
+        ],
+        string="Resultado",
+        required=True,
+        compute="_compute_result",
+    )
+
+    @api.depends("parameter_id", "value")
     def _compute_result(self):
         for record in self:
-            if record.type == "peso":
-                record.text = str(record.value) + "(gr)"
-            elif record.type== "unidad":
-                record.text = str(record.value) + "(ud)"
+            if record.parameter_id.type == "unidad":
+                record.result = record.parameter_id.quality_parameter_line_ids.filtered(
+                    lambda x: x.result == str(int(record.value))
+                ).result
             else:
-                record.text = ""
-
-
-
-
-
-
+                record.result = record.parameter_id.quality_parameter_line_ids.filtered(
+                    lambda x: x.greater_than < record.percentage <= x.less_than
+                ).result

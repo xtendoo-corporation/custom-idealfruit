@@ -10,8 +10,7 @@ class PurchaseQuality(models.Model):
     name = fields.Char(
         string="Nombre",
     )
-    # purchase_quality_id = fields.Many2one(
-    #     comodel_name="purchase.order",
-    #     string="Orden de Compra",
-    # )
-    lead_properties_definition = fields.PropertiesDefinition('Lead Properties')
+    lead_properties_definition = fields.PropertiesDefinition(
+        'Lead Properties'
+    )
+
