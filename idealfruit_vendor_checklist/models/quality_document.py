@@ -8,7 +8,7 @@ class QualityDocument(models.Model):
     _description = "Documentos de la plantilla de calidad"
 
     name = fields.Char(
-        string='Documento de calidad número',
+        string='Número',
         required=True,
         index=True,
         copy=False,
@@ -21,7 +21,7 @@ class QualityDocument(models.Model):
     )
     purchase_order_id = fields.Many2one(
         comodel_name="purchase.order",
-        string="Pedido de compra",
+        string="Pedido",
     )
     purchase_order_line_ids = fields.One2many(
         comodel_name="purchase.order.line",
@@ -30,7 +30,7 @@ class QualityDocument(models.Model):
     )
     quality_template_id = fields.Many2one(
         comodel_name="quality.template",
-        string="Plantilla de calidad",
+        string="Plantilla",
         required=True,
     )
     product_id = fields.Many2one(
@@ -56,7 +56,7 @@ class QualityDocument(models.Model):
     quality_document_line_ids = fields.One2many(
         comodel_name="quality.document.line",
         inverse_name="quality_document_id",
-        string="Líneas de documentos de calidad",
+        string="Líneas",
     )
     net_weight = fields.Float(
         string="Peso neto",

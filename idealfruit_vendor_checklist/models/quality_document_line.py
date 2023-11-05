@@ -62,8 +62,8 @@ class QualityDocumentLine(models.Model):
             if record.parameter_id.type == "unidad":
                 record.result = record.parameter_id.quality_parameter_line_ids.filtered(
                     lambda x: x.result == str(int(record.value))
-                ).result
+                ).result or "6"
             else:
                 record.result = record.parameter_id.quality_parameter_line_ids.filtered(
                     lambda x: x.greater_than < record.percentage <= x.less_than
-                ).result
+                ).result or "6"
