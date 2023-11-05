@@ -21,6 +21,15 @@ class PurchaseOrder(models.Model):
         inverse_name="purchase_order_id",
         string="Documentos de Calidad",
     )
+    quality_document_count = fields.Integer(
+        string='Documentos de Calidad Countador',
+        compute='_count_quality_document',
+        readonly=True)
+
+    def _count_quality_document(self):
+        for quality_document in self:
+            quality_document.quality_document_count = len(quality_document.quality_document_ids)
+
     purchase_state = fields.Selection(
         selection=[
             ("invalidated", "No validado"),
@@ -95,3 +104,20 @@ class PurchaseOrder(models.Model):
                     purchase.purchase_state = "invalidated"
                 else:
                     purchase.purchase_state = "validated"
+
+    def open_quality_document(self):
+        self.ensure_one()
+        return {
+            'name': 'Documentos de la plantilla de calidad',
+            'view_mode': 'tree,form',
+            'views': [(self.env.ref('idealfruit_vendor_checklist.view_quality_document_tree').id, 'tree'), (False, 'form')],
+            'res_model': 'quality.document',
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'domain': [
+                ('purchase_order_id', '=', self.id)
+            ],
+            'context': {
+                'default_purchase_order_id': self.id,
+            },
+        }

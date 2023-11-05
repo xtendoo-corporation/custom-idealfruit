@@ -7,6 +7,18 @@ class QualityDocument(models.Model):
     _name = "quality.document"
     _description = "Documentos de la plantilla de calidad"
 
+    name = fields.Char(
+        string='Documento de calidad número',
+        required=True,
+        index=True,
+        copy=False,
+        default="New",
+    )
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        required=True,
+        default=lambda self: self.env.company,
+    )
     purchase_order_id = fields.Many2one(
         comodel_name="purchase.order",
         string="Pedido de compra",
@@ -50,6 +62,26 @@ class QualityDocument(models.Model):
         string="Peso neto",
     )
 
+    @api.model
+    def create(self, vals):
+        if vals.get("name", "New") == "New":
+            vals["name"] = self._prepare_name(vals)
+        return super().create(vals)
+
+    def copy(self, default=None):
+        self.ensure_one()
+        if default is None:
+            default = {}
+        if "name" not in default:
+            default["name"] = self._prepare_name(default)
+        return super().copy(default)
+
+    def _prepare_name(self, values):
+        seq = self.env["ir.sequence"]
+        if "company_id" in values:
+            seq = seq.with_company(values["company_id"])
+        return seq.next_by_code("quality.document") or "New"
+
     @api.depends("purchase_order_id.order_line")
     def _compute_allowed_product_ids(self):
         for quality_document in self:
@@ -68,3 +100,4 @@ class QualityDocument(models.Model):
                 document.quality_document_line_ids = [
                     (0, 0, { "parameter_id": line.parameter_id})
                 ]
+
