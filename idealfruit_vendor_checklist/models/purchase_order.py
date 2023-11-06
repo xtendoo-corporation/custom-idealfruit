@@ -110,10 +110,12 @@ class PurchaseOrder(models.Model):
         return {
             'name': 'Documentos de la plantilla de calidad',
             'view_mode': 'tree,form',
-            'views': [(self.env.ref('idealfruit_vendor_checklist.view_quality_document_tree').id, 'tree'), (False, 'form')],
             'res_model': 'quality.document',
             'type': 'ir.actions.act_window',
             'target': 'current',
+            'views': [
+                (self.env.ref('idealfruit_vendor_checklist.view_quality_document_tree').id, 'tree'), (False, 'form')
+            ],
             'domain': [
                 ('purchase_order_id', '=', self.id)
             ],

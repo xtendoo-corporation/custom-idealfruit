@@ -1,4 +1,5 @@
 from . import res_company
+from . import product_template
 from . import vendor_checklist
 from . import purchase_checklist
 from . import res_partner
@@ -13,3 +14,5 @@ from . import quality_parameter_line
 from . import purchase_quality
 from . import quality_document
 from . import quality_document_line
+from . import quality_parameter_qualify
+from . import quality_parameter_type

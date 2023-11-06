@@ -21,6 +21,16 @@ class QualityParameter(models.Model):
         string="Tipo",
         required=True,
     )
+    quality_parameter_type_id = fields.Many2one(
+        comodel_name="quality.parameter.type",
+        string="Tipo de parámetro",
+        required=True,
+    )
+    quality_parameter_qualify_id = fields.Many2one(
+        comodel_name="quality.parameter.qualify",
+        string="Calificación",
+        required=True,
+    )
     quality_parameter_line_ids = fields.One2many(
         comodel_name="quality.parameter.line",
         inverse_name="quality_parameter_id",

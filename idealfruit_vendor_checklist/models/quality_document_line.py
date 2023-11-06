@@ -52,7 +52,7 @@ class QualityDocumentLine(models.Model):
             elif record.parameter_type == "porcentaje" and record.net_weight > 0:
                 record.percentage = record.value / record.net_weight * 100
             elif record.parameter_type == "firmeza" and record.firmness_units > 0:
-                record.percentage = record.value / record.firmness_units * 100
+                record.percentage = record.value
 
     result = fields.Selection(
         selection=[

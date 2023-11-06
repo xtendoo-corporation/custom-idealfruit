@@ -104,6 +104,11 @@ class QualityDocument(models.Model):
         for quality_document in self:
             quality_document.allowed_partner_ids = quality_document.purchase_order_id.order_line.mapped("product_partner_id")
 
+    @api.onchange("product_id")
+    def _onchange_product_id(self):
+        for document in self:
+            document.quality_template_id = document.product_id.quality_template_id
+
     @api.onchange("quality_template_id")
     def _onchange_quality_template_id(self):
         for document in self:
