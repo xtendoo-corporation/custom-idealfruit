@@ -15,6 +15,8 @@ class QualityParameter(models.Model):
         selection=[
             ("unidad", "Unidad"),
             ("porcentaje", "Porcentaje"),
+            ("firmeza", "Firmeza"),
+            ("apariencia", "Apariencia"),
         ],
         string="Tipo",
         required=True,
@@ -22,7 +24,7 @@ class QualityParameter(models.Model):
     quality_parameter_line_ids = fields.One2many(
         comodel_name="quality.parameter.line",
         inverse_name="quality_parameter_id",
-        string="Líneas de Parámetros",
+        string="Líneas",
     )
 
 

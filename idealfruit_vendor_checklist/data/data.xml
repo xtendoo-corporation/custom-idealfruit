@@ -9,6 +9,13 @@
 
     <function model="res.company" name="create_quality_document_sequence" />
 
+    // crea un grupo de usuarios para la gestión de la calidad
+
+    <record id="group_quality_manager" model="res.groups">
+        <field name="name">Gestor de Calidad</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
     <record id="vendor_checklist_1" model="vendor.checklist">
         <field name="name">Validación de proveedor</field>
     </record>

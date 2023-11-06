@@ -20,3 +20,6 @@ class TemplateQualityLine(models.Model):
         related="parameter_id.type",
         string="Tipo",
     )
+    sequence = fields.Integer(
+        default=10,
+    )

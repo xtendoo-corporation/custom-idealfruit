@@ -5,7 +5,8 @@ from odoo import api, fields, models
 
 class QualityDocument(models.Model):
     _name = "quality.document"
-    _description = "Documentos de la plantilla de calidad"
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
+    _description = "Documentos de calidad"
 
     name = fields.Char(
         string='Número',
@@ -18,6 +19,11 @@ class QualityDocument(models.Model):
         comodel_name='res.company',
         required=True,
         default=lambda self: self.env.company,
+    )
+    datetime = fields.Datetime(
+        string="Fecha",
+        required=True,
+        default=fields.Datetime.now,
     )
     purchase_order_id = fields.Many2one(
         comodel_name="purchase.order",
@@ -60,6 +66,12 @@ class QualityDocument(models.Model):
     )
     net_weight = fields.Float(
         string="Peso neto",
+    )
+    firmness_units = fields.Float(
+        string="Unidades de firmeza",
+    )
+    appearance_units = fields.Float(
+        string="Unidades de apariencia",
     )
 
     @api.model

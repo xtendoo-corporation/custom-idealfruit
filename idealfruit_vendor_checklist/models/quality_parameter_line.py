@@ -34,6 +34,9 @@ class QualityParameterLine(models.Model):
     less_than = fields.Float(
         string="Menor o igual que",
     )
+    sequence = fields.Integer(
+        default=10,
+    )
 
     _sql_constraints = [
         (
@@ -43,7 +46,7 @@ class QualityParameterLine(models.Model):
         ),
         (
             "greater_than_less_than",
-            "CHECK(greater_than < less_than)",
+            "CHECK(greater_than <= less_than)",
             "El valor 'Mayor que' debe ser menor que el valor 'Menor o igual que'",
         ),
     ]
