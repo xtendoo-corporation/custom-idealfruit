@@ -15,5 +15,3 @@ class QualityParameterType(models.Model):
         string="Porcentaje de aplicación",
         required=True,
     )
-
-
