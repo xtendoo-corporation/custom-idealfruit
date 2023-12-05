@@ -1,1 +1,1 @@
-from . import import_product_wizard
+from . import idealfruit_import_wizard

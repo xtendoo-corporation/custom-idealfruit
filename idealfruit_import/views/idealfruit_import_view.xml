@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem
+        id="idealfruit_import_menuitem"
+        name="Ideal Fruit Import"
+        action="idealfruit_import_action"
+        parent="purchase.menu_purchase_config"
+        sequence="70"
+    />
+</odoo>
+
+

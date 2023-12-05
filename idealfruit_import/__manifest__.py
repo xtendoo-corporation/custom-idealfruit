@@ -10,12 +10,13 @@
     "depends": [
         "product",
         "contacts",
-        "sale",
+        "sale_management",
         "purchase",
+        "idealfruit_vendor_checklist",
     ],
     "data": [
-        "wizard/import_wizard_view.xml",
-        "views/calatayud_product_import_view.xml",
+        "wizard/idealfruit_import_wizard_view.xml",
+        "views/idealfruit_import_view.xml",
         "security/ir.model.access.csv",
     ],
     'installable': True,
