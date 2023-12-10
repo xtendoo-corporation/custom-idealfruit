@@ -42,6 +42,7 @@ class IdealFruitImport(models.TransientModel):
             self._import_supplier_contacts(book.sheet_by_index(1))
             self._import_categories(book.sheet_by_index(2))
             self._import_products(book.sheet_by_index(3))
+            self._import_product_supplier_info(book.sheet_by_index(4))
 
         except xlrd.XLRDError:
             raise ValidationError(
@@ -89,7 +90,7 @@ class IdealFruitImport(models.TransientModel):
             name = sheet.cell(row, 3).value.strip()
             global_gap = sheet.cell(row, 4).value
             country_code = sheet.cell(row, 5).value
-            full_ref = ref + " " + trace
+            full_default_code = ref + " " + trace
 
             parent_id = partner_obj.search([("ref", "=", ref)])
             if parent_id:
@@ -97,7 +98,7 @@ class IdealFruitImport(models.TransientModel):
                     "company_type": 'person',
                     "type": "productor",
                     "parent_id": parent_id.id,
-                    "ref": full_ref,
+                    "ref": full_default_code,
                     "name": name,
                     "global_gap": global_gap,
                     "a3_code": a3_code,
@@ -107,7 +108,7 @@ class IdealFruitImport(models.TransientModel):
                     if country_id:
                         partner_contact["country_id"] = country_id.id
 
-                partner_id = partner_obj.search([("ref", "=", full_ref)])
+                partner_id = partner_obj.search([("ref", "=", full_default_code)])
                 if partner_id:
                     partner_id.write(partner_contact)
                 else:
@@ -116,29 +117,69 @@ class IdealFruitImport(models.TransientModel):
     def _import_categories(self, sheet):
         category_obj = self.env["product.category"]
         for row in range(1, sheet.nrows):
-            name = sheet.cell(row, 1).value.strip() + " (" + sheet.cell(row, 0).value.strip() + ")"
-            category_id = category_obj.search([("name", "=", name)])
+            default_code = sheet.cell(row, 0).value.strip()
+            name = sheet.cell(row, 1).value.strip()
+            category_id = category_obj.search([("default_code", "=", default_code)])
             if not category_id:
-                category_obj.create({"name": name})
+                category_obj.create({
+                    "default_code": default_code,
+                    "name": name,
+                })
 
     def _import_products(self, sheet):
         product_obj = self.env["product.template"]
         category_obj = self.env["product.category"]
-        uom_obj = self.env["uom.uom"]
+        for row in range(1, sheet.nrows):
+            default_code = sheet.cell(row, 0).value.strip()
+            name = sheet.cell(row, 1).value.strip()
+            is_bulk = sheet.cell(row, 2).value == "T"
+            weight = sheet.cell(row, 3).value.replace(",", ".")
+            unit_box = sheet.cell(row, 4).value
+            category_code = sheet.cell(row, 5).value.strip()
+            is_ecological = sheet.cell(row, 6).value == "T"
+
+            product_template = {
+                "default_code": default_code,
+                "name": name,
+                "is_bulk": is_bulk,
+                "weight": weight,
+                "unit_box": unit_box,
+                "is_ecological": is_ecological,
+            }
+
+            category_id = category_obj.search([("default_code", "=", category_code)])
+            if category_id:
+                product_template["categ_id"] = category_id.id
+
+            product_id = product_obj.search([("default_code", "=", default_code)])
+            if not product_id:
+                product_obj.create(product_template)
+            else:
+                product_id.write(product_template)
+
+    def _import_product_supplier_info(self, sheet):
+        partner_obj = self.env["res.partner"]
+        product_obj = self.env["product.template"]
         for row in range(1, sheet.nrows):
             ref = sheet.cell(row, 0).value.strip()
-            name = sheet.cell(row, 1).value.strip()
-            category_code = "%(" + sheet.cell(row, 5).value.strip() + ")"
-            category_id = category_obj.search([("name", "like", category_code)])
+            default_code = sheet.cell(row, 2).value.strip()
 
-            uom_id = uom_obj.search([("name", "=", uom_name)])
-            if category_id and uom_id:
-                product_id = product_obj.search([("name", "=", name)])
-                if not product_id:
-                    product_obj.create({
-                        "name": name,
-                        "categ_id": category_id.id,
-                        "uom_id": uom_id.id,
-                        "uom_po_id": uom_id.id,
-                        "list_price": price,
-                    })
+            partner_id = partner_obj.search(
+                [("ref", "=", ref)]
+            )
+            product_template_id = product_obj.search(
+                [("default_code", "=", default_code)]
+            )
+            if partner_id and product_template_id:
+                if not self.env["product.supplierinfo"].search(
+                    [
+                        ("partner_id", "=", partner_id.id),
+                        ("product_tmpl_id", "=", product_template_id.id),
+                    ]
+                ):
+                    self.env["product.supplierinfo"].create(
+                        {
+                            "partner_id": partner_id.id,
+                            "product_tmpl_id": product_template_id.id,
+                        }
+                    )
