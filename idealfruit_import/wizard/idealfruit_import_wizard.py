@@ -66,10 +66,13 @@ class IdealFruitImport(models.TransientModel):
                 "company_type": 'company',
                 "ref": ref,
                 "name": name,
-                "vat": country_code + vat,
                 "street": street,
                 "email": mail,
             }
+
+            if vat:
+                partner["vat"] = country_code + vat
+
             country_id = country_obj.search([("code", "=", country_code)])
             if country_id:
                 partner["country_id"] = country_id.id
