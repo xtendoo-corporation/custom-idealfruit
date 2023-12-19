@@ -39,6 +39,11 @@ class PurchaseOrder(models.Model):
         default="invalidated",
         readonly=True,
     )
+    purchase_order_quality_doc_ids = fields.One2many(
+        comodel_name="purchase.order.quality.doc",
+        inverse_name="purchase_order_id",
+        string="Documentos de Calidad",
+    )
 
     @api.onchange("purchase_checklist_id")
     def _onchange_purchase_checklist_id(self):
@@ -60,47 +65,22 @@ class PurchaseOrder(models.Model):
     def check_purchase_state(self):
         for purchase in self:
             if not purchase.purchase_checklist_id:
-                print("*", 80)
-                print("not purchase.purchase_checklist_id", not purchase.purchase_checklist_id)
-                print("*", 80)
-
                 purchase.purchase_state = "invalidated"
                 break
 
             if not purchase.purchase_checklist_document_relation_ids:
-                print("*", 80)
-                print("purchase.purchase_checklist_document_relation_ids", purchase.purchase_checklist_document_relation_ids)
-                print("*", 80)
-
                 purchase.purchase_state = "invalidated"
                 break
 
-            mandatory_documents = purchase.purchase_checklist_id.purchase_checklist_document_ids
-            print("*", 80)
-            print("mandatory_documents", mandatory_documents)
-            print("*", 80)
-
+            required_documents = purchase.purchase_checklist_id.purchase_checklist_document_ids
             for document in purchase.purchase_checklist_document_relation_ids:
-                print("*", 80)
-                print("document", document.purchase_checklist_document_id)
-                print("*", 80)
-
-                if document.purchase_checklist_document_id in mandatory_documents:
-                    print("*", 80)
-                    print("El documento esta en la lista de valores", document.purchase_checklist_document_id)
-                    print("document.attachment_ids", document.attachment_ids)
-                    print("*", 80)
+                if document.purchase_checklist_document_id in required_documents:
                     if not document.attachment_ids:
                         purchase.purchase_state = "invalidated"
                     else:
                         purchase.purchase_state = "validated"
-                        mandatory_documents = mandatory_documents - document.purchase_checklist_document_id
-
-                        print("*", 80)
-                        print("mandatory_documents", mandatory_documents)
-                        print("*", 80)
-
-                if mandatory_documents:
+                        required_documents = required_documents - document.purchase_checklist_document_id
+                if required_documents:
                     purchase.purchase_state = "invalidated"
                 else:
                     purchase.purchase_state = "validated"

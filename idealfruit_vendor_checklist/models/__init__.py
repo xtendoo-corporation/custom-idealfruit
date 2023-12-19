@@ -3,6 +3,8 @@ from . import product_template
 from . import vendor_checklist
 from . import purchase_checklist
 from . import res_partner
+from . import product_category
+from . import purchase_order_quality_doc
 from . import purchase_order
 from . import purchase_order_line
 from . import res_config

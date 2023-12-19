@@ -12,16 +12,22 @@ class PurchaseOrderLine(models.Model):
         domain="[('parent_id','=',partner_id),('type','=','productor')]",
         required=True,
     )
-    format_qty = fields.Float(
-        string="Und. formato",
-        digits=(16,2),
+    box = fields.Float(
+        string="Cajas",
+        digits=(16, 2),
     )
-    format_id = fields.Many2one(
-        comodel_name="idealfruit.format",
-        string="Formato",
+    unit_box = fields.Float(
+        string="Und. caja",
+        digits=(16, 2),
+        readonly=True,
     )
 
-    @api.onchange("format_qty", "format_id")
+    @api.onchange("product_id")
+    def onchange_product(self):
+        for record in self:
+            record.unit_box = record.product_id.unit_box
+
+    @api.onchange("box", "unit_box")
     def onchange_format(self):
         for record in self:
-            record.product_qty = record.format_qty * record.format_id.format
+            record.product_qty = (record.box or 1) * (record.unit_box or 1)

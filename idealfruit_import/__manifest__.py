@@ -6,12 +6,14 @@
     "version": "16.0",
     "author": "Manuel Calero (https://xtendoo.es)",
     "category": "Idealfruit",
+    "summary": "Importador de datos de Idealfruit",
     "license": "AGPL-3",
     "depends": [
         "product",
         "contacts",
         "sale_management",
         "purchase",
+        "stock",
         "idealfruit_vendor_checklist",
     ],
     "data": [

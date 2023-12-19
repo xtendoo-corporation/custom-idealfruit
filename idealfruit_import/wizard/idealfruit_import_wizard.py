@@ -89,17 +89,18 @@ class IdealFruitImport(models.TransientModel):
         for row in range(1, sheet.nrows):
             ref = sheet.cell(row, 0).value.strip()
             a3_code = sheet.cell(row, 1).value.strip()
-            trace = sheet.cell(row, 2).value.strip()
+            trace_code = sheet.cell(row, 2).value.strip()
             name = sheet.cell(row, 3).value.strip()
             global_gap = sheet.cell(row, 4).value
             country_code = sheet.cell(row, 5).value
-            full_default_code = ref + " " + trace
+            full_default_code = ref + " " + trace_code
 
             parent_id = partner_obj.search([("ref", "=", ref)])
             if parent_id:
                 partner_contact = {
                     "company_type": 'person',
                     "type": "productor",
+                    "trace_code": trace_code,
                     "parent_id": parent_id.id,
                     "ref": full_default_code,
                     "name": name,

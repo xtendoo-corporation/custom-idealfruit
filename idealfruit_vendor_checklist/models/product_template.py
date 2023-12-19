@@ -11,3 +11,12 @@ class ProductTemplate(models.Model):
         comodel_name="quality.template",
         string="Plantilla de Calidad",
     )
+    is_bulk = fields.Boolean(
+        string='A granel',
+    )
+    unit_box = fields.Float(
+        string='Unidades por caja',
+    )
+    is_ecological = fields.Boolean(
+        string='Ecológico',
+    )

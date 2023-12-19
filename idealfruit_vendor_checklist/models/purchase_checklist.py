@@ -14,7 +14,7 @@ class PurchaseChecklist(models.Model):
         comodel_name="purchase.checklist.document",
         inverse_name="purchase_checklist_id",
         string="Documentos",
-        is_mandatory=True,
+        required=True,
     )
     purchase_id = fields.One2many(
         comodel_name="purchase.order",

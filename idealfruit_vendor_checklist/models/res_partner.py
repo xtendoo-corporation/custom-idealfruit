@@ -37,6 +37,9 @@ class ResPartner(models.Model):
     a3_code = fields.Char(
         string="Código A3",
     )
+    trace_code = fields.Char(
+        string='Código trazabilidad',
+    )
 
     @api.constrains('global_gap')
     def _check_is_numeric(self):
@@ -79,10 +82,10 @@ class ResPartner(models.Model):
                 record.vendor_state = "invalidated"
                 break
 
-            mandatory_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(
-                lambda d: d.is_mandatory)
+            required_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(
+                lambda d: d.is_required)
             print("*", 80)
-            print("mandatory_documents", mandatory_documents)
+            print("required_documents", required_documents)
             print("*", 80)
 
             for document in record.vendor_checklist_document_relation_ids:
@@ -90,7 +93,7 @@ class ResPartner(models.Model):
                 print("document", document.vendor_checklist_document_id)
                 print("*", 80)
 
-                if document.vendor_checklist_document_id in mandatory_documents:
+                if document.vendor_checklist_document_id in required_documents:
                     print("*", 80)
                     print("El documento esta en la lista de valores", document.vendor_checklist_document_id)
                     print("document.date_validated", document.date_validated)
@@ -108,13 +111,13 @@ class ResPartner(models.Model):
                         print("El documento esta validated")
                         print("*", 80)
                         record.vendor_state = "validated"
-                        mandatory_documents = mandatory_documents - document.vendor_checklist_document_id
+                        required_documents = required_documents - document.vendor_checklist_document_id
 
                         print("*", 80)
-                        print("mandatory_documents", mandatory_documents)
+                        print("required_documents", required_documents)
                         print("*", 80)
 
-                if mandatory_documents:
+                if required_documents:
                     record.vendor_state = "invalidated"
 
     @api.model
