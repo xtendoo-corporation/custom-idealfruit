@@ -13,9 +13,9 @@
                 <widget name="web_ribbon" title="No validado" bg_color="bg-danger"
                         attrs="{'invisible': [('vendor_state', '=', 'validated')]}"/>
             </xpath>
-            <!--            <xpath expr="//field[@name='category_id']" position="after">-->
-            <!--                <field name="vendor_checklist_id"/>-->
-            <!--            </xpath>-->
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="trace_code"/>
+            </xpath>
             <xpath expr="//page[@name='internal_notes']"
                    position="after"
                    attrs="{'invisible': [('vendor_checklist_id','=','')]}">
