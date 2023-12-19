@@ -9,12 +9,3 @@ from . import purchase_order
 from . import purchase_order_line
 from . import res_config
 from . import idealfruit_format
-from . import quality_template
-from . import quality_template_line
-from . import quality_parameter
-from . import quality_parameter_line
-from . import purchase_quality
-from . import quality_document
-from . import quality_document_line
-from . import quality_parameter_qualify
-from . import quality_parameter_type

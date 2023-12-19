@@ -14,22 +14,3 @@ class PurchaseOrderQualityDoc(models.Model):
         string="Enlace",
     )
 
-    @api.model
-    def action_purchase_order_quality_doc(self, vals):
-        for record in self:
-            print("*"*80)
-            print("record", record.url)
-
-        for val in vals:
-            print("*"*80)
-            print("val", val)
-
-        print("action_purchase_order_quality_doc****************")
-        print("url", self.url)
-        print("vals", vals)
-
-        return {
-            'type': 'ir.actions.act_url',
-            'url': self.url,
-            'target': 'new',
-        }
