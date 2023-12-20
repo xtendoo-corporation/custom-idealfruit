@@ -68,6 +68,8 @@ class IdealFruitImport(models.TransientModel):
                 "name": name,
                 "street": street,
                 "email": mail,
+                "use_only_supplied_product": True,
+                "lang": "es_ES",
             }
 
             if vat:
@@ -106,6 +108,8 @@ class IdealFruitImport(models.TransientModel):
                     "name": name,
                     "global_gap": global_gap,
                     "a3_code": a3_code,
+                    "use_only_supplied_product": True,
+                    "lang": "es_ES",
                 }
                 if country_code:
                     country_id = country_obj.search([("code", "=", country_code)])

@@ -45,6 +45,7 @@
                 expr="//form[1]/sheet[1]/notebook[1]/page[@name='contact_addresses']/field[@name='child_ids']/form[1]/sheet[1]/group[1]/group[2]/field[@name='mobile']"
                 position="after">
                 <field name="global_gap"/>
+                <field name="a3_code"/>
             </xpath>
 
         </field>
