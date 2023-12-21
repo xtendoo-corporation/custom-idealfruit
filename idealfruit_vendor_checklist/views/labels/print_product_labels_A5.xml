@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <report id="report_line_label"
-                string="Etiqueta pallets"
-                model="purchase.order"
-                report_type="qweb-pdf"
-                name="idealfruit_vendor_checklist.report_line_label_document"
-                print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
-        />
+
+        <record id="report_line_label" model="ir.actions.report">
+            <field name="name">Delivery Slip</field>
+            <field name="model">purchase.order</field>
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_file">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="report_name">idealfruit_vendor_checklist.report_line_label_document</field>
+        </record>
+
+<!--        <report id="report_line_label"-->
+<!--                string="Etiqueta pallets"-->
+<!--                model="purchase.order"-->
+<!--                report_type="qweb-pdf"-->
+<!--                name="idealfruit_vendor_checklist.report_line_label_document"-->
+<!--                print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"-->
+<!--        />-->
+
         <record id="idealfruit_vendor_checklist.a5_labels" model="report.paperformat">
             <field name="name">A5 Purchase labels</field>
             <field name="default" eval="True"/>
@@ -34,7 +45,6 @@
                             <t t-set="qty" t-value="line.product_qty"/>
                             <t t-set="purchase" t-value="purchase"/>
                         </t>
-
                     </t>
                 </t>
             </t>

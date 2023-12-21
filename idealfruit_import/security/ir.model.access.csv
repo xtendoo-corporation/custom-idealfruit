@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 idealfruit_import.access_idealfruit_import,access_idealfruit_import,idealfruit_import.model_idealfruit_import,base.group_user,1,1,1,1
+idealfruit_import.access_idealfruit_import_company,access_idealfruit_import_company,idealfruit_import.model_idealfruit_import_company,base.group_user,1,1,1,1

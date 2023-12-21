@@ -18,8 +18,8 @@
     ],
     "data": [
         "wizard/idealfruit_import_wizard_view.xml",
+        "wizard/idealfruit_import_company_wizard_view.xml",
         "views/idealfruit_import_view.xml",
-        "views/purchase_order_view.xml",
         "security/ir.model.access.csv",
     ],
     'installable': True,

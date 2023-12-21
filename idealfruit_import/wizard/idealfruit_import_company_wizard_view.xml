@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <odoo>
-    <record id="idealfruit_import_wizard_view" model="ir.ui.view">
-        <field name="name">idealfruit.import.wizard.view</field>
-        <field name="model">idealfruit.import</field>
+    <record id="idealfruit_import_company_wizard_view" model="ir.ui.view">
+        <field name="name">idealfruit.import.company.wizard.view</field>
+        <field name="model">idealfruit.import.company</field>
         <field name="arch" type="xml">
-            <form string="Ideal Fruit Importador de Datos">
+            <form string="Ideal Fruit Importador de Compañias">
                 <group>
                     <field name="import_file" filename="filename"/>
                 </group>
@@ -17,9 +17,9 @@
         </field>
     </record>
 
-    <record id="idealfruit_import_action" model="ir.actions.act_window">
-        <field name="name">Ideal Fruit Import</field>
-        <field name="res_model">idealfruit.import</field>
+    <record id="idealfruit_import_company_action" model="ir.actions.act_window">
+        <field name="name">Ideal Fruit Import Company</field>
+        <field name="res_model">idealfruit.import.company</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
