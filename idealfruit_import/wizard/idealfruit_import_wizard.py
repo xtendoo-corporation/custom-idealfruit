@@ -38,7 +38,7 @@ class IdealFruitImport(models.TransientModel):
             decoded_data = base64.decodebytes(import_file)
             book = xlrd.open_workbook(file_contents=decoded_data)
 
-            self._import_supplier(book.sheet_by_index(0))
+            self._import_company(book.sheet_by_index(0))
             self._import_supplier_contacts(book.sheet_by_index(1))
             self._import_categories(book.sheet_by_index(2))
             self._import_products(book.sheet_by_index(3))
@@ -84,6 +84,49 @@ class IdealFruitImport(models.TransientModel):
                 partner_id.write(partner)
             else:
                 partner_obj.create(partner)
+
+    def _import_company(self, sheet):
+        company_obj = self.env["res.company"]
+        partner_obj = self.env["res.partner"]
+        country_obj = self.env["res.country"]
+        for row in range(1, sheet.nrows):
+            ref = sheet.cell(row, 0).value.strip()
+            name = sheet.cell(row, 1).value
+            vat = sheet.cell(row, 2).value
+            country_code = sheet.cell(row, 3).value
+            street = sheet.cell(row, 5).value
+            mail = sheet.cell(row, 6).value
+
+            company = {
+                "company_registry": ref,
+                "name": name,
+                "street": street,
+                "email": mail,
+            }
+
+            if vat:
+                company["vat"] = country_code + vat
+
+            country_id = country_obj.search([("code", "=", country_code)])
+            if country_id:
+                company["country_id"] = country_id.id
+
+            company_id = company_obj.search([("company_registry", "=", ref)])
+
+            print("*"*80)
+            print("ref", ref)
+            print("name", name)
+            print("company_id", company_id)
+
+            if company_id:
+                company_obj.write(company)
+            else:
+                company_id = company_obj.create(company)
+
+            if company_id:
+                company_id.partner_id.write({
+                    "company_id": company_id.id,
+                })
 
     def _import_supplier_contacts(self, sheet):
         partner_obj = self.env["res.partner"]
