@@ -30,4 +30,5 @@ class PurchaseOrderLine(models.Model):
     @api.onchange("box", "unit_box")
     def onchange_format(self):
         for record in self:
+
             record.product_qty = (record.box or 1) * (record.unit_box or 1)

@@ -111,20 +111,19 @@ class IdealFruitImport(models.TransientModel):
             if country_id:
                 company["country_id"] = country_id.id
 
-            company_id = company_obj.search([("company_registry", "=", ref)])
+            company_id = company_obj.search([("name", "=", name)])
 
             print("*"*80)
             print("ref", ref)
             print("name", name)
             print("company_id", company_id)
 
-            if company_id:
-                company_obj.write(company)
-            else:
+            if not company_id:
                 company_id = company_obj.create(company)
 
             if company_id:
                 company_id.partner_id.write({
+                    "ref": ref,
                     "company_id": company_id.id,
                 })
 
@@ -164,6 +163,9 @@ class IdealFruitImport(models.TransientModel):
                     partner_id.write(partner_contact)
                 else:
                     partner_obj.create(partner_contact)
+            else:
+                print("*"*80)
+                print("No existe el proveedor con ref: ", ref)
 
     def _import_categories(self, sheet):
         category_obj = self.env["product.category"]

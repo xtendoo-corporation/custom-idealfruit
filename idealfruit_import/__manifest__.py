@@ -1,4 +1,4 @@
-# Copyright 2023 Camilo Prado (https://xtendoo.es)
+# Copyright 2023 Manuel Calero (https://xtendoo.es)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -15,7 +15,6 @@
         "purchase",
         "stock",
         "idealfruit_vendor_checklist",
-        "purchase_allowed_product",
     ],
     "data": [
         "wizard/idealfruit_import_wizard_view.xml",

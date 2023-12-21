@@ -12,6 +12,9 @@
     "depends": [
         "purchase",
         "barcodes"
+        "purchase_allowed_product",
+        "web_select_all_companies",
+        "xtendo_purchase_only_company",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -24,7 +27,7 @@
         "views/purchase_order_view.xml",
         "views/idealfruit_format_view.xml",
         "views/res_config_settings_view.xml",
-        "views/product_template_view.xml",
+        "views/product_product_view.xml",
         "views/product_category_view.xml",
         "views/labels/label_template_A5.xml",
         "views/labels/print_product_labels_A5.xml",
