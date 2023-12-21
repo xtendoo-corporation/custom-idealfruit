@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": [
         "purchase",
+        "barcodes"
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -25,6 +26,8 @@
         "views/res_config_settings_view.xml",
         "views/product_template_view.xml",
         "views/product_category_view.xml",
+        "views/labels/label_template_A5.xml",
+        "views/labels/print_product_labels_A5.xml",
     ],
     "installable": True,
     "auto_install": False,
