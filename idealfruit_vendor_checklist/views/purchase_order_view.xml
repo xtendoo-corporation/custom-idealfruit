@@ -9,7 +9,6 @@
             <xpath expr="//field[@name='use_only_supplied_product']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-
             <xpath expr="//div[hasclass('oe_title')]" position="before">
                 <field name="purchase_state" invisible="1" force_save="1"/>
                 <widget name="web_ribbon" title="Validado" bg_color="bg-success"

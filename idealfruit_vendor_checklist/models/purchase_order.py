@@ -31,13 +31,6 @@ class PurchaseOrder(models.Model):
         string="Documentos de Calidad",
     )
 
-    @api.onchange("partner_id")
-    def onchange_partner(self):
-        for record in self:
-            print("*"*80)
-            print("cambio en cabecera:", record.partner_id)
-            print("*"*80)
-
     @api.onchange("purchase_checklist_id")
     def _onchange_purchase_checklist_id(self):
         for purchase in self:

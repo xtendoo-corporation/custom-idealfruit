@@ -3,21 +3,13 @@
     <data>
 
         <record id="report_line_label" model="ir.actions.report">
-            <field name="name">Delivery Slip</field>
+            <field name="name">Etiquetas palés</field>
             <field name="model">purchase.order</field>
             <field name="binding_model_id" ref="model_purchase_order"/>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_file">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="report_file">'Label - %s - %s' % (object.partner_id.name or '', object.name)</field>
             <field name="report_name">idealfruit_vendor_checklist.report_line_label_document</field>
         </record>
-
-<!--        <report id="report_line_label"-->
-<!--                string="Etiqueta pallets"-->
-<!--                model="purchase.order"-->
-<!--                report_type="qweb-pdf"-->
-<!--                name="idealfruit_vendor_checklist.report_line_label_document"-->
-<!--                print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"-->
-<!--        />-->
 
         <record id="idealfruit_vendor_checklist.a5_labels" model="report.paperformat">
             <field name="name">A5 Purchase labels</field>
@@ -39,11 +31,12 @@
                 <t t-foreach="docs" t-as="purchase">
                     <t t-foreach="purchase.order_line" t-as="line">
                         <t t-call="idealfruit_vendor_checklist.report_purchase_line_label" >
-                            <t t-set="product" t-value="line.product_id"/>
-                            <t t-set="line_id" t-value="line.id"/>
                             <t t-set="vendor" t-value="purchase.partner_id"/>
+                            <t t-set="product" t-value="line.product_id"/>
+                            <t t-set="visible_sequence" t-value="line.visible_sequence"/>
                             <t t-set="qty" t-value="line.product_qty"/>
                             <t t-set="purchase" t-value="purchase"/>
+                            <t t-set="line" t-value="line"/>
                         </t>
                     </t>
                 </t>

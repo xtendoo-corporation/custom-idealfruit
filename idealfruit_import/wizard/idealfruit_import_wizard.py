@@ -180,6 +180,16 @@ class IdealFruitImport(models.TransientModel):
             product_template_id = product_obj.search(
                 [("default_code", "=", default_code)]
             )
+            if not partner_id:
+                print("*"*80)
+                print("No existe el proveedor con ref: ", ref)
+                continue
+
+            if not product_template_id:
+                print("*"*80)
+                print("No existe el producto con ref: ", default_code)
+                continue
+
             if partner_id and product_template_id:
                 if not self.env["product.supplierinfo"].search(
                     [
@@ -191,5 +201,6 @@ class IdealFruitImport(models.TransientModel):
                         {
                             "partner_id": partner_id.id,
                             "product_tmpl_id": product_template_id.id,
+                            "company_id": '',
                         }
                     )

@@ -20,7 +20,7 @@
                             </b>
                         </div>
                         <div style="display:block;float:left;width:70%;height:100px;">
-                            <span t-esc="purchase.id"></span>
+                            <span t-esc="purchase.name"></span>
                         </div>
                         <div style="display:block;float:left;width:30%;clear:both;height:100px;">
                             <b>
@@ -36,16 +36,15 @@
                             </b>
                         </div>
                         <div style="display:block;float:left;width:70%;height:100px;">
-                            <span t-esc="qty"></span>
+                            <span t-esc="line.product_qty"/>
                         </div>
                     </div>
                     <div class="text-center align-middle">
-                        <t t-set="purchase_barcode" t-value="str(purchase.id)"/>
-                        <t t-set="purchase_barcode" t-value="str(purchase_barcode) + '/'"/>
-                        <t t-set="purchase_barcode" t-value="purchase_barcode + str(line_id)"/>
-<!--                        <t t-set="purchase_barcode" t-value="purchase_barcode.zfill(13)"/>-->
-                        <div t-out="purchase_barcode" style="width:90%;margin-left:5%;" t-options="{'widget': 'barcode', 'quiet': 0, 'symbology': 'auto', 'img_style': 'overflow: hidden; width: 100%; height: 6.0rem;'}"/>
-                        <span t-esc="purchase_barcode" style="width:100%;display:block;text-align:center;font-size:3em;"></span>
+                        <t t-set="purchase_barcode" t-value="purchase.name + '-' + str(line.visible_sequence)"/>
+                        <div t-out="purchase_barcode" style="width:90%;margin-left:5%;"
+                             t-options="{'widget': 'barcode', 'quiet': 0, 'symbology': 'auto', 'img_style': 'overflow: hidden; width: 100%; height: 6.0rem;'}"/>
+                        <span t-esc="purchase_barcode"
+                              style="width:100%;display:block;text-align:center;font-size:3em;"/>
                     </div>
                 </div>
             </t>

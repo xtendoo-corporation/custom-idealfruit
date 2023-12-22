@@ -6,6 +6,10 @@
         <field name="model">idealfruit.import</field>
         <field name="arch" type="xml">
             <form string="Ideal Fruit Importador de Datos">
+                <span class="text-warning" role="alert">
+                    <i class="fa fa-exclamation-triangle" role="img" aria-label="Warning" title="Warning"/>
+                    Seleccione todas las compañias antes de realizar esta importación.
+                </span>
                 <group>
                     <field name="import_file" filename="filename"/>
                 </group>

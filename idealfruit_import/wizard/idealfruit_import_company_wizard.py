@@ -78,5 +78,6 @@ class IdealFruitImportCompany(models.TransientModel):
                 company_id.partner_id.write({
                     "ref": ref,
                     "company_id": company_id.id,
+                    "use_only_supplied_product": True,
                 })
 
