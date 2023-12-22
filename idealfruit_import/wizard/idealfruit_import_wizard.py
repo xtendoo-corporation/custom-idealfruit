@@ -191,6 +191,7 @@ class IdealFruitImport(models.TransientModel):
                 continue
 
             if partner_id and product_template_id:
+                company_id = self.env["res.company"].search([("partner_id", "=", partner_id.id)])
                 if not self.env["product.supplierinfo"].search(
                     [
                         ("partner_id", "=", partner_id.id),
@@ -201,6 +202,6 @@ class IdealFruitImport(models.TransientModel):
                         {
                             "partner_id": partner_id.id,
                             "product_tmpl_id": product_template_id.id,
-                            "company_id": '',
+                            "company_id": company_id.id
                         }
                     )
