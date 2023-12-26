@@ -1,4 +1,3 @@
-from . import res_company
 from . import product_template
 from . import vendor_checklist
 from . import purchase_checklist
