@@ -31,11 +31,8 @@ class ResPartner(models.Model):
         default="productor",
         ondelete={"contact": "cascade"},
     )
-
-
     global_gap = fields.Char(
         string="Global Gap",
-        required=True,
     )
     a3_code = fields.Char(
         string="Código A3",
@@ -44,17 +41,18 @@ class ResPartner(models.Model):
         string='Código trazabilidad',
     )
 
-    _sql_constraints = [
-        ('global_gap_unique',
-         'UNIQUE(global_gap)',
-         "El campo Global Gap debe ser único."),
-    ]
-
     @api.constrains('global_gap')
-    def _check_is_numeric(self):
+    def _check_global_gap(self):
         for record in self:
             if record.global_gap and not re.match("^[0-9]+$", record.global_gap):
                 raise ValidationError("El campo debe contener solo valores numéricos.")
+            if record.type == 'productor':
+                if not record.global_gap:
+                    raise ValidationError("El campo Global Gap es requerido para los productores.")
+                if self.env['res.partner'].search_count(
+                    [('global_gap', '=', record.global_gap), ('id', '!=', record.id)]
+                ) > 0:
+                    raise ValidationError("El campo Global Gap del productor debe ser único.")
 
     @api.onchange("vendor_checklist_id")
     def _onchange_vendor_checklist_id(self):
@@ -79,7 +77,6 @@ class ResPartner(models.Model):
                 print("*", 80)
                 print("not record.vendor_checklist_id", not record.vendor_checklist_id)
                 print("*", 80)
-
                 record.vendor_state = "invalidated"
                 break
 
@@ -101,7 +98,6 @@ class ResPartner(models.Model):
                 print("*", 80)
                 print("document", document.vendor_checklist_document_id)
                 print("*", 80)
-
                 if document.vendor_checklist_document_id in required_documents:
                     print("*", 80)
                     print("El documento esta en la lista de valores", document.vendor_checklist_document_id)
@@ -109,7 +105,6 @@ class ResPartner(models.Model):
                     print("document.attachment_ids", document.attachment_ids)
                     print("*", 80)
                     if not document.date_validated or document.date_validated < fields.Date.today() or not document.attachment_ids:
-
                         print("not document.date_validated", not document.date_validated)
                         print("not document.attachment_ids", not document.attachment_ids)
                         print("El documento esta invalidated")
@@ -134,16 +129,17 @@ class ResPartner(models.Model):
         email = self.env['ir.config_parameter'].sudo().get_param('idealfruit_vendor_checklist.idealfruit_vendor_email')
         if not email:
             return
-
         partners = self.env['res.partner'].search(
-            ['|', ('is_company', '=', True), ('type', '=', 'productor'), ('supplier_rank', '>', 0),
-             ('vendor_state', '=', 'invalidated')]
+            [
+                '|', ('is_company', '=', True),
+                ('type', '=', 'productor'), ('supplier_rank', '>', 0),
+                ('vendor_state', '=', 'invalidated')
+            ]
         )
         if partners:
             template_id = self.env.ref('idealfruit_vendor_checklist.idealfruit_vendor_invalidated')
             if not template_id:
                 return
-
             template = self.env['mail.template'].browse(template_id.id)
             template.write({'email_to': email})
             template.with_context({'partners': partners}).send_mail(self.id, force_send=True)
