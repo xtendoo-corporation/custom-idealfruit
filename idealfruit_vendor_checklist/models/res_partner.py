@@ -31,8 +31,11 @@ class ResPartner(models.Model):
         default="productor",
         ondelete={"contact": "cascade"},
     )
+
+
     global_gap = fields.Char(
         string="Global Gap",
+        required=True,
     )
     a3_code = fields.Char(
         string="Código A3",
@@ -40,6 +43,12 @@ class ResPartner(models.Model):
     trace_code = fields.Char(
         string='Código trazabilidad',
     )
+
+    _sql_constraints = [
+        ('global_gap_unique',
+         'UNIQUE(global_gap)',
+         "El campo Global Gap debe ser único."),
+    ]
 
     @api.constrains('global_gap')
     def _check_is_numeric(self):
