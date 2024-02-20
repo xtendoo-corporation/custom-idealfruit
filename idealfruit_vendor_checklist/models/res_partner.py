@@ -2,8 +2,7 @@
 
 import re
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
-
+from odoo.exceptions import ValidationError, UserError
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -41,18 +40,35 @@ class ResPartner(models.Model):
         string='Código trazabilidad',
     )
 
+    @api.model
+    def create(self, vals):
+        # Get the group
+        group = self.env.ref('idealfruit_record_rule.idealfruit_group_supplier')
+
+        print("=====================================")
+        print("vals: ", vals)
+        print("vals['type']: ", vals['type'])
+        print("vals['is_company']", vals['is_company'])
+
+        # Check if the current user is in the group
+        if vals['is_company'] and group in self.env.user.groups_id:
+            raise UserError("No tiene permisos para crear nuevos partners.")
+
+        # If the user is not in the group, proceed with the creation
+        return super(ResPartner, self).create(vals)
+
+
     @api.constrains('global_gap')
     def _check_global_gap(self):
-        for record in self:
+        for record in self.filtered(lambda r: not r.is_company and r.type == 'productor'):
             if record.global_gap and not re.match("^[0-9]+$", record.global_gap):
                 raise ValidationError("El campo debe contener solo valores numéricos.")
-            if record.type == 'productor':
-                if not record.global_gap:
-                    raise ValidationError("El campo Global Gap es requerido para los productores.")
-                if self.env['res.partner'].search_count(
-                    [('global_gap', '=', record.global_gap), ('id', '!=', record.id)]
-                ) > 0:
-                    raise ValidationError("El campo Global Gap del productor debe ser único.")
+            if not record.global_gap:
+                raise ValidationError("El campo Global Gap es requerido para los productores.")
+            if self.env['res.partner'].search_count(
+                [('parent_id', '=', record.parent_id), ('global_gap', '=', record.global_gap), ('id', '!=', record.id)]
+            ) > 0:
+                raise ValidationError("El campo Global Gap del productor debe ser único.")
 
     @api.onchange("vendor_checklist_id")
     def _onchange_vendor_checklist_id(self):
@@ -84,7 +100,6 @@ class ResPartner(models.Model):
                 print("*", 80)
                 print("record.vendor_checklist_document_relation_ids", record.vendor_checklist_document_relation_ids)
                 print("*", 80)
-
                 record.vendor_state = "invalidated"
                 break
 

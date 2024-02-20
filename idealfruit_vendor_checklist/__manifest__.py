@@ -18,6 +18,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/idealfruit_security.xml",
         "data/data.xml",
         "data/cron.xml",
         "data/email_template.xml",
