@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="idealfruit_group_supplier" model="res.groups">
-            <field name="name">Idealfruit Supplier</field>
+            <field name="name">Idealfruit Proveedor</field>
             <field name="category_id" ref="base.module_category_hidden"/>
         </record>
 
