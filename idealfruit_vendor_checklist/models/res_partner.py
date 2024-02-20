@@ -43,13 +43,7 @@ class ResPartner(models.Model):
     @api.model
     def create(self, vals):
         # Get the group
-        group = self.env.ref('idealfruit_record_rule.idealfruit_group_supplier')
-
-        print("=====================================")
-        print("vals: ", vals)
-        print("vals['type']: ", vals['type'])
-        print("vals['is_company']", vals['is_company'])
-
+        group = self.env.ref('idealfruit_vendor_checklist.idealfruit_group_supplier')
         # Check if the current user is in the group
         if vals['is_company'] and group in self.env.user.groups_id:
             raise UserError("No tiene permisos para crear nuevos partners.")
@@ -66,7 +60,7 @@ class ResPartner(models.Model):
             if not record.global_gap:
                 raise ValidationError("El campo Global Gap es requerido para los productores.")
             if self.env['res.partner'].search_count(
-                [('parent_id', '=', record.parent_id), ('global_gap', '=', record.global_gap), ('id', '!=', record.id)]
+                [('parent_id', '=', record.parent_id.id), ('global_gap', '=', record.global_gap), ('id', '!=', record.id)]
             ) > 0:
                 raise ValidationError("El campo Global Gap del productor debe ser único.")
 
