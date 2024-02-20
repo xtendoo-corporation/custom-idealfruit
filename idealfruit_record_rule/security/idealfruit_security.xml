@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="idealfruit_group_supplier" model="res.groups">
+            <field name="name">Idealfruit Supplier</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+
+        <record id="idealfruit_supplier_product_template_readonly_rule" model="ir.rule">
+            <field name="name">Idealfruit Readonly Product Template</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('idealfruit_group_supplier'))]"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="False"/>
+        </record>
+
+        <record id="idealfruit_supplier_product_product_readonly_rule" model="ir.rule">
+            <field name="name">Idealfruit Readonly Product Product</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('idealfruit_group_supplier'))]"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
