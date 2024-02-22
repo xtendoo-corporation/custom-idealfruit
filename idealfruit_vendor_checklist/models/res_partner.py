@@ -42,13 +42,13 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, vals):
-        # Get the group
+        if not vals.get('is_company'):
+            return super(ResPartner, self).create(vals)
+
         group = self.env.ref('idealfruit_vendor_checklist.idealfruit_group_supplier')
-        # Check if the current user is in the group
         if vals['is_company'] and group in self.env.user.groups_id:
             raise UserError("No tiene permisos para crear nuevos partners.")
 
-        # If the user is not in the group, proceed with the creation
         return super(ResPartner, self).create(vals)
 
 
