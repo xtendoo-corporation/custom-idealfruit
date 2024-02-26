@@ -51,6 +51,9 @@ class IdealFruitImport(models.TransientModel):
             raise e
 
     def _import_supplier(self, sheet):
+        print("*"*80)
+        print("Importado proveedores")
+
         partner_obj = self.env["res.partner"]
         country_obj = self.env["res.country"]
         for row in range(1, sheet.nrows):
@@ -60,6 +63,8 @@ class IdealFruitImport(models.TransientModel):
             country_code = sheet.cell(row, 3).value
             street = sheet.cell(row, 5).value
             mail = sheet.cell(row, 6).value
+
+            print("Proveedor: ", name)
 
             partner = {
                 "company_type": 'company',
@@ -85,6 +90,9 @@ class IdealFruitImport(models.TransientModel):
                 partner_obj.create(partner)
 
     def _import_supplier_contacts(self, sheet):
+        print("*"*80)
+        print("Importado productores")
+
         partner_obj = self.env["res.partner"]
         country_obj = self.env["res.country"]
         for row in range(1, sheet.nrows):
@@ -96,11 +104,13 @@ class IdealFruitImport(models.TransientModel):
             country_code = sheet.cell(row, 5).value
             full_default_code = ref + " " + trace_code
 
+            print("Productor: ", name)
+
             parent_id = partner_obj.search([("ref", "=", ref)])
             if parent_id:
                 partner_contact = {
                     "company_type": 'person',
-                    "type": "productor",
+                    "type": 'productor',
                     "trace_code": trace_code,
                     "parent_id": parent_id.id,
                     "ref": full_default_code,
@@ -121,15 +131,20 @@ class IdealFruitImport(models.TransientModel):
                 else:
                     partner_obj.create(partner_contact)
             else:
-                print("*"*80)
                 print("No existe el proveedor con ref: ", ref)
 
     def _import_categories(self, sheet):
+        print("*"*80)
+        print("Importado categorías")
+
         category_obj = self.env["product.category"]
         for row in range(1, sheet.nrows):
             default_code = sheet.cell(row, 0).value.strip()
             name = sheet.cell(row, 1).value.strip()
             category_id = category_obj.search([("default_code", "=", default_code)])
+
+            print("Categoría: ", name)
+
             if not category_id:
                 category_obj.create({
                     "default_code": default_code,
@@ -137,6 +152,9 @@ class IdealFruitImport(models.TransientModel):
                 })
 
     def _import_products(self, sheet):
+        print("*"*80)
+        print("Importado productos")
+
         product_obj = self.env["product.template"]
         category_obj = self.env["product.category"]
         for row in range(1, sheet.nrows):
@@ -147,6 +165,8 @@ class IdealFruitImport(models.TransientModel):
             unit_box = sheet.cell(row, 4).value
             category_code = sheet.cell(row, 5).value.strip()
             is_ecological = sheet.cell(row, 6).value == "T"
+
+            print("Producto: ", name)
 
             product_template = {
                 "default_code": default_code,
