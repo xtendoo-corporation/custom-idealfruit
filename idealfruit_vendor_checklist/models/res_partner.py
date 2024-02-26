@@ -58,19 +58,19 @@ class ResPartner(models.Model):
                 raise ValidationError("El campo debe contener solo valores numéricos.")
             if not record.global_gap:
                 raise ValidationError("El campo Global Gap es requerido para los productores.")
-            partner = self.env['res.partner'].search(
-                [
-                    ('parent_id', '=', record.parent_id.id),
-                    ('global_gap', '=', record.global_gap),
-                    ('id', '!=', record.id)
-                ],
-                limit=1,
-            )
-            if partner:
-                raise ValidationError(
-                    "El campo Global Gap %s del proveedor %s y del productor %s encontrado en %s." %
-                    (record.global_gap, record.parent_id.name, record.name, partner.name)
-                )
+            # partner = self.env['res.partner'].search(
+            #     [
+            #         ('parent_id', '=', record.parent_id.id),
+            #         ('global_gap', '=', record.global_gap),
+            #         ('id', '!=', record.id)
+            #     ],
+            #     limit=1,
+            # )
+            # if partner:
+            #     raise ValidationError(
+            #         "El campo Global Gap %s del proveedor %s y del productor %s encontrado en %s." %
+            #         (record.global_gap, record.parent_id.name, record.name, partner.name)
+            #     )
 
     @api.onchange("vendor_checklist_id")
     def _onchange_vendor_checklist_id(self):
