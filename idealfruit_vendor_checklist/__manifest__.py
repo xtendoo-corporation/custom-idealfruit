@@ -10,6 +10,7 @@
     "website": "https://github.com/xtendoo-corporation/",
     "license": "AGPL-3",
     "depends": [
+        "product",
         "purchase",
         "barcodes",
         "purchase_allowed_product",
@@ -30,6 +31,7 @@
         "views/res_config_settings_view.xml",
         "views/product_template_view.xml",
         "views/product_category_view.xml",
+        "views/sale_menus.xml",
         "views/labels/label_template_A5.xml",
         "views/labels/print_product_labels_A5.xml",
     ],

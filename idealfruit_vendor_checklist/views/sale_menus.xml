@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.menu" id="purchase.menu_purchase_products">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_multi_company')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="stock.menu_product_variant_config_stock">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_multi_company')])]" />
+    </record>
+
+    <record model="ir.ui.menu" id="sale.product_menu_catalog">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_multi_company')])]" />
+    </record>
+
+</odoo>
