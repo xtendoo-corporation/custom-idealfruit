@@ -7,10 +7,6 @@
             <field name="category_id" ref="base.module_category_hidden"/>
         </record>
 
-    </data>
-
-    <data noupdate="0">
-
         <record id="idealfruit_supplier_product_template_readonly_rule" model="ir.rule">
             <field name="name">Idealfruit Readonly Product Template</field>
             <field name="model_id" ref="product.model_product_template"/>
@@ -31,6 +27,17 @@
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="idealfruit_supplier_res_partner_only_related_rule" model="ir.rule">
+            <field name="name">Idealfruit Only Related Contacts</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[('company_id','in',company_ids)]</field>
+            <field name="groups" eval="[(4, ref('idealfruit_group_supplier'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
         </record>
 
     </data>

@@ -149,7 +149,8 @@ class ResPartner(models.Model):
         partners = self.env['res.partner'].search(
             [
                 '|', ('is_company', '=', True),
-                ('type', '=', 'productor'), ('supplier_rank', '>', 0),
+                ('type', '=', 'productor'),
+                ('supplier_rank', '>', 0),
                 ('vendor_state', '=', 'invalidated')
             ]
         )

@@ -10,7 +10,6 @@ class PurchaseOrderLine(models.Model):
         comodel_name="res.partner",
         string="Productor",
         domain="[('parent_id','=',partner_id),('type','=','productor')]",
-        required=True,
     )
     box = fields.Float(
         string="Cajas",

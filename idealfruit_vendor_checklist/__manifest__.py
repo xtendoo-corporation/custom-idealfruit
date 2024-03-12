@@ -10,7 +10,9 @@
     "website": "https://github.com/xtendoo-corporation/",
     "license": "AGPL-3",
     "depends": [
+        "account",
         "product",
+        "contacts",
         "purchase",
         "barcodes",
         "purchase_allowed_product",
