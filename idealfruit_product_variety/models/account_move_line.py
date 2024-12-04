@@ -7,3 +7,10 @@ class AccountMoveLine(models.Model):
         comodel_name='product.variety',
         string='Product Variety'
     )
+
+    product_variety_available_ids = fields.Many2many(
+        comodel_name='product.variety',
+        string='Product Varieties',
+        related='product_id.categ_id.product_variety_ids',
+        readonly=True
+    )
