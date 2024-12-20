@@ -8,6 +8,7 @@
                 <field name="code" string="Código"/>
                 <field name="name" string="Nombre"/>
                 <field name="description" string="Descripción"/>
+                <field name="category_id" string="Categoría de Producto"/>
             </tree>
         </field>
     </record>
@@ -22,6 +23,7 @@
                         <field name="code" string="Código"/>
                         <field name="name" string="Nombre"/>
                         <field name="description" string="Descripción"/>
+                        <field name="category_id" string="Categoría de Producto"/>
                     </group>
                 </sheet>
             </form>
