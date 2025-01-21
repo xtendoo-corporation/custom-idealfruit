@@ -40,8 +40,9 @@ class IdealFruitImport(models.TransientModel):
 
             self._import_supplier_contacts(book.sheet_by_index(1))
             self._import_categories(book.sheet_by_index(2))
-            self._import_products(book.sheet_by_index(3))
-            self._import_product_supplier_info(book.sheet_by_index(4))
+            self._import_varieties(book.sheet_by_index(3))
+            self._import_products(book.sheet_by_index(4))
+            self._import_product_supplier_info(book.sheet_by_index(5))
 
         except xlrd.XLRDError:
             raise ValidationError(
@@ -150,6 +151,37 @@ class IdealFruitImport(models.TransientModel):
                     "default_code": default_code,
                     "name": name,
                 })
+
+    def _import_varieties(self, sheet):
+        print("*"*80)
+        print("Importado variedades")
+
+        variety_obj = self.env["product.variety"]
+        category_obj = self.env["product.category"]
+
+        for row in range(1, sheet.nrows):
+            code = sheet.cell(row, 0).value.strip()
+            name = sheet.cell(row, 1).value.strip()
+            category_code = sheet.cell(row, 2).value.strip()
+
+            category_id = category_obj.search([("default_code", "=", category_code)])
+
+            print("Variedad: ", name)
+
+            if not category_id:
+                print("No existe la categoría con código: ", category_code)
+                continue
+
+            variety_id = variety_obj.search([("code", "=", code)])
+            if variety_id:
+                print("Ya existe la variedad con código: ", code)
+                continue
+
+            variety_obj.create({
+                "code": code,
+                "name": name,
+                "category_id": category_id.id,
+            })
 
     def _import_products(self, sheet):
         print("*"*80)

@@ -14,6 +14,7 @@
         "sale_management",
         "purchase",
         "stock",
+        "idealfruit_product_variety",
         "idealfruit_vendor_checklist",
     ],
     "data": [

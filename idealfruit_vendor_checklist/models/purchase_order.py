@@ -1,6 +1,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class PurchaseOrder(models.Model):
@@ -29,6 +30,11 @@ class PurchaseOrder(models.Model):
         comodel_name="purchase.order.quality.doc",
         inverse_name="purchase_order_id",
         string="Documentos de Calidad",
+    )
+    is_partner_set = fields.Boolean(
+        string="Partner Set",
+        compute="_compute_is_partner_set",
+        store=True,
     )
 
     @api.onchange("purchase_checklist_id")
@@ -70,4 +76,9 @@ class PurchaseOrder(models.Model):
                     purchase.purchase_state = "invalidated"
                 else:
                     purchase.purchase_state = "validated"
+
+    @api.depends("partner_id")
+    def _compute_is_partner_set(self):
+        for purchase in self:
+            purchase.is_partner_set = bool(purchase.partner_id)
 
