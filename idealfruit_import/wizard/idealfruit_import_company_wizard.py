@@ -50,6 +50,10 @@ class IdealFruitImportCompany(models.TransientModel):
     def _import_company(self, sheet):
         company_obj = self.env["res.company"]
         country_obj = self.env["res.country"]
+
+        print("*"*80)
+        print("Importado empresas")
+
         for row in range(1, sheet.nrows):
             ref = sheet.cell(row, 0).value.strip()
             name = sheet.cell(row, 1).value
@@ -57,14 +61,19 @@ class IdealFruitImportCompany(models.TransientModel):
             country_code = sheet.cell(row, 3).value
             street = sheet.cell(row, 5).value
             mail = sheet.cell(row, 6).value
+
+            print("Compañia: ", ref, name, vat, country_code, street, mail)
+
             company = {
                 "company_registry": ref,
                 "name": name,
                 "street": street,
                 "email": mail,
             }
+
             if vat:
                 company["vat"] = country_code + vat
+
             country_id = country_obj.search([("code", "=", country_code)])
 
             if country_id:
