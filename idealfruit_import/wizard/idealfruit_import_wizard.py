@@ -57,6 +57,7 @@ class IdealFruitImport(models.TransientModel):
 
         partner_obj = self.env["res.partner"]
         country_obj = self.env["res.country"]
+
         for row in range(1, sheet.nrows):
             ref = sheet.cell(row, 0).value.strip()
             name = sheet.cell(row, 1).value
@@ -96,6 +97,7 @@ class IdealFruitImport(models.TransientModel):
 
         partner_obj = self.env["res.partner"]
         country_obj = self.env["res.country"]
+
         for row in range(1, sheet.nrows):
             ref = sheet.cell(row, 0).value.strip()
             a3_code = sheet.cell(row, 1).value.strip()
@@ -113,7 +115,7 @@ class IdealFruitImport(models.TransientModel):
                     "company_type": 'person',
                     "type": 'productor',
                     "trace_code": trace_code,
-                    "parent_id": parent_id.id,
+                    "parent_id": parent_id[0].id,
                     "ref": full_default_code,
                     "name": name,
                     "global_gap": global_gap,
@@ -128,7 +130,7 @@ class IdealFruitImport(models.TransientModel):
 
                 partner_id = partner_obj.search([("ref", "=", full_default_code)])
                 if partner_id:
-                    partner_id.write(partner_contact)
+                    partner_id[0].write(partner_contact)
                 else:
                     partner_obj.create(partner_contact)
             else:
@@ -139,13 +141,14 @@ class IdealFruitImport(models.TransientModel):
         print("Importado categorías")
 
         category_obj = self.env["product.category"]
+
         for row in range(1, sheet.nrows):
             default_code = sheet.cell(row, 0).value.strip()
             name = sheet.cell(row, 1).value.strip()
-            category_id = category_obj.search([("default_code", "=", default_code)])
 
             print("Categoría: ", name)
 
+            category_id = category_obj.search([("default_code", "=", default_code)])
             if not category_id:
                 category_obj.create({
                     "default_code": default_code,
@@ -164,10 +167,9 @@ class IdealFruitImport(models.TransientModel):
             name = sheet.cell(row, 1).value.strip()
             category_code = sheet.cell(row, 2).value.strip()
 
-            category_id = category_obj.search([("default_code", "=", category_code)])
-
             print("Variedad: ", name)
 
+            category_id = category_obj.search([("default_code", "=", category_code)])
             if not category_id:
                 print("No existe la categoría con código: ", category_code)
                 continue
@@ -189,6 +191,7 @@ class IdealFruitImport(models.TransientModel):
 
         product_obj = self.env["product.template"]
         category_obj = self.env["product.category"]
+
         for row in range(1, sheet.nrows):
             default_code = sheet.cell(row, 0).value.strip()
             name = sheet.cell(row, 1).value.strip()
@@ -222,6 +225,7 @@ class IdealFruitImport(models.TransientModel):
     def _import_product_supplier_info(self, sheet):
         partner_obj = self.env["res.partner"]
         product_obj = self.env["product.template"]
+
         for row in range(1, sheet.nrows):
             ref = sheet.cell(row, 0).value.strip()
             default_code = sheet.cell(row, 2).value.strip()
