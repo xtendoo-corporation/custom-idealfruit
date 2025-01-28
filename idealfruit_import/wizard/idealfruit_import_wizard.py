@@ -81,11 +81,11 @@ class IdealFruitImport(models.TransientModel):
             if vat:
                 partner["vat"] = country_code + vat
 
-            country_id = country_obj.search([("code", "=", country_code)])
+            country_id = country_obj.search([("code", "=", country_code)], limit=1)
             if country_id:
                 partner["country_id"] = country_id.id
 
-            partner_id = partner_obj.search([("ref", "=", ref)])
+            partner_id = partner_obj.search([("ref", "=", ref)], limit=1)
             if partner_id:
                 partner_id.write(partner)
             else:
@@ -109,13 +109,13 @@ class IdealFruitImport(models.TransientModel):
 
             print("Productor: ", name)
 
-            parent_id = partner_obj.search([("ref", "=", ref)])
+            parent_id = partner_obj.search([("ref", "=", ref)], limit=1)
             if parent_id:
                 partner_contact = {
                     "company_type": 'person',
                     "type": 'productor',
                     "trace_code": trace_code,
-                    "parent_id": parent_id[0].id,
+                    "parent_id": parent_id.id,
                     "ref": full_default_code,
                     "name": name,
                     "global_gap": global_gap,
@@ -124,13 +124,13 @@ class IdealFruitImport(models.TransientModel):
                     "lang": "es_ES",
                 }
                 if country_code:
-                    country_id = country_obj.search([("code", "=", country_code)])
+                    country_id = country_obj.search([("code", "=", country_code)], limit=1)
                     if country_id:
                         partner_contact["country_id"] = country_id.id
 
-                partner_id = partner_obj.search([("ref", "=", full_default_code)])
+                partner_id = partner_obj.search([("ref", "=", full_default_code)], limit=1)
                 if partner_id:
-                    partner_id[0].write(partner_contact)
+                    partner_id.write(partner_contact)
                 else:
                     partner_obj.create(partner_contact)
             else:
@@ -148,7 +148,7 @@ class IdealFruitImport(models.TransientModel):
 
             print("Categoría: ", name)
 
-            category_id = category_obj.search([("default_code", "=", default_code)])
+            category_id = category_obj.search([("default_code", "=", default_code)], limit=1)
             if not category_id:
                 category_obj.create({
                     "default_code": default_code,
@@ -169,12 +169,12 @@ class IdealFruitImport(models.TransientModel):
 
             print("Variedad: ", name)
 
-            category_id = category_obj.search([("default_code", "=", category_code)])
+            category_id = category_obj.search([("default_code", "=", category_code)], limit=1)
             if not category_id:
                 print("No existe la categoría con código: ", category_code)
                 continue
 
-            variety_id = variety_obj.search([("code", "=", code)])
+            variety_id = variety_obj.search([("code", "=", code)], limit=1)
             if variety_id:
                 print("Ya existe la variedad con código: ", code)
                 continue
@@ -212,11 +212,11 @@ class IdealFruitImport(models.TransientModel):
                 "is_ecological": is_ecological,
             }
 
-            category_id = category_obj.search([("default_code", "=", category_code)])
+            category_id = category_obj.search([("default_code", "=", category_code)], limit=1)
             if category_id:
                 product_template["categ_id"] = category_id.id
 
-            product_id = product_obj.search([("default_code", "=", default_code)])
+            product_id = product_obj.search([("default_code", "=", default_code)], limit=1)
             if not product_id:
                 product_obj.create(product_template)
             else:
@@ -231,10 +231,10 @@ class IdealFruitImport(models.TransientModel):
             default_code = sheet.cell(row, 2).value.strip()
 
             partner_id = partner_obj.search(
-                [("ref", "=", ref)]
+                [("ref", "=", ref)], limit=1
             )
             product_template_id = product_obj.search(
-                [("default_code", "=", default_code)]
+                [("default_code", "=", default_code)], limit=1
             )
             if not partner_id:
                 print("*"*80)
@@ -247,7 +247,9 @@ class IdealFruitImport(models.TransientModel):
                 continue
 
             if partner_id and product_template_id:
-                company_id = self.env["res.company"].search([("partner_id", "=", partner_id.id)])
+                company_id = self.env["res.company"].search(
+                    [("partner_id", "=", partner_id.id)], limit=1
+                )
                 if not self.env["product.supplierinfo"].search(
                     [
                         ("partner_id", "=", partner_id.id),
