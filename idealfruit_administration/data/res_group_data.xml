@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Nueva categoría para Aicia -->
+        <record id="module_category_idealfruit" model="ir.module.category">
+            <field name="name">Crear proveedores y productos</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Grupos de usuarios para Aicia -->
+        <record id="group_not_create" model="res.groups">
+            <field name="name">No crear</field>
+            <field name="category_id" ref="module_category_idealfruit"/>
+        </record>
+    </data>
+</odoo>

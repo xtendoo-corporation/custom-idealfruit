@@ -57,7 +57,7 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
                 <field name="partner_id" invisible="1"/>
-                <field name="product_partner_id"/>
+                <field name="product_partner_id" required="1"/>
             </xpath>
         </field>
     </record>
