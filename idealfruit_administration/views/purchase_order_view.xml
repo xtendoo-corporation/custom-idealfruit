@@ -6,15 +6,18 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="replace">
+                <xpath expr="//field[@name='partner_id']" position="before">
                     <field name="not_create_group" invisible="1"/>
-                    <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_vat': True}" placeholder="Name, TIN, Email, or Reference"  attrs="{'invisible': [('not_create_group', '=', True)]}"/>
-                    <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_vat': True}" placeholder="Name, TIN, Email, or Reference" attrs="{'invisible': [('not_create_group', '=', False)]}" options="{'no_create': True, 'no_quick_create': True}"/>
                 </xpath>
-                <xpath expr="//page[@name='products']/field[@name='order_line']//field[@name='product_id']" position="replace">
-                    <field name="product_id" attrs="{'readonly': [('state', 'in', ('purchase', 'to approve','done', 'cancel'))],'required': [('display_type', '=', False)],}" context="{'partner_id':parent.partner_id, 'quantity':product_qty, 'company_id': parent.company_id}" force_save="1" domain="[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" options="{'no_create': True, 'no_quick_create': True}"/>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_quick_create': True}</attribute>
                 </xpath>
+                <xpath expr="//page[@name='products']/field[@name='order_line']//field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create': True, 'no_quick_create': True}</attribute>
+                </xpath>
+
             </field>
         </record>
     </data>
 </odoo>
+

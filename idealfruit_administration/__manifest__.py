@@ -16,6 +16,7 @@
     "data": [
         'data/res_group_data.xml',
         'views/purchase_order_view.xml',
+        'views/product_product_view.xml',
     ],
     "license": "LGPL-3",
     "installable": True,

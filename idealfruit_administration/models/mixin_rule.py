@@ -13,7 +13,7 @@ class MixinRule(models.Model):
         )
 
     def _is_not_create_group(self):
-        self.is_admin = self.env["res.users"].has_group(
+        self.not_create_group = self.env["res.users"].has_group(
             "idealfruit_administration.group_not_create"
         )
 
