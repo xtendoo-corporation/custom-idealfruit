@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    // create an action to open the form view of the model purchase.checklist
+<!--    // create an action to open the form view of the model purchase.checklist-->
 
     <record id="action_purchase_checklist_form" model="ir.actions.act_window">
         <field name="name">Checklist de Compras</field>
