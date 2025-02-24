@@ -1,0 +1,63 @@
+<odoo>
+
+    <record id="action_purchase_line_productor_update" model="ir.actions.act_window">
+    <field name="name">Actualizar Productores</field>
+    <field name="res_model">purchase.order.line</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_purchase_line_productor_update"/>
+    <field name="target">new</field>
+</record>
+
+
+    <record model="ir.ui.view" id="view_purchase_line_productor_update">
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="productor_ids" string="Productores">
+                <tree editable="bottom">
+                    <field name="partner_id"/>
+                    <field name="quantity" sum="Total"/>
+                    <field name="referencia_palet"/>
+                </tree>
+                </field>
+                <footer class="oe_edit_only">
+                    <button name="action_guardar_y_procesar"
+        string="Guardar y Procesar"
+        type="object"
+        class="oe_highlight"/>
+                    <button string="Descartar" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_line_productor_tree" model="ir.ui.view">
+        <field name="name">purchase.line.productor.tree</field>
+        <field name="model">purchase.line.productor</field>
+        <field name="arch" type="xml">
+            <tree>
+<!--                <field name="purchase_line_id"/>-->
+                <field name="partner_id"/>
+                <field name="quantity" sum="Total"/>
+                <field name="referencia_palet"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_line_productor_form" model="ir.ui.view">
+        <field name="name">purchase.line.productor.form</field>
+        <field name="model">purchase.line.productor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+<!--                        <field name="purchase_line_id"/>-->
+                        <field name="partner_id"/>
+                        <field name="quantity"/>
+                        <field name="referencia_palet"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

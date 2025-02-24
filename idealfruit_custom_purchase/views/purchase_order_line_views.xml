@@ -4,13 +4,24 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
-                <field name="palet_type_id"/>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_qty']" position="before">
+                <button name="action_abrir_productor_wizard"
+                    string="Productores"
+                    type="object"
+                    class="oe_highlight"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_qty']" position="attributes">
+                <attribute name="attrs">{'readonly': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
                 <field name="palet_type_id"/>
                 <field name="is_palet_base"/>
+                <field name="order_id" invisible="1"/>
+                <field name="base_palet_line_ids" invisible="1" widget="many2many_tags"/>
+                <field name="base_palet_line_id" attrs="{'readonly': [('is_palet_base', '=', True)]}"/>
+                <field name="productor_ids" invisible="1" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
+
 </odoo>
