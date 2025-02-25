@@ -9,7 +9,7 @@
             <form>
                 <field name="productor_ids" string="Productores">
                 <tree editable="bottom">
-                    <field name="partner_id"/>
+                    <field name="partner_id" options="{'no_create': True, 'no_quick_create': True}"/>
                     <field name="quantity" sum="Total"/>
                     <field name="referencia_palet"/>
                 </tree>
@@ -39,7 +39,7 @@
         <field name="arch" type="xml">
             <tree>
 <!--                <field name="purchase_line_id"/>-->
-                <field name="partner_id"/>
+                <field name="partner_id" options="{'no_create': True, 'no_quick_create': True}"/>
                 <field name="quantity" sum="Total"/>
                 <field name="referencia_palet"/>
             </tree>
