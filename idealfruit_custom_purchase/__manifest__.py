@@ -12,11 +12,11 @@
         "purchase",
     ],
     "data": [
+        'views/purchase_line_productor_views.xml',
         'security/ir.model.access.csv',
         'security/security_groups.xml',
         'views/palet_type_views.xml',
         'views/purchase_order_line_views.xml',
-        'views/purchase_line_productor_views.xml',
 
     ],
     "license": "LGPL-3",
