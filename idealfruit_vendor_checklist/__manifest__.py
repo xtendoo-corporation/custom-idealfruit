@@ -4,7 +4,7 @@
     "name": "Ideal Fruit Vendor Checklist",
     "version": "16.0.1.0.1",
     "development_status": "Beta",
-    "category": "Product",
+    "category": "Purchases",
     "summary": "Ideal Fruit Vendor Checklist",
     "author": "Xtendoo, ",
     "website": "https://github.com/xtendoo-corporation/",
@@ -18,6 +18,7 @@
         "purchase_allowed_product",
         "web_select_all_companies",
         "xtendoo_purchase_only_company",
+        "mail",
     ],
     "data": [
         "security/ir.model.access.csv",

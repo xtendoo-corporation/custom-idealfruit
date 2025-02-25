@@ -40,5 +40,16 @@
             <field name="perm_unlink" eval="False"/>
         </record>
 
+
+        <!-- CheckList -->
+        <record id="module_category_purchase_checklist" model="ir.module.category">
+            <field name="name">Validación de documentos en compras</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="group_purchase_checklist_validator" model="res.groups">
+            <field name="name">Validador</field>
+            <field name="category_id" ref="module_category_purchase_checklist"/>
+        </record>
+        <!-- Fin CHecklist -->
     </data>
 </odoo>

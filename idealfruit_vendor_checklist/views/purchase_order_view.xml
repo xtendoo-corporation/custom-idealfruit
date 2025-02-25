@@ -12,10 +12,15 @@
             <xpath expr="//div[hasclass('oe_title')]" position="before">
                 <field name="purchase_state" invisible="1" force_save="1"/>
                 <field name="is_partner_set" invisible="1" force_save="1"/>
-                <widget name="web_ribbon" title="Validado" bg_color="bg-success"
-                        attrs="{'invisible': [('purchase_state', '=', 'invalidated')]}"/>
-                <widget name="web_ribbon" title="No validado" bg_color="bg-danger"
-                        attrs="{'invisible': [('purchase_state', '=', 'validated')]}"/>
+                <!-- Ribbons -->
+                <widget name="web_ribbon" title="Documentación imcompleta" bg_color="bg-danger"
+                       attrs="{'invisible': [('purchase_state', '!=', 'need_doc')]}"/>
+                <widget name="web_ribbon" title="Esperando validación..." bg_color="bg-warning"
+                        attrs="{'invisible': [('purchase_state', '!=', 'invalidated')]}"/>
+                <widget name="web_ribbon" title="Documentación completa" bg_color="bg-success"
+                        attrs="{'invisible': [('purchase_state', '!=', 'validated')]}"
+                        />
+                <!-- Fin Ribbons -->
             </xpath>
             <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
                 <page string="Checklist Compra" name="purchase_checklist">
@@ -23,13 +28,29 @@
                         <field name="purchase_checklist_id"/>
                     </group>
                     <group>
-                        <field name="purchase_checklist_document_relation_ids">
+                        <field name="purchase_checklist_document_relation_ids" attrs="{'readonly': [('purchase_state', '=', 'validated')]}">
                             <tree>
-                                <field name="purchase_checklist_document_id"/>
+                                <field name="purchase_checklist_document_id" options="{'no_create': True, 'no_quick_create': True}"/>
                                 <field name="attachment_ids" widget="many2many_binary"/>
                             </tree>
                         </field>
                     </group>
+                        <div class="oe_button_box" style="text-align: right;">
+                            <button name="button_validate_checklist"
+                                string="Validar"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('purchase_state', '!=', 'invalidated')]}"
+                                groups="idealfruit_vendor_checklist.group_purchase_checklist_validator"
+                            />
+                            <button name="button_invalidate_checklist"
+                                string="Deshacer Validación"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('purchase_state', '!=', 'validated')]}"
+                                groups="idealfruit_vendor_checklist.group_purchase_checklist_validator"
+                            />
+                        </div>
                 </page>
             </xpath>
             <xpath expr="//page[@name='purchase_checklist']" position="after">
@@ -37,7 +58,8 @@
                     <group>
                         <field name="purchase_order_quality_doc_ids">
                             <tree editable="bottom">
-                                <field colspan="4" name="url"/>
+                                <field colspan="4" name="note"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
                             </tree>
                         </field>
                     </group>
@@ -56,8 +78,8 @@
                 <field name="unit_box" force_save="1"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
-                <field name="partner_id" invisible="1"/>
-                <field name="product_partner_id" required="1"/>
+<!--                <field name="partner_id" invisible="1"/>-->
+<!--                <field name="product_partner_id" required="1"/>-->
             </xpath>
         </field>
     </record>

@@ -10,7 +10,14 @@ class PurchaseOrderQualityDoc(models.Model):
         comodel_name="purchase.order",
         string="Orden de compra",
     )
-    url = fields.Char(
-        string="Enlace",
+    note = fields.Char(
+        string="Nota",
     )
+    attachment_ids = fields.One2many(
+        comodel_name="ir.attachment",
+        inverse_name="res_id",
+        string="Adjuntos",
+        tracking=True,
+    )
+
 

@@ -6,11 +6,11 @@ from odoo import api, fields, models
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    product_partner_id = fields.Many2one(
-        comodel_name="res.partner",
-        string="Productor",
-        domain="[('parent_id','=',partner_id),('type','=','productor')]",
-    )
+    # product_partner_id = fields.Many2one(
+    #     comodel_name="res.partner",
+    #     string="Productor",
+    #     domain="[('parent_id','=',partner_id),('type','=','productor')]",
+    # )
     box = fields.Float(
         string="Cajas",
         digits=(16, 2),
