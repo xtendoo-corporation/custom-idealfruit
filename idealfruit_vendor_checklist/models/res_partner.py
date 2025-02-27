@@ -91,56 +91,23 @@ class ResPartner(models.Model):
 
     @api.onchange("vendor_checklist_id", "vendor_checklist_document_relation_ids")
     def check_vendor_state(self):
+        print("*"*100)
         for record in self:
             if not record.vendor_checklist_id:
-                print("*", 80)
-                print("not record.vendor_checklist_id", not record.vendor_checklist_id)
-                print("*", 80)
                 record.vendor_state = "invalidated"
                 break
 
             if not record.vendor_checklist_document_relation_ids:
-                print("*", 80)
-                print("record.vendor_checklist_document_relation_ids", record.vendor_checklist_document_relation_ids)
-                print("*", 80)
                 record.vendor_state = "invalidated"
                 break
 
-            required_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(
-                lambda d: d.is_required)
-            print("*", 80)
-            print("required_documents", required_documents)
-            print("*", 80)
-
+            # required_documents = record.vendor_checklist_id.vendor_checklist_document_ids.filtered(
+            #     lambda d: d.is_required)
             for document in record.vendor_checklist_document_relation_ids:
-                print("*", 80)
-                print("document", document.vendor_checklist_document_id)
-                print("*", 80)
-                if document.vendor_checklist_document_id in required_documents:
-                    print("*", 80)
-                    print("El documento esta en la lista de valores", document.vendor_checklist_document_id)
-                    print("document.date_validated", document.date_validated)
-                    print("document.attachment_ids", document.attachment_ids)
-                    print("*", 80)
-                    if not document.date_validated or document.date_validated < fields.Date.today() or not document.attachment_ids:
-                        print("not document.date_validated", not document.date_validated)
-                        print("not document.attachment_ids", not document.attachment_ids)
-                        print("El documento esta invalidated")
-
-                        record.vendor_state = "invalidated"
-                    else:
-                        print("*", 80)
-                        print("El documento esta validated")
-                        print("*", 80)
-                        record.vendor_state = "validated"
-                        required_documents = required_documents - document.vendor_checklist_document_id
-
-                        print("*", 80)
-                        print("required_documents", required_documents)
-                        print("*", 80)
-
-                if required_documents:
+                if not document.date_validated or document.date_validated < fields.Date.today() or not document.attachment_ids:
                     record.vendor_state = "invalidated"
+                else:
+                    record.vendor_state = "validated"
 
     @api.model
     def _cron_recurring_validated(self):

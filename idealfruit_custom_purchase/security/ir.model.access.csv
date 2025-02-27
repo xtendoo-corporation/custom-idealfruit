@@ -1,4 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_palet_type_user,palet.type user,model_palet_type,group_palet_type_user,1,0,0,0
 access_palet_type_manager,palet.type manager,model_palet_type,group_palet_type_manager,1,1,1,1
+access_palet_category_user,palet.category user,model_palet_category,group_palet_type_user,1,0,0,0
+access_palet_category_manager,palet.category manager,model_palet_category,group_palet_type_manager,1,1,1,1
 access_purchase_line_productor_user,purchase.line.productor user,model_purchase_line_productor,base.group_user,1,1,1,1
+access_purchase_line_indications_user,purchase.line.indications user,model_purchase_line_indications,base.group_user,1,1,1,1

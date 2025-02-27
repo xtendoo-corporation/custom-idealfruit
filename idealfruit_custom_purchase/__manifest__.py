@@ -10,13 +10,18 @@
     "depends": [
         "base",
         "purchase",
+        "idealfruit_product_variety",
+        "idealfruit_vendor_checklist"
     ],
     "data": [
         'security/security_groups.xml',
         'security/ir.model.access.csv',
         'views/purchase_line_productor_views.xml',
+        'views/purchase_line_indications_views.xml',
         'views/palet_type_views.xml',
+        'views/palet_category_views.xml',
         'views/purchase_order_line_views.xml',
+        'data/palet_category_data.xml',
 
     ],
     "license": "LGPL-3",

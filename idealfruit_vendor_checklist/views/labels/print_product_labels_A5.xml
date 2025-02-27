@@ -29,7 +29,8 @@
         <template id="report_line_label_document">
              <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="purchase">
-                    <t t-foreach="purchase.order_line" t-as="line">
+                    <t t-set="purchase_lines" t-value="purchase.order_line.filtered(lambda x: x.is_palet_base == True)"/>
+                    <t t-foreach="purchase_lines" t-as="line">
                         <t t-call="idealfruit_vendor_checklist.report_purchase_line_label" >
                             <t t-set="vendor" t-value="purchase.partner_id"/>
                             <t t-set="product" t-value="line.product_id"/>

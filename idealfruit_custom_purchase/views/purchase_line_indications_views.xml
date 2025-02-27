@@ -1,0 +1,60 @@
+<odoo>
+    <record model="ir.ui.view" id="view_purchase_line_indications_update">
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="indications_ids" string="Indicaciones">
+                <tree editable="bottom">
+                    <field name="indications" invisible="0"/>
+                    <field name="indications_attachment" invisible="0"/>
+                </tree>
+                </field>
+                <footer class="oe_edit_only">
+                    <button special="save"
+                            string="Guardar"
+                            type="object"
+                            class="oe_highlight"/>
+                    <button string="Descartar" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_purchase_line_indications_update" model="ir.actions.act_window">
+        <field name="name">Actualizar indicaciones</field>
+        <field name="res_model">purchase.order.line</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_purchase_line_indications_update"/>
+        <field name="target">new</field>
+    </record>
+
+<!--    <record id="view_purchase_line_indications_tree" model="ir.ui.view">-->
+<!--        <field name="name">purchase.line.indications.tree</field>-->
+<!--        <field name="model">purchase.line.indications</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--&lt;!&ndash;                <field name="purchase_line_id"/>&ndash;&gt;-->
+<!--                <field name="partner_id" options="{'no_create': True, 'no_quick_create': True}"/>-->
+<!--                <field name="quantity" sum="Total"/>-->
+<!--                <field name="referencia_palet"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="view_purchase_line_indications_form" model="ir.ui.view">-->
+<!--        <field name="name">purchase.line.indications.form</field>-->
+<!--        <field name="model">purchase.line.indications</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--&lt;!&ndash;                        <field name="purchase_line_id"/>&ndash;&gt;-->
+<!--                        <field name="partner_id"/>-->
+<!--                        <field name="quantity"/>-->
+<!--                        <field name="referencia_palet"/>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

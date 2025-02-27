@@ -6,7 +6,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_palet_type_root"  name="Tipos de palets" parent="purchase.menu_purchase_config" sequence="10"/>
+    <menuitem id="menu_palet_type_root"  name="Palets" parent="purchase.menu_purchase_config" sequence="10"/>
 
     <menuitem id="menu_palet_type"  name="Tipos de palets" parent="menu_palet_type_root" action="action_palet_type"/>
 
@@ -17,6 +17,13 @@
             <tree>
                 <field name="name"/>
                 <field name="description"/>
+                <field name="palet_category_id"/>
+                <field name="length"/>
+                <field name="width"/>
+                <field name="height"/>
+                <field name="udm"/>
+                <field name="weight"/>
+                <field name="weight_udm"/>
             </tree>
         </field>
     </record>
@@ -30,6 +37,13 @@
                     <group>
                         <field name="name"/>
                         <field name="description"/>
+                        <field name="palet_category_id"/>
+                        <field name="length"/>
+                        <field name="width"/>
+                        <field name="height"/>
+                        <field name="udm"/>
+                        <field name="weight"/>
+                        <field name="weight_udm"/>
                     </group>
                 </sheet>
             </form>

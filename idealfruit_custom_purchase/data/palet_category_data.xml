@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="0">
+
+    <record id="palet_category_1" model="palet.category">
+        <field name="name">Euro Palet</field>
+        <field name="description">EPAL 1</field>
+        <field name="length">1.200</field>
+        <field name="width">1.016</field>
+        <field name="height">0.144</field>
+        <field name="udm" ref="uom.product_uom_meter"/>
+    </record>
+    <record id="palet_category_2" model="palet.category">
+        <field name="name">Palet Americano</field>
+        <field name="description">GMA pallet</field>
+        <field name="length">1.219</field>
+        <field name="width">1.016</field>
+        <field name="height">0.140</field>
+        <field name="udm" ref="uom.product_uom_meter"/>
+    </record>
+
+</odoo>

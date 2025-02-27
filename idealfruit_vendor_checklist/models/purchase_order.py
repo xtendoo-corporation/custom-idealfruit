@@ -26,6 +26,7 @@ class PurchaseOrder(models.Model):
         string="Situación",
         default="need_doc",
         readonly=True,
+        tracking=True,
     )
     purchase_order_quality_doc_ids = fields.One2many(
         comodel_name="purchase.order.quality.doc",

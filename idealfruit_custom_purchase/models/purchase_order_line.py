@@ -4,11 +4,15 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     palet_type_id = fields.Many2one('palet.type', string='Tipo de palet')
-    is_palet_base = fields.Boolean('Palet Base', default=False)
+    is_palet_base = fields.Boolean('Palet Base', default=True)
     base_palet_line_id = fields.Many2one(
         'purchase.order.line',
         string='Linea Base',
         domain="[('id', 'in', base_palet_line_ids)]"
+    )
+    base_palet_line_id_number = fields.Integer(
+        "Número de palet base",
+        related="base_palet_line_id.visible_sequence",
     )
     base_palet_line_ids = fields.Many2many(
         'purchase.order.line',
@@ -19,6 +23,10 @@ class PurchaseOrderLine(models.Model):
     productor_ids = fields.One2many(
         'purchase.line.productor', 'purchase_line_id', string='Productores'
     )
+    indications_ids = fields.One2many(
+        'purchase.line.indications', 'purchase_line_id', string='Indicaciones'
+    )
+    qty_delivered = fields.Float(string='Cantidad Entregada',store=True)
 
     @api.onchange('order_id', 'is_palet_base')
     def _compute_base_palet_line_ids(self):
@@ -33,9 +41,9 @@ class PurchaseOrderLine(models.Model):
     def action_abrir_productor_wizard(self):
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Productores',
+            'name': _('Productores para la línea %s-%s' % (self.visible_sequence, self.name)),
             'res_model': 'purchase.order.line',
-            'res_id': self.id,  # Abrir la línea de compra actual
+            'res_id': self.id,
             'view_mode': 'form',
             'view_id': self.env.ref('idealfruit_custom_purchase.view_purchase_line_productor_update').id,
             'target': 'new',
@@ -47,7 +55,18 @@ class PurchaseOrderLine(models.Model):
             productor_line_ids =self.env['purchase.line.productor'].search([('purchase_line_id', '=', record.id)])
             for productor in productor_line_ids:
                 qty_to_update += productor.quantity
-            record.product_qty = qty_to_update
+            record.qty_delivered = qty_to_update
 
-        return {'type': 'ir.actions.act_window_close'}  # Cierra el formulario
+        return {'type': 'ir.actions.act_window_close'}
+
+    def action_abrir_indications_wizard(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Indicaciones para la línea %s-%s' % (self.visible_sequence, self.name)),
+            'res_model': 'purchase.order.line',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('idealfruit_custom_purchase.view_purchase_line_indications_update').id,
+            'target': 'new',
+        }
 
