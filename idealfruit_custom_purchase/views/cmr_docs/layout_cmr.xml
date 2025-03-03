@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_cmr">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row">
+                <div class="col-7"></div>
+                <div class="col-5">
+                    <h2>ALBARÁN DE VENTA</h2>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-2 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;" alt="Logo"/>
+                </div>
+                <div class="col-5 mb4">
+                      <t t-set="invoice_address" t-value="o._get_fiscal_address(true,partner=user_to_sell)"></t>
+<!--                <t t-set="invoice_address" t-value="o._get_fiscal_address(partner=user_to_sell)"></t>-->
+                    <strong>Dirección fiscal:</strong>
+                    <div t-esc="invoice_address"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
+
+                </div>
+                <div class="col-5 mb4">
+                    <t t-set="shipping_address" t-value="o._get_shipping_address(true,partner=user_to_sell)"></t>
+<!--                    <t t-set="shipping_address" t-value="o._get_shipping_address(partner=user_to_sell)"></t>-->
+                    <strong>Dirección de entrega:</strong>
+                    <div t-esc="shipping_address"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}' name="purchase_shipping_address"/>
+                </div>
+            </div>
+<!--            <div t-if="company.logo or company.report_header" class="row zero_min_height">-->
+<!--                <div class="col-12">-->
+<!--                    <div style="border-bottom: 1px solid black;"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col-6" name="company_address">-->
+<!--                    <ul class="list-unstyled">-->
+<!--                        <li t-if="company.is_company_details_empty"><t t-esc="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/></li>-->
+<!--                        <li t-else=""><t t-esc="company.company_details"/></li>-->
+<!--                        <li t-if="forced_vat">-->
+<!--                            <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:-->
+<!--                            <span t-esc="forced_vat"/>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="{{ 'background-image: url(%s);' % layout_background_url if layout_background_url else '' }}" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-5">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-out="0"/>
+        </div>
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <strong><p class="m-0" t-field="company.name"/></strong>
+                    <p class="m-0">CL. Espanta, 4 47008 VALLADOLID ( VALLADOLID)</p>
+                    <strong><p class="m-0">Dir. postal: Apdo. 160 C.P. 47420 Iscar</p></strong>
+                </ul>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Página: <span class="page"/> / <span class="topage"/>
+                </div>
+<!--                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">-->
+<!--                    <span t-field="o.name"/>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </template>
+</odoo>

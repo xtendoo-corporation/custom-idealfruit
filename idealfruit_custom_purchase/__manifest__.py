@@ -11,7 +11,8 @@
         "base",
         "purchase",
         "idealfruit_product_variety",
-        "idealfruit_vendor_checklist"
+        "idealfruit_vendor_checklist",
+        "web",
     ],
     "data": [
         'security/security_groups.xml',
@@ -22,6 +23,8 @@
         'views/palet_category_views.xml',
         'views/purchase_order_line_views.xml',
         'data/palet_category_data.xml',
+        'views/cmr_docs/layout_cmr.xml',
+        'views/cmr_docs/albaran_venta_report.xml',
 
     ],
     "license": "LGPL-3",

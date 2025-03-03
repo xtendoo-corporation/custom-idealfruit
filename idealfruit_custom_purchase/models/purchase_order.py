@@ -6,8 +6,6 @@ class PurchaseOrder(models.Model):
 
     @api.model
     def create(self, values):
-        print("*"*50)
-        print("Creating purchase order")
         record = super(PurchaseOrder, self).create(values)
         record.send_notification_order()
         return record
@@ -40,3 +38,24 @@ class PurchaseOrder(models.Model):
             }
             mail = self.env['mail.mail'].create(mail_values)
             mail.send()
+
+    def _get_shipping_address(self,is_company_id=False,partner=False):
+        if not partner:
+            return
+        if is_company_id:
+            partner = partner.partner_id
+        shipping_addres_partner = partner.child_ids.filtered(lambda r: r.type == 'delivery')
+        if shipping_addres_partner:
+            return shipping_addres_partner[0]
+        return partner
+
+
+    def _get_fiscal_address(self,is_company_id=False, partner=False):
+        if not partner:
+            return
+        if is_company_id:
+            partner = partner.partner_id
+        fiscal_address_partner = partner.child_ids.filtered(lambda r: r.type == 'invoice')
+        if fiscal_address_partner:
+            return fiscal_address_partner[0]
+        return partner

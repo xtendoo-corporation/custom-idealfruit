@@ -26,6 +26,18 @@ class PurchaseOrderLine(models.Model):
         store=True,
     )
 
+    def _create(self, vals):
+        print("*"*50)
+        print("valscreate", vals)
+        for line in vals:
+            if line.get("display_type") in ('line_section', 'line_note'):
+                line.remove("display_type")
+        return super(PurchaseOrderLine, self)._create(vals)
+    def _write(self, vals):
+        print("*"*50)
+        print("vals", vals)
+        return super(PurchaseOrderLine, self)._write(vals)
+
     @api.depends("sequence", "order_id.order_line")
     def _compute_visible_sequence(self):
         for so in self.mapped("order_id"):
