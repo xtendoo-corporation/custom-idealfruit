@@ -26,7 +26,13 @@ class PurchaseOrderLine(models.Model):
     indications_ids = fields.One2many(
         'purchase.line.indications', 'purchase_line_id', string='Indicaciones'
     )
-    qty_delivered = fields.Float(string='Cantidad Entregada',store=True)
+    qty_delivered = fields.Float(string='Cajas Entregadas',store=True)
+    is_documented = fields.Boolean(string='Documentado', compute='_compute_is_documented', store=True)
+
+    @api.depends('indications_ids')
+    def _compute_is_documented(self):
+        for record in self:
+            record.is_documented = bool(record.indications_ids)
 
     @api.onchange('order_id', 'is_palet_base')
     def _compute_base_palet_line_ids(self):
@@ -54,7 +60,7 @@ class PurchaseOrderLine(models.Model):
         for record in self:
             productor_line_ids =self.env['purchase.line.productor'].search([('purchase_line_id', '=', record.id)])
             for productor in productor_line_ids:
-                qty_to_update += productor.quantity
+                qty_to_update += productor.box
             record.qty_delivered = qty_to_update
 
         return {'type': 'ir.actions.act_window_close'}

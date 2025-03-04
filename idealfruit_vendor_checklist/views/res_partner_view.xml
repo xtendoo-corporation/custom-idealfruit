@@ -23,13 +23,13 @@
             <xpath expr="//page[@name='internal_notes']"
                    position="after"
                    attrs="{'invisible': [('vendor_checklist_id','=','')]}">
-                <page string="Vendor Checklist">
+                <page string="Homologación">
                     <group>
                         <field name="global_gap"/>
                         <field name="a3_code"/>
                     </group>
                     <group>
-                        <field name="vendor_checklist_id"/>
+                        <field name="vendor_checklist_id" string="Lista de documentos"/>
                     </group>
                     <group>
                         <field name="vendor_checklist_document_relation_ids">

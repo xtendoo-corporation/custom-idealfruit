@@ -9,13 +9,23 @@
                     <field name="partner_id" options="{'no_create': True, 'no_quick_create': True}" domain="[('parent_id','=',related_partner_id),('type','=','productor')]"/>
                     <field name="product_variety_id" required="1" string="Variedad" domain="[('id', 'in', product_variety_available_ids)]"/>
                     <field name="product_variety_available_ids" string="Variedades Disponibles" widget="many2many_tags" invisible="1"/>
+                    <field name="box" sum="Cajas Entregadas"/>
+                    <field name="unit_box"/>
+                    <field name="quantity" sum="Kilos Entregdos"/>
                     <field name="referencia_palet"/>
-                    <field name="quantity" sum="Total"/>
                 </tree>
                 </field>
                 <div style="text-align: right;">
-                    <label for="product_qty"></label>
-                    <field name="product_qty" string="Cantidad Pedida" readonly="1"></field>
+<!--                <div style="margin-left:407px;">-->
+                    <div style="float:right;width:20%;margin-right:18.7%;">
+                        <label style="margin-left:507px;" for="product_qty"></label>
+                        <field name="product_qty" string="Kilos Pedidos" readonly="1"></field>
+                    </div>
+                    <div style="float:right;width:20%;margin-right:5.4%;">
+                        <label for="box"></label>
+                        <field name="box" string="Cajas Pedidas" readonly="1"></field>
+                    </div>
+
                 </div>
                 <footer class="oe_edit_only">
                     <button name="action_guardar_y_procesar"

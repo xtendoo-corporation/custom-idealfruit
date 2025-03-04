@@ -4,7 +4,7 @@
 <!--    // create an action to open the form view of the model purchase.checklist-->
 
     <record id="action_purchase_checklist_form" model="ir.actions.act_window">
-        <field name="name">Checklist de Compras</field>
+        <field name="name">Documentos expedición</field>
         <field name="res_model">purchase.checklist</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>

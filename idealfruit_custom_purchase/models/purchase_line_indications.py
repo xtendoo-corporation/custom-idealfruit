@@ -7,7 +7,7 @@ class PurchaseLineIndications(models.Model):
     purchase_line_id = fields.Many2one(
         'purchase.order.line', string='Purchase Order Line', required=True
     )
-    indications = fields.Text(string='Indicaciones', required=True)
+    indications = fields.Text(string='Indicaciones')
     indications_attachment = fields.Binary(string='Adjunto')
 
 

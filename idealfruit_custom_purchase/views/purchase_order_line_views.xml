@@ -28,20 +28,25 @@
             <xpath expr="//button[@name='print_quotation']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree//field[@name='product_qty']" position="before">
+            <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
                 <button name="action_abrir_productor_wizard"
                     string="Productores"
                     type="object"
                     class="oe_highlight"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree//field[@name='product_qty']" position="after">
-                <field name="qty_delivered" readonly="1"></field>
-            </xpath>
             <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
+
+                <field name="is_documented" invisible="1"/>
                 <button name="action_abrir_indications_wizard"
                         type="object"
-                        class="oe_link"
-                        icon="fa-file-text-o"/>
+                        class="btn btn-outline-primary"
+                        icon="fa-file-text-o"
+                        attrs="{'invisible': [('is_documented', '=', True)]}"/>
+                <button name="action_abrir_indications_wizard"
+                        type="object"
+                        class="btn btn-outline-success"
+                        icon="fa-file-text-o"
+                        attrs="{'invisible': [('is_documented', '=', False)]}"/>
                 <field name="palet_type_id"/>
                 <field name="is_palet_base"/>
                 <field name="order_id" invisible="1"/>
@@ -59,6 +64,17 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/tree//button[@name='action_purchase_history']" position="attributes">
                 <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_box_qty" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="idealfruit_vendor_checklist.view_purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='box']" position="after">
+                <field name="qty_delivered" readonly="1"></field>
             </xpath>
         </field>
     </record>

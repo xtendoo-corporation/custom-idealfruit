@@ -2,14 +2,14 @@
 <odoo>
 
     <record id="action_vendor_checklist_form" model="ir.actions.act_window">
-        <field name="name">Checklist de Proveedores</field>
+        <field name="name">Homologación de Proveedores</field>
         <field name="res_model">vendor.checklist</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem id="menu_separator_vendor_checklist"
-              name="Checklist"
+              name="Homologación"
               parent="purchase.menu_purchase_config"
               sequence="2"/>
 
