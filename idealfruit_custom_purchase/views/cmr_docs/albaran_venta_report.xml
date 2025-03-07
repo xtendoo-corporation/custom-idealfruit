@@ -34,7 +34,7 @@
                             <th name="th_date_req" class="text-center"><strong>Referencia</strong></th>
                             <th name="th_quantity" class="text-end"><strong>Lote</strong></th>
                             <th name="th_price_unit" class="text-end"><strong>Cajas</strong></th>
-                            <th name="th_amount" class="text-end"><strong>Unidades</strong></th>
+<!--                            <th name="th_amount" class="text-end"><strong>Unidades</strong></th>-->
                             <th name="th_amount" class="text-end"><strong>Kilos</strong></th>
                         </tr>
                     </thead>
@@ -58,12 +58,8 @@
                                     <td id="box" class="text-end">
                                         <span t-field="line.box"/>
                                     </td>
-                                    <td id="product_qty" class="text-end">
-                                        <span t-field="line.product_qty"/>
-                                    </td>
-                                    <t t-set="line_weight" t-value="line.product_id.weight * line.product_qty"/>
                                     <td id="weight" class="text-end">
-                                        <span t-esc="line_weight"/>
+                                        <span t-field="line.product_qty"/>
                                     </td>
 
                                 </t>
