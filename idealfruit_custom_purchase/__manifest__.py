@@ -24,7 +24,10 @@
         'views/purchase_order_line_views.xml',
         'data/palet_category_data.xml',
         'views/cmr_docs/layout_cmr.xml',
+        'views/cmr_docs/layout_empty.xml',
         'views/cmr_docs/albaran_venta_report.xml',
+        'views/cmr_docs/cmr_report.xml',
+        'views/cmr_docs/control_mercancia_report.xml',
 
     ],
     "license": "LGPL-3",

@@ -59,3 +59,29 @@ class PurchaseOrder(models.Model):
         if fiscal_address_partner:
             return fiscal_address_partner[0]
         return partner
+
+    def _get_lines_to_cmr(self):
+        resumen = {}
+        numero_de_palets = 0
+        for line in self.order_line:
+            product_id = line.product_id
+            product_name=line.product_id.name
+            numero_cajas = line.box
+            if line.is_palet_base:
+                palets = 1
+            else:
+                palets = 0
+            numero_de_palets = numero_de_palets + palets
+            peso = line.product_qty
+            if product_id in resumen:
+                resumen[product_id]['numero_de_palets'] += numero_de_palets
+                resumen[product_id]['peso'] += peso
+                resumen[product_id]['numero_cajas'] += numero_cajas
+            else:
+                resumen[product_id] = {
+                    'product_name': product_name,
+                    'numero_de_palets': numero_de_palets,
+                    'peso': peso,
+                    'numero_cajas': numero_cajas
+                }
+        return resumen

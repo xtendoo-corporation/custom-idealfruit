@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchaseorder_document_cmr">
+        <t t-call="idealfruit_custom_purchase.external_layout_empty">
+            <div class="page">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+           <div class="oe_structure"/>
+           <div id="CheckBoxes" style="width:100%;display:block; margin-top:-50px;">
+               <div style="display:block;width:30px;height:30px;border: 2px solid black; float:left;"></div>
+               <div style="display:block;float:left;font-size:1.2em;margin-left:2px;font-weight:bolder;">
+                   <p style="margin-left:2px;padding-top:4px;">C.M.R.</p>
+               </div>
+               <div style="display:block;width:30px;height:30px;border: 2px solid black; float:left;margin-left:60px;"></div>
+               <div style="display:block;float:left;font-size:1.2em;margin-left:2px;font-weight:bolder;">
+                   <p style="margin-left:2px;padding-top:1px;">CARTA DE PORTE</p>
+                   <p style="margin-left:2px;font-size:0.4em;margin-top:-24px;">CONTRATO DE TRANSPORTE TERRESTRE DE MERCANCIAS</p>
+               </div>
+           </div>
+               <div style="clear:both;"></div>
+                <table style="width:100%;margin:0;padding:0;border:none;margin-top:-10px;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div id="bloque1" style="border:2px solid black;">
+                     <div style="width:49%;float:left;border-right:1px solid black;">
+                         <p style="margin:0;margin-left:2px;font-size:0.7em;">1.Remitente (nombre,Domicilio,País) </p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Expéditeur (nom, adresse, pays)</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Sender (name, address, country)</p>
+                         <p style="margin:0;font-size:1.1em;font-weight:bolder;margin-left:2px;" t-esc="o.company_id.name"></p>
+                         <p style="margin:0;font-size:0.8em;margin-left:2px;"><span>CIF/NIF: </span><span t-esc="o.company_id.vat"/></p>
+                         <p style="margin:0;font-size:0.8em;margin-left:2px;"><span>CL. </span><span t-esc="o.company_id.street"/></p>
+                         <p style="margin:0;font-size:0.8em;margin-left:2px;"><span t-esc="o.company_id.zip"/><span> </span><span t-esc="o.company_id.state_id.name"/></p>
+                     </div>
+
+
+                    <div style="width:50%;float:left;border-left:1px solid black;">
+                         <div style="width:50%;float:left">
+                             <p style="margin:0;margin-left:2px;font-size:0.7em;">CARTA DE PORTE INTERNACIONAL</p>
+                             <p style="margin:0;margin-left:2px;font-size:0.7em;">LETTRE DE VOITURE INTERNATIONALE </p>
+                             <p style="margin:0;margin-left:2px;font-size:0.7em;">INTERNATIONAL CONSIGNMENT NOTE </p>
+                         </div>
+                         <div style="width:50%;float:left">
+                             <p style="margin:0;margin-left:2px;font-size:0.7em;">este transporte queda sometido, no obstante toda clúsula contraria al Convenio de contrato de Transporte Internacional de Merancias por Carretera (CMR) </p>
+                         </div>
+                         <div style="width:50%;float:left;margin-top:5px;">
+                             <p style="margin:0;margin-left:2px;font-size:0.7em;">Ce Transport est soumis non obstant toute clause contraire, a la convention relative au contrat de transport internacional de merchandises par route</p>
+                         </div>
+                         <div style="width:50%;float:left;margin-top:5px;">
+                             <p style="margin:0;margin-left:2px;font-size:0.7em;">This carriage is subject, notwithstanding any clause to the contrary, to de Convention on the Contract for the International Carriage of goods</p>
+                         </div>
+                     </div>
+                   <div style="clear:both;"></div>
+               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque2" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                     <div style="width:49%;float:left;border-right:1px solid black;height:150px;">
+                         <p style="margin:0;margin-left:2px;font-size:0.7em;">2. Consignatario (nombre, domicilio, país) </p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Destinataire (nom, adresse, pays)</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Consignee (name, address, country)</p>
+                         <p style="margin:0;font-size:0.9em;margin-left:2px;"><span>CIF/NIF: </span><span t-esc="o.partner_id.vat"/></p>
+                         <p style="margin:0;font-size:0.9em;margin-left:2px;" t-esc="o.partner_id.name"></p>
+                         <p style="margin:0;font-size:0.9em;margin-left:2px;"><span>CL. </span><span t-esc="o.partner_id.street"/></p>
+                         <p style="margin:0;font-size:0.9em;margin-left:2px;"><span t-esc="o.partner_id.zip"/><span> </span><span t-esc="o.partner_id.state_id.name"/></p>
+                         <p style="margin:0;font-size:0.9em;margin-left:2px;"><span t-esc="o.partner_id.country_id.name"/></p>
+                     </div>
+
+
+                    <div style="width:50%;float:left;border-left:1px solid black;height:150px;">
+                        <p style="margin:0;margin-left:2px;font-size:0.7em;">16. Porteador (nombre, domicilio, país) </p>
+                        <p style="margin:0;font-size:0.7em;margin-left:2px;">Transporteur (nom, adresse , pays)</p>
+                        <p style="margin:0;font-size:0.7em;margin-left:2px;">Carrier (name, address, country)</p>
+                     </div>
+                   <div style="clear:both;"></div>
+               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque3" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                     <div style="width:49%;float:left;border-right:1px solid black;height:110px;">
+                         <p style="margin:0;margin-left:2px;font-size:0.7em;">3. Lugar de entrega de la mercancía (lugar, país)</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Lieu prévu por livracion de la mechandise (lieu, pays)</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Place of delivery of goods (place, country)</p>
+                         <t t-set="delivery_partner" t-value="o._get_shipping_address(false,partner=o.partner_id)"/>
+                         <t t-if="delivery_partner">
+                            <p style="margin:0;font-size:0.9em;margin-left:2px;"><span>CL. </span><span t-esc="delivery_partner.street"/></p>
+                            <p style="margin:0;font-size:0.9em;margin-left:2px;"><span t-esc="delivery_partner.zip"/><span> </span><span t-esc="delivery_partner.state_id.name"/></p>
+                            <p style="margin:0;font-size:0.9em;margin-left:2px;"><span t-esc="delivery_partner.country_id.name"/></p>
+                         </t>
+                         <t t-else="">
+                             <p style="margin:0;font-size:1.2em;margin-left:2px;color:white;"><span>CL. </span></p>
+                            <p style="margin:0;font-size:1.2em;margin-left:2px;color:white;"><span>abc </span></p>
+                            <p style="margin:0;font-size:1.2em;margin-left:2px;color:white;"><span>abc</span></p>
+                         </t>
+<!--                         <p style="margin:0;font-size:1.2em;margin-left:2px;"><span>CL. </span><span t-esc="delivery_partner.street"/></p>-->
+<!--                         <p style="margin:0;font-size:1.2em;margin-left:2px;"><span t-esc="delivery_partner.zip"/><span> </span><span t-esc="o.delivery_partner.state_id.name"/></p>-->
+<!--                         <p style="margin:0;font-size:1.2em;margin-left:2px;"><span t-esc="delivery_partner.country_id.name"/></p>-->
+                     </div>
+
+
+                    <div style="width:50%;float:left;border-left:1px solid black;height:110px;">
+                        <div style="width:35%;float:left;">
+                            <div style="border-right:2px solid black;border-bottom:2px solid black;height:59px;">
+                                <p style="margin:0;margin-left:2px;font-size:0.9em;">Referencia transportista</p>
+                            </div>
+                            <div>
+                                <p style="margin:0;margin-left:2px;width:49%;float:left;font-size:0.9em;">Distancia</p>
+                                <p style="margin:0;margin-left:2px;text-align:right;width:49%;float:left;border-right:2px solid black;height:52px;font-size:0.9em;">KM</p>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>
+                        <div style="width:65%;float:left;">
+                            <div style="width:104%;display:block; border-bottom:2px solid black;text-align:center;">
+                                <p style="width:100%;display:block;margin:0;margin-left:2px;font-weight:bolder;">MATRICULA</p>
+                            </div>
+                            <div style="width:104%;display:block; border-bottom:2px solid black;text-align:center;">
+                                 <div style="width:45.5%;float:left;border-right:2px solid black;height:31px;">
+                                     <p style="width:100%;display:block;margin:0;margin-left:2px;font-size:0.9em;">Vehiculo</p>
+                                </div>
+                                <div style="width:54.5%;float:left;height:31px;">
+                                     <p style="width:100%;display:block;margin:0;margin-left:2px;font-size:0.9em;">Remolque o Semiremolque</p>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div style="width:104%;display:block;text-align:center;">
+                                <div style="width:45.5%;float:left;border-right:2px solid black;height:52px;">
+
+                                </div>
+                                <div style="width:54.5%;float:left;">
+
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+
+                     </div>
+                   <div style="clear:both;"></div>
+               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque4" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                                     <div style="width:49%;float:left;border-right:1px solid black;height:90px;">
+                                         <p style="margin:0;margin-left:2px;font-size:0.7em">4. Lugar y fecha de carga de mercancía (lugar, país, fecha) </p>
+                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Lieu et date de la prise en charge de merchandise (lieu, pays, date)</p>
+                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Place and date of taking over the goods (place, country, date)</p>
+                                     </div>
+                                    <div style="width:50%;float:left;border-left:1px solid black;height:90px;">
+                                        <p style="margin:0;margin-left:2px;font-size:0.7em">17. Porteadores sucesivos (nombre, domicilio, país)</p>
+                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Transporteurs, succesifs (nom, adresse, pays)</p>
+                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Successive (name, address, country)</p>
+                                     </div>
+                                   <div style="clear:both;"></div>
+                               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque5" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                     <div style="width:49%;float:left;border-right:1px solid black;height:80px;">
+                         <p style="margin:0;margin-left:2px;font-size:0.7em;">5. Documentos anexos</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Documents annexés</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Documents attached</p>
+                         <p style="margin:0;font-size:1.1em;font-weight:bolder;margin-left:2px;" t-esc="o.name"></p>
+                     </div>
+                    <div style="width:50%;float:left;border-left:1px solid black;height:80px;">
+                        <p style="margin:0;margin-left:2px;font-size:0.7em;">18. Reservas y observaciones del porteador</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Rèserves et observations du transporteur</p>
+                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Carriers reservations and observations</p>
+                     </div>
+                   <div style="clear:both;"></div>
+               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque6" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;height:60px;">
+
+                   <div style="width:100%;">
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">6. Marcas y números</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Marques et numéros</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Marcks and nos</p>
+                       </div>
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">7. Número de bultos</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Nombre des colis</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Number of packages</p>
+                       </div>
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">8. Clase de embalaje</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Mode d'embalages</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Method of packing</p>
+                       </div>
+                       <div style="width:16%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">9. Naturaleza de la Mercancía</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Nature de la merchanise</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Naturalize of Carried</p>
+                       </div>
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">10. Nº estadístico</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Nº stadistique</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Statistical Number</p>
+                       </div>
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">11. peso bruto kg.</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Poids brut kg.</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Gross weight in kg.</p>
+                       </div>
+                       <div style="width:14%;float:left;font-size:0.7em;">
+                           <p style="margin:0;margin-left:2px;">12. Volumen m3</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Cubage m3</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Volume in m3</p>
+                       </div>
+                       <div style="clear:both;"></div>
+                   </div>
+               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque7" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                    <t t-set="total_palets" t-value="0.0"/>
+                    <t t-set="total_weight" t-value="0.0"/>
+                    <t t-set="cmr_lines" t-value="o._get_lines_to_cmr().items()"/>
+                        <t t-foreach="cmr_lines" t-as="cmr_line">
+                            <t t-set="total_palets" t-value="total_palets + cmr_line[1]['numero_de_palets']"/>
+                            <t t-set="total_weight" t-value="total_weight + cmr_line[1]['peso']"/>
+<!--                            <t t-set="total_weight" t-value="total_weight + cmr_line[1]['peso']"/>-->
+                            <div style="width:100%;display:block;">
+                                <div style="width:42%;float:left;">
+                                    <p style="margin:0;margin-left:2px;" t-esc="cmr_line[1]['product_name']" ></p>
+                                </div>
+                                <div style="width:10%;float:left;">
+                                    <p style="margin:0;margin-left:2px;" t-esc="cmr_line[1]['numero_cajas']"></p>
+                                </div>
+                                <div style="width:14%;float:left;">
+                                    <p style="margin:0;margin-left:2px;" t-esc="cmr_line[1]['numero_de_palets']"></p>
+                                </div>
+                                <div style="width:14%;float:left;margin-left:10%;">
+                                    <p style="margin:0;margin-left:2px;" t-esc="cmr_line[1]['peso']"></p>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </t>
+                    <div style="width:100%;">
+                         <div style="width:45%;float:left;text-align:right;">
+                             <p style="margin:0;margin-left:2px;font-weight:bolder;">Palets:</p>
+                         </div>
+                        <div style="width:15%;float:left;">
+                             <p style="margin:0;margin-left:64px;" t-esc="total_palets"/>
+                         </div>
+                        <div style="width:15%;float:left;text-align:right;">
+                             <p style="margin:0;margin-left:2px;font-weight:bolder;">Peso:</p>
+                         </div>
+                        <div style="width:15%;float:left;">
+                             <p style="margin:0;margin-left:10px;" t-esc="total_weight"/>
+                         </div>
+                        <div style="clear:both;"></div>
+                    </div>
+
+                   <div style="clear:both;"></div>
+               </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width:100%;margin:0;padding:0;">
+                                <div id="bloque8" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;height:40px;">
+
+                   <div style="width:100%;">
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">Classe</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Class</p>
+                       </div>
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">Chiffre</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Number</p>
+                       </div>
+                       <div style="width:14%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">Lettre</p>
+                            <p style="margin:0;font-size:0.7em;margin-left:2px;">Letter</p>
+
+                       </div>
+                       <div style="width:58%;float:left;">
+                           <p style="margin:0;margin-left:2px;font-size:0.7em;">(ADDR') Documentos Anexos y/o precisiones concretas:</p>
+                       </div>
+                       <div style="clear:both;"></div>
+                   </div>
+               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <div id="bloque9" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                                     <div style="width:49%;float:left;border-right:1px solid black;height:80px;">
+                                         <p style="margin:0;margin-left:2px;font-size:0.7em">13. Instrucciones del remitente / Instructions de l'expediteur / Senders Instructions </p>
+                                         <p style="margin:0;font-size:1.2em;margin-left:2px;">Temperatura conservación: 4 °C</p>
+                                     </div>
+                                    <div style="width:50%;float:left;border-left:1px solid black;height:80px;">
+                                        <p style="margin:0;margin-left:2px;font-size:0.7em">19. Estipulaciones particulares - Conventions perticullières - Special agreements</p>
+                                     </div>
+                                   <div style="clear:both;"></div>
+                               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque10" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                                     <div style="width:49%;float:left;border-right:1px solid black;height:100px;">
+                                         <p style="margin:0;margin-left:2px;font-size:0.7em">13 bis. Instrucciones y reservas de transportista / Instructions et reserves du transporteur / Instructions and reserve of carrier </p>
+                                     </div>
+                                    <div style="width:50%;float:left;border-left:1px solid black;height:100px;">
+                                        <div class="container" style="width:100%;margin:0;padding:0;">
+                                            <div class="row" style="border-bottom:2px solid black;width:102.5%;">
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">20. A pagar por:</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">To be paid by:</p>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Remitente</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Senders</p>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Moneda</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Currency</p>
+                                                </div>
+                                                <div class="col-3">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Consignatario</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Consignee</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="width:102.5%;">
+                                                <div class="col-3" style="border-right:2px solid black;height:67px;">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Precio del transporte</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Carriage Changées</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Descuentos:</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Deductions</p>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:67px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:67px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:67px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                     </div>
+                                   <div style="clear:both;"></div>
+                               </div>
+                                <div id="bloque11" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                                     <div style="width:49%;float:left;border-right:1px solid black;height:100px;">
+                                         <p style="margin:0;margin-left:2px;font-size:0.7em">14. Forma de pago / Prescriptions d'afranchissement / Form of payment</p>
+                                         <div class="row">
+                                             <div class="col-12">
+                                                 <div style="display:block;width:20px;height:20px;border: 2px solid black; float:left;margin-left:10px;"></div>
+                                                   <div style="display:block;float:left;font-size:0.7em;margin-left:2px;">
+                                                       <p style="margin-left:2px;padding-top:4px;">Porte Pagado / Franco / Carriage paid</p>
+                                                   </div>
+                                                 <div style="clear:both;"></div>
+                                             </div>
+                                         </div>
+                                         <div class="row">
+                                             <div class="col-12">
+                                                 <div style="display:block;width:20px;height:20px;border: 2px solid black; float:left;margin-left:10px;"></div>
+                                                   <div style="display:block;float:left;font-size:0.7em;margin-left:2px;">
+                                                       <p style="margin-left:2px;padding-top:4px;">Porte debido / Non franco / Carriage Forward</p>
+                                                   </div>
+                                                 <div style="clear:both;"></div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                    <div style="width:50%;float:left;border-left:1px solid black;height:100px;">
+                                        <div class="container" style="width:100%;margin:0;padding:0;">
+                                            <div class="row" style="border-bottom:2px solid black;width:102.5%;">
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Líquido / Balance</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Suplementos:</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Suplem Changes:</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">gastos accesorios:</p>
+                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Other charges</p>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:28px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:28px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:28px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="width:102.5%;">
+                                                <div class="col-3" style="border-right:2px solid black;height:18px;">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">TOTAL:</p>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:18px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="height:18px;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3" style="border-right:2px solid black;">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:18px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="height:18px;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="row">
+                                                        <div class="col-6" style="border-right:2px solid black;height:18px;">
+                                                            <span></span>
+                                                        </div>
+                                                        <div class="col-6" style="height:18px;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                     </div>
+                                   <div style="clear:both;"></div>
+                               </div>
+                            </td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <div id="bloque11" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">-->
+<!--                                     <div style="width:49%;float:left;border-right:1px solid black;height:100px;">-->
+<!--                                         <p style="margin:0;margin-left:2px;font-size:0.7em">14. Forma de pago / Prescriptions d'afranchissement / Form of payment</p>-->
+<!--                                         <div class="row">-->
+<!--                                             <div class="col-12">-->
+<!--                                                 <div style="display:block;width:20px;height:20px;border: 2px solid black; float:left;margin-left:10px;"></div>-->
+<!--                                                   <div style="display:block;float:left;font-size:0.7em;margin-left:2px;">-->
+<!--                                                       <p style="margin-left:2px;padding-top:4px;">Porte Pagado / Franco / Carriage paid</p>-->
+<!--                                                   </div>-->
+<!--                                                 <div style="clear:both;"></div>-->
+<!--                                             </div>-->
+<!--                                         </div>-->
+<!--                                         <div class="row">-->
+<!--                                             <div class="col-12">-->
+<!--                                                 <div style="display:block;width:20px;height:20px;border: 2px solid black; float:left;margin-left:10px;"></div>-->
+<!--                                                   <div style="display:block;float:left;font-size:0.7em;margin-left:2px;">-->
+<!--                                                       <p style="margin-left:2px;padding-top:4px;">Porte debido / Non franco / Carriage Forward</p>-->
+<!--                                                   </div>-->
+<!--                                                 <div style="clear:both;"></div>-->
+<!--                                             </div>-->
+<!--                                         </div>-->
+<!--                                     </div>-->
+<!--                                    <div style="width:50%;float:left;border-left:1px solid black;height:100px;">-->
+<!--                                        <div class="container" style="width:100%;margin:0;padding:0;">-->
+<!--                                            <div class="row" style="border-bottom:2px solid black;width:102.5%;">-->
+<!--                                                <div class="col-3" style="border-right:2px solid black;">-->
+<!--                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Líquido / Balance</p>-->
+<!--                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Suplementos:</p>-->
+<!--                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Suplem Changes:</p>-->
+<!--                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">gastos accesorios:</p>-->
+<!--                                                    <p style="margin:0;font-size:0.7em;margin-left:2px;">Other charges</p>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-3" style="border-right:2px solid black;">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;height:28px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-3" style="border-right:2px solid black;">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;height:28px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-3">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;border-bottom:2px solid black;height:27px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="border-bottom:2px solid black;height:27px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;height:28px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="row" style="width:102.5%;">-->
+<!--                                                <div class="col-3" style="border-right:2px solid black;height:18px;">-->
+<!--                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">TOTAL:</p>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-3" style="border-right:2px solid black;">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;height:18px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="height:18px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-3" style="border-right:2px solid black;">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;height:18px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="height:18px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-3">-->
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-6" style="border-right:2px solid black;height:18px;">-->
+<!--                                                            <span></span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="col-6" style="height:18px;"></div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                     </div>-->
+<!--                                   <div style="clear:both;"></div>-->
+<!--                               </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <td>
+                                <div id="bloque12" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                                     <div style="width:49%;float:left;border-right:1px solid black;height:50px;">
+                                         <div class="row">
+                                             <div class="col-3">
+                                                 <p style="margin:0;margin-left:2px;font-size:0.7em">21. Formalizado en:</p>
+                                                 <p style="margin:0;font-size:0.7em;margin-left:2px;">Etablie a:</p>
+                                                 <p style="margin:0;font-size:0.7em;margin-left:2px;">Estableshed in:</p>
+                                             </div>
+                                             <div class="col-3"></div>
+                                             <div class="col-3">
+                                                 <p style="margin:0;margin-left:2px;font-size:0.7em">21. Formalizado en:</p>
+                                                 <p style="margin:0;font-size:0.7em;margin-left:2px;">Etablie a:</p>
+                                                 <p style="margin:0;font-size:0.7em;margin-left:2px;">Estableshed in:</p>
+                                             </div>
+                                             <div class="col-3"></div>
+                                         </div>
+                                     </div>
+                                    <div style="width:50%;float:left;border-left:1px solid black;height:50px;">
+                                        <p style="margin:0;margin-left:2px;font-size:0.7em">15. Reembolso / Reemboursement / Cash on delibery</p>
+                                     </div>
+                                   <div style="clear:both;"></div>
+                               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="bloque13" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;height:135px;">
+                                    <div class="row">
+                                        <div class="col-4" style="border-right:2px solid black;height:135px;">
+                                            <p style="margin:0;margin-left:2px;font-size:0.7em">22. Firma y sello del remitente / Signature el timebre de l'expéditeur / Signature and stamp if sender</p>
+                                            <div>
+                                                <img style="width:70%;margin-left:30px;margin-top:2px;" src="/idealfruit_custom_purchase/static/src/img/sello_idealfruit.png"
+                                            />
+                                            </div>
+                                        </div>
+                                        <div class="col-4" style="border-right:2px solid black;height:135px;">
+                                            <p style="margin:0;margin-left:2px;font-size:0.7em">23. Firma y sello de l transportista / Signature el timbre du tranporteur / Signature ant of the carrier</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p style="margin:0;margin-left:2px;font-size:0.7em">24. Recibo de mercancía / Merchandise request / Goods received</p>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Lugar:</p>
+                                                </div>
+                                                <div class="col-3"></div>
+                                                <div class="col-3">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">a:</p>
+                                                </div>
+                                                <div class="col-3"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Lieu::</p>
+                                                </div>
+                                                <div class="col-3"></div>
+                                                <div class="col-3">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">le:</p>
+                                                </div>
+                                                <div class="col-3"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">Place:</p>
+                                                </div>
+                                                <div class="col-3"></div>
+                                                <div class="col-3">
+                                                    <p style="margin:0;margin-left:2px;font-size:0.7em">on:</p>
+                                                </div>
+                                                <div class="col-3"></div>
+                                            </div>
+                                            <p style="margin:0;margin-left:2px;font-size:0.7em">Firma y sello del consignatario</p>
+                                            <p style="margin:0;margin-left:2px;font-size:0.7em">Signature el timebre du destinataire</p>
+                                            <p style="margin:0;margin-left:2px;font-size:0.7em">Signature and stamp of the consignee</p>
+                                        </div>
+                                    </div>
+<!--                                     <div style="width:49%;float:left;border-right:1px solid black;height:135px;">-->
+<!--                                         <p style="margin:0;margin-left:2px;font-size:0.7em">4. Lugar y fecha de carga de mercancía (lugar, país, fecha) </p>-->
+<!--                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Lieu et date de la prise en charge de merchandise (lieu, pays, date)</p>-->
+<!--                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Place and date of taking over the goods (place, country, date)</p>-->
+<!--                                     </div>-->
+<!--                                    <div style="width:50%;float:left;border-left:1px solid black;height:100px;">-->
+<!--                                        <p style="margin:0;margin-left:2px;font-size:0.7em">17. Porteadores sucesivos (nombre, domicilio, país)</p>-->
+<!--                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Transporteurs, succesifs (nom, adresse, pays)</p>-->
+<!--                                         <p style="margin:0;font-size:0.7em;margin-left:2px;">Successive (name, address, country)</p>-->
+<!--                                     </div>-->
+                                   <div style="clear:both;"></div>
+                               </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin:0;margin-left:2px;font-size:0.55em;">AVISO: El conductor exigirá siempre en destino la firma y sello de la empresa receptora. El conductor no deberá firmar conformidad alguna a cualquier anomalía que la empresa receptora trate de reflejar en el presente CMR,</p>
+           </div>
+        </t>
+    </template>
+
+    <template id="report_purchaseorder_cmr">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="idealfruit_custom_purchase.report_purchaseorder_document_cmr" t-lang="o.partner_id.lang">
+                    <t t-set="company" t-value="o.company_id"/>
+                    <t t-set="user_to_sell" t-value="o.company_id"></t>
+<!--                    <t t-set="user_to_sell" t-value="o.partner_id"></t>-->
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_cmr" model="report.paperformat">
+        <field name="name">CMR A4</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_spacing">10</field>
+    </record>
+    <report
+        id="action_report_purchaseorder_cmr"
+        model="purchase.order"
+        string="CMR"
+        report_type="qweb-pdf"
+        name="idealfruit_custom_purchase.report_purchaseorder_cmr"
+        file="idealfruit_custom_purchase.report_purchaseorder_cmr"
+        print_report_name="'CMR - %s' % (object.name)"
+        paperformat="paperformat_cmr"
+    />
+
+
+
+</odoo>
