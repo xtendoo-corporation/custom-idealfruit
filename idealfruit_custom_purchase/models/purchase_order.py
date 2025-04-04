@@ -1,5 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError, UserError
+from PyPDF2.merger import PdfMerger
+
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
@@ -85,3 +87,39 @@ class PurchaseOrder(models.Model):
                     'numero_cajas': numero_cajas
                 }
         return resumen
+
+    def action_open_sales_wizard(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Seleccionar Ventas',
+            'res_model': 'select.sales.wizard',
+            'view_mode': 'form',
+            'view_id': self.env.ref('idealfruit_custom_purchase.view_select_sales_wizard_form').id,
+            'target': 'new',
+            'context': {
+                'active_id': self.id,
+            }
+        }
+
+
+    def print_cmr_pdf(self, sales_ids):
+        # Crear una instancia de PdfMerger
+        merger = PdfMerger()
+        # Obtener los informes PDF
+        report_1 = self.env.ref('idealfruit_custom_purchase.action_report_purchaseorder_cmr').report_action(self)
+        report_2 = self.env.ref('idealfruit_custom_purchase.action_report_purchaseorder_cmr').report_action(self)
+
+        # Agregar los PDFs al merger
+        merger.append(io.BytesIO(report_1))
+        merger.append(io.BytesIO(report_2))
+
+        # Crear el PDF combinado
+        combined_pdf = io.BytesIO()
+        merger.write(combined_pdf)
+        combined_pdf.seek(0)
+
+        # Retornar el PDF combinado
+        return self.env['ir.actions.report'].sudo()._get_report_from_action(self, combined_pdf.read())
+        # return self.env.ref('idealfruit_custom_purchase.action_report_purchaseorder_cmr').report_action(self)
+
+

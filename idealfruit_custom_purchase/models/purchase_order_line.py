@@ -28,6 +28,12 @@ class PurchaseOrderLine(models.Model):
     )
     qty_delivered = fields.Float(string='Cajas Entregadas',store=True)
     is_documented = fields.Boolean(string='Documentado', compute='_compute_is_documented', store=True)
+    sale_order_id = fields.Many2one(
+        comodel_name='sale.order',
+        string='Orden de Venta',
+        domain="[('state', '!=', 'cancel')]",
+        help='Orden de venta relacionada con esta línea de compra.'
+    )
 
     @api.depends('indications_ids')
     def _compute_is_documented(self):

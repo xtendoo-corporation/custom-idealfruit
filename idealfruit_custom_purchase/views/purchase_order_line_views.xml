@@ -29,6 +29,7 @@
                 <attribute name="invisible">True</attribute>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
+                <field name="sale_order_id" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}"/>
                 <button name="action_abrir_productor_wizard"
                     string="Productores"
                     type="object"

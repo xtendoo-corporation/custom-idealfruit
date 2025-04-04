@@ -1,0 +1,16 @@
+<odoo>
+    <record id="purchase_order_form_inherit_select_sales" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.sales.wizard</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_sales_wizard"
+                        string="Imprimir documentos"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

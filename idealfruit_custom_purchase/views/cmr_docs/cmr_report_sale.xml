@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_purchaseorder_document_cmr">
+    <template id="report_saleorder_document_cmr">
         <t t-call="idealfruit_custom_purchase.external_layout_empty">
             <div class="page">
             <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
@@ -731,10 +731,10 @@
         </t>
     </template>
 
-    <template id="report_purchaseorder_cmr">
+    <template id="report_saleorder_cmr">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="idealfruit_custom_purchase.report_purchaseorder_document_cmr" t-lang="o.partner_id.lang">
+                <t t-call="idealfruit_custom_purchase.report_saleorder_document_cmr" t-lang="o.partner_id.lang">
                     <t t-set="company" t-value="o.company_id"/>
                     <t t-set="user_to_sell" t-value="o.company_id"></t>
 <!--                    <t t-set="user_to_sell" t-value="o.partner_id"></t>-->
@@ -755,12 +755,12 @@
         <field name="header_spacing">10</field>
     </record>
     <report
-        id="action_report_purchaseorder_cmr"
+        id="action_report_saleorder_cmr"
         model="purchase.order"
         string="CMR"
         report_type="qweb-pdf"
-        name="idealfruit_custom_purchase.report_purchaseorder_cmr"
-        file="idealfruit_custom_purchase.report_purchaseorder_cmr"
+        name="idealfruit_custom_purchase.report_saleorder_cmr"
+        file="idealfruit_custom_purchase.report_saleorder_cmr"
         print_report_name="'CMR - %s' % (object.name)"
         paperformat="paperformat_cmr"
     />

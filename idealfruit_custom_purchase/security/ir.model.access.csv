@@ -5,3 +5,4 @@ access_palet_category_user,palet.category user,model_palet_category,group_palet_
 access_palet_category_manager,palet.category manager,model_palet_category,group_palet_type_manager,1,1,1,1
 access_purchase_line_productor_user,purchase.line.productor user,model_purchase_line_productor,base.group_user,1,1,1,1
 access_purchase_line_indications_user,purchase.line.indications user,model_purchase_line_indications,base.group_user,1,1,1,1
+access_select_sales_wizard_user,access.select.sales.wizard.user,model_select_sales_wizard,,1,1,1,0
