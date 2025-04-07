@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_mercancy_control">
+        <t t-call="idealfruit_custom_purchase.external_layout_empty">
+            <div class="page">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+           <div class="oe_structure"/>
+                <p style="margin:0;padding:0;font-weight:bolder;font-size:1.5em;margin-top:-40px;text-align:center;">
+                    DOCUMENTO DE CONTROL DE MERCANCIAS
+                </p>
+                <p style="margin:0;padding:0;font-size:1.3em;text-align:center;">
+                    Orden FOM 238/2003-BOE Núm. 38 de 13 Febrero de 20033603
+                </p>
+                <div class="container">
+                    <div class="row" style="border:2px solid black;height:220px;">
+                        <div class="col-6" style="border-right:2px solid black;">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Empresa cargadora y domicilio:</p>
+                            <p style="margin:0;margin-left:10px;font-size:1.3em;"><span t-field="o.company_id.name"/> </p>
+                            <p style="margin:0;margin-left:10px;font-size:1.3em;"><span t-field="o.company_id.street"/> </p>
+                            <p style="margin:0;margin-left:10px;font-size:1.3em;"><span t-field="o.company_id.zip"/> <span> </span> <span t-field="o.company_id.state_id.name"/> </p>
+                        </div>
+                        <div class="col-6">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Operador que ha intervenido:</p>
+                        </div>
+                    </div>
+                    <div class="row" style="border:2px solid black;border-top:none;height:220px;">
+                        <div class="col-6" style="border-right:2px solid black;">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Transportista:</p>
+                        </div>
+                        <div class="col-6">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Destinatario:</p>
+                        </div>
+                    </div>
+                    <div class="row" style="border:2px solid black;border-top:none;height:220px;">
+                        <div class="col-6" style="border-right:2px solid black;">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Matriculas del vehículo:</p>
+                        </div>
+                        <div class="col-6">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Datos expedición:</p>
+                        </div>
+                    </div>
+                    <div class="row" style="border:2px solid black;border-top:none;height:300px;">
+                        <div class="col-6" style="border-right:2px solid black;">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Mercancía:</p>
+                            <div class="row">
+                                <div class="col-5">
+                                    <p style="margin:0;padding:0;font-size:1.2em;margin-left:10px;">Descripción:</p>
+                                </div>
+                                <div class="col-7"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
+                                    <p style="margin:0;padding:0;font-size:1.2em;margin-left:10px;">Peso Kg:</p>
+                                </div>
+                                <div class="col-5">
+                                    <t t-set="total_weight" t-value="0"/>
+                                    <t t-set="total_boxes" t-value="0"/>
+                                    <t t-set="total_pallets" t-value="0"/>
+                                    <t t-set="lines_to_print" t-value="o._get_albaran_ventas_lines()"/>
+                                    <t t-foreach="lines_to_print" t-as="line">
+                                        <t t-set="total_weight" t-value="total_weight + line.product_qty"/>
+                                        <t t-set="total_boxes" t-value="total_boxes + line.box"/>
+                                        <t t-if="line.is_palet_base">
+                                            <t t-set="total_pallets" t-value="total_pallets + 1"/>
+                                        </t>
+                                    </t>
+                                    <p style="margin:0;padding:0;font-size:1.2em;text-align:right;"><span t-esc="total_weight"/></p>
+                                </div>
+                                <div class="col-2">
+                                    <p style="margin:0;padding:0;font-size:1.2em;">Kg</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <p style="margin:0;padding:0;font-size:1.2em;margin-left:10px;">Bultos:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p style="margin:0;padding:0;font-size:1.2em;"><span t-esc="total_boxes"/></p>
+                                </div>
+                                <div class="col-3">
+                                    <p style="margin:0;padding:0;font-size:1.2em;">Palets:</p>
+                                </div>
+                                <div class="col-3">
+                                    <p style="margin:0;padding:0;font-size:1.2em;"><span t-esc="total_pallets"/></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p style="margin:0;padding:0;font-size:1.2em;margin-left:10px;">Fecha carga:</p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="margin:0;padding:0;font-size:1.2em;"><span t-esc="o.date_order.strftime('%d/%m/%Y')"/></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p style="margin:0;padding:0;font-size:1.2em;margin-left:10px;">Fecha descarga:</p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="margin:0;padding:0;font-size:1.2em;"><span t-esc="o.date_order.strftime('%d/%m/%Y')"/></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;margin-left:10px;">Observaciones y/o reservas:</p>
+                        </div>
+                    </div>
+                    <div class="row" style="border:2px solid black;border-top:none;height:220px;">
+                        <div class="col-4" style="border-right:2px solid black;height:220px;">
+                            <div class="row">
+                                <div class="col-12" style="border-bottom:2px solid black;height:40px;">
+                                    <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;text-align:center;">CARGADOR FIRMA</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <img style="width:80%;margin-left:30px;margin-top:20px;" src="/idealfruit_custom_purchase/static/src/img/sello_idealfruit.png"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4" style="border-right:2px solid black;height:220px;">
+                            <div class="row">
+                                <div class="col-12" style="border-bottom:2px solid black;height:40px;">
+                                    <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;text-align:center;">TRANSPORTISTA FIRMA</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12"></div>
+                            </div>
+                        </div>
+                        <div class="col-4" style="height:220px;">
+                            <div class="row">
+                                <div class="col-12" style="border-bottom:2px solid black;height:40px;">
+                                    <p style="margin:0;padding:0;font-weight:bolder;font-size:1.3em;text-align:center;">RECEPTOR FIRMA</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+           </div>
+        </t>
+    </template>
+
+    <template id="report_saleorder_mercancy_control">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="idealfruit_custom_purchase.report_saleorder_document_mercancy_control" t-lang="o.partner_id.lang">
+                    <t t-set="company" t-value="o.company_id"/>
+                    <t t-set="user_to_sell" t-value="o.partner_id"></t>
+<!--                    <t t-set="user_to_sell" t-value="o.partner_id"></t>-->
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="action_report_saleorder_mercancy_control"
+        model="sale.order"
+        string="Control de mercancía"
+        report_type="qweb-pdf"
+        name="idealfruit_custom_purchase.report_saleorder_mercancy_control"
+        file="idealfruit_custom_purchase.report_saleorder_mercancy_control"
+        print_report_name="'Control de mercancía - %s' % (object.name)"
+        paperformat="idealfruit_custom_purchase.paperformat_cmr"
+    />
+
+
+
+</odoo>

@@ -14,7 +14,7 @@
                     <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;" alt="Logo"/>
                 </div>
                 <div class="col-5 mb4">
-                      <t t-set="invoice_address" t-value="o._get_fiscal_address(true,partner=user_to_sell)"></t>
+                      <t t-set="invoice_address" t-value="o._get_fiscal_address(false,partner=user_to_sell)"></t>
 <!--                <t t-set="invoice_address" t-value="o._get_fiscal_address(partner=user_to_sell)"></t>-->
                     <strong>Dirección fiscal:</strong>
                     <div t-esc="invoice_address"
@@ -22,7 +22,7 @@
 
                 </div>
                 <div class="col-5 mb4">
-                    <t t-set="shipping_address" t-value="o._get_shipping_address(true,partner=user_to_sell)"></t>
+                    <t t-set="shipping_address" t-value="o._get_shipping_address(false,partner=user_to_sell)"></t>
 <!--                    <t t-set="shipping_address" t-value="o._get_shipping_address(partner=user_to_sell)"></t>-->
                     <strong>Dirección de entrega:</strong>
                     <div t-esc="shipping_address"

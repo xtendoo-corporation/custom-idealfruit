@@ -26,8 +26,11 @@
         'views/cmr_docs/layout_cmr.xml',
         'views/cmr_docs/layout_empty.xml',
         'views/cmr_docs/albaran_venta_report.xml',
+        'views/cmr_docs/albaran_venta_report_sale.xml',
         'views/cmr_docs/cmr_report.xml',
+        'views/cmr_docs/cmr_report_sale.xml',
         'views/cmr_docs/control_mercancia_report.xml',
+        'views/cmr_docs/control_mercancia_report_sale.xml',
         'views/purchase_order_views.xml',
         'wizards/print_wizard_selection.xml',
 

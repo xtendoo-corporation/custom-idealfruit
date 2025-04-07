@@ -224,7 +224,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div id="bloque7" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;">
+                                <div id="bloque7" style="border-left:2px solid black;border-right:2px solid black;border-bottom:2px solid black;font-size:0.8em;">
                     <t t-set="total_palets" t-value="0.0"/>
                     <t t-set="total_weight" t-value="0.0"/>
                     <t t-set="cmr_lines" t-value="o._get_lines_to_cmr().items()"/>
@@ -736,32 +736,20 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="idealfruit_custom_purchase.report_saleorder_document_cmr" t-lang="o.partner_id.lang">
                     <t t-set="company" t-value="o.company_id"/>
-                    <t t-set="user_to_sell" t-value="o.company_id"></t>
+                    <t t-set="user_to_sell" t-value="o.partner_id"></t>
 <!--                    <t t-set="user_to_sell" t-value="o.partner_id"></t>-->
                 </t>
             </t>
         </t>
     </template>
-
-    <record id="paperformat_cmr" model="report.paperformat">
-        <field name="name">CMR A4</field>
-        <field name="default" eval="False"/>
-        <field name="format">A4</field>
-        <field name="orientation">Portrait</field>
-        <field name="margin_top">2</field>
-        <field name="margin_bottom">2</field>
-        <field name="margin_left">0</field>
-        <field name="margin_right">0</field>
-        <field name="header_spacing">10</field>
-    </record>
     <report
         id="action_report_saleorder_cmr"
-        model="purchase.order"
+        model="sale.order"
         string="CMR"
         report_type="qweb-pdf"
         name="idealfruit_custom_purchase.report_saleorder_cmr"
         file="idealfruit_custom_purchase.report_saleorder_cmr"
         print_report_name="'CMR - %s' % (object.name)"
-        paperformat="paperformat_cmr"
+        paperformat="idealfruit_custom_purchase.paperformat_cmr"
     />
 </odoo>

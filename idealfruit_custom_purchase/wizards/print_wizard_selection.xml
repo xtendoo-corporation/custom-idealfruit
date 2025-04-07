@@ -5,6 +5,9 @@
         <field name="arch" type="xml">
             <form string="Seleccionar Órdenes de Venta">
                 <group>
+                    <field name="documento"></field>
+                </group>
+                <group>
                     <field name="to_use_sale_order_ids" invisible="1" />
                     <field name="sale_order_ids" domain="[('id', 'in', to_use_sale_order_ids)]">
                         <tree>
@@ -14,9 +17,6 @@
                             <field name="state"/>
                         </tree>
                     </field>
-                </group>
-                <group>
-                    <field name="documento"></field>
                 </group>
                 <footer>
                     <button string="Confirmar" type="object" name="confirm_selection" class="btn-primary"/>

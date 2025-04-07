@@ -16,7 +16,7 @@ class SelectSalesWizard(models.TransientModel):
     to_use_sale_order_ids = fields.Many2many('sale.order', string='Órdenes de Venta', relation='select_sales_wizard_sale_order_rel',)
 
     purchase_id = fields.Many2one('purchase.order', string='Pedido de Compra')
-    documento = fields.Selection([('cmr', 'CMR'), ('albaran_ventas', 'Albarán de ventas')], 'Documento', default='cmr')
+    documento = fields.Selection([('cmr', 'CMR'), ('albaran_ventas', 'Albarán de ventas'),('control_mercancia', 'Control de mercancía')], 'Documento', default='cmr')
 
 
     @api.model
@@ -54,13 +54,12 @@ class SelectSalesWizard(models.TransientModel):
             raise UserError("Debe seleccionar al menos una venta")
         if not self.documento:
             raise UserError("Debe elegir el documento para imprimir")
-
-        purchase = self.purchase_id
-        if not purchase:
-            raise UserError("No se ha encontrado un pedido de compra relacionado")
-
-        for order in self.sale_order_ids:
-            purchase.print_cmr_pdf()
+        if self.documento == 'cmr':
+            return self.env['sale.order'].print_cmr_pdf(self.sale_order_ids)
+        if self.documento == 'albaran_ventas':
+            return self.env['sale.order'].print_albaran_ventas_pdf(self.sale_order_ids)
+        if self.documento == 'control_mercancia':
+            return self.env['sale.order'].print_control_mercancia_pdf(self.sale_order_ids)
 
 
 

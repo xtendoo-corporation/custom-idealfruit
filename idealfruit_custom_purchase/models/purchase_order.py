@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError, UserError
-from PyPDF2.merger import PdfMerger
+from PyPDF2 import PdfFileReader, PdfFileWriter
+import io
 
 
 class PurchaseOrder(models.Model):
@@ -103,23 +104,29 @@ class PurchaseOrder(models.Model):
 
 
     def print_cmr_pdf(self, sales_ids):
-        # Crear una instancia de PdfMerger
-        merger = PdfMerger()
-        # Obtener los informes PDF
+        # Crear un objeto PdfFileWriter
+        pdf_writer = PdfFileWriter()
+
+        # Obtener los informes PDF como flujos de bytes
         report_1 = self.env.ref('idealfruit_custom_purchase.action_report_purchaseorder_cmr').report_action(self)
         report_2 = self.env.ref('idealfruit_custom_purchase.action_report_purchaseorder_cmr').report_action(self)
 
-        # Agregar los PDFs al merger
-        merger.append(io.BytesIO(report_1))
-        merger.append(io.BytesIO(report_2))
+        # Obtener el contenido en bytes desde los diccionarios
+        report_1_pdf = report_1.get('data')  # Asegúrate de acceder a la clave 'data'
+        report_2_pdf = report_2.get('data')  # Asegúrate de acceder a la clave 'data'
 
-        # Crear el PDF combinado
+        # Agregar los PDFs al PdfFileWriter
+        for report in [report_1_pdf, report_2_pdf]:
+            pdf_reader = PdfFileReader(io.BytesIO(report))
+            for page_num in range(pdf_reader.getNumPages()):
+                pdf_writer.addPage(pdf_reader.getPage(page_num))
+
+        # Crear un flujo de bytes para guardar el PDF combinado
         combined_pdf = io.BytesIO()
-        merger.write(combined_pdf)
+        pdf_writer.write(combined_pdf)
         combined_pdf.seek(0)
 
         # Retornar el PDF combinado
         return self.env['ir.actions.report'].sudo()._get_report_from_action(self, combined_pdf.read())
-        # return self.env.ref('idealfruit_custom_purchase.action_report_purchaseorder_cmr').report_action(self)
 
 
