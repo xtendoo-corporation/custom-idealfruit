@@ -1,7 +1,15 @@
-from odoo import models
+from odoo import models, fields, api, _
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    purchase_line_ids = fields.One2many(
+        comodel_name='purchase.order.line',
+        inverse_name='sale_order_id',
+        string='Purchase Order Lines',
+        compute='_compute_purchase_line_ids',
+        store=False  # Si quieres que no se almacene en la base de datos
+    )
 
     def print_control_mercancia_pdf(self, sale_orders):
         report = self.env.ref('idealfruit_custom_purchase.action_report_saleorder_mercancy_control')
@@ -82,4 +90,10 @@ class SaleOrder(models.Model):
                 lines.append(line)
         return lines
 
+    def _compute_purchase_line_ids(self):
+        for order in self:
+            purchase_lines = self.env['purchase.order.line'].search([
+                ('sale_order_id', '=', order.id)
+            ])
+            order.purchase_line_ids = purchase_lines
 

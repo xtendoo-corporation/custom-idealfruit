@@ -61,6 +61,17 @@ class PurchaseOrderLine(models.Model):
             'target': 'new',
         }
 
+    def action_abrir_productor_wizard_only_see(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Productores para la línea %s-%s' % (self.visible_sequence, self.name)),
+            'res_model': 'purchase.order.line',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('idealfruit_custom_purchase.view_purchase_line_productor_update_only_see').id,
+            'target': 'new',
+        }
+
     def action_guardar_y_procesar(self):
         qty_to_update = 0.00
         for record in self:
@@ -79,6 +90,17 @@ class PurchaseOrderLine(models.Model):
             'res_id': self.id,
             'view_mode': 'form',
             'view_id': self.env.ref('idealfruit_custom_purchase.view_purchase_line_indications_update').id,
+            'target': 'new',
+        }
+
+    def action_abrir_indications_wizard_only_see(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Indicaciones para la línea %s-%s' % (self.visible_sequence, self.name)),
+            'res_model': 'purchase.order.line',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'view_id': self.env.ref('idealfruit_custom_purchase.view_purchase_line_indications_update_only_see').id,
             'target': 'new',
         }
 

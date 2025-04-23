@@ -6,7 +6,14 @@
                 <field name="indications_ids" string="Indicaciones">
                 <tree editable="bottom">
                     <field name="indications" invisible="0"/>
-                    <field name="indications_attachment" invisible="0"/>
+<!--                    <field name="indications_attachment" widget="attachment_preview" invisible="0"/>-->
+                    <field name="indications_attachment_temp" widget="attachment_preview" filename="indications_filename"/>
+                    <field name="indications_filename"/>
+<!--                    <field name="indications_attachment_id" widget="attachment_preview"/>-->
+        <button name="action_open_attachment"
+                type="object"
+                icon="fa-eye"
+                attrs="{'invisible': [('indications_attachment_temp', '=', False)]}"/>
                 </tree>
                 </field>
                 <footer class="oe_edit_only">
@@ -15,6 +22,33 @@
                             type="object"
                             class="oe_highlight"/>
                     <button string="Descartar" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_purchase_line_indications_update_only_see">
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="indications_ids" string="Indicaciones" readonly="1">
+                <tree>
+                    <field name="indications" invisible="0"/>
+  <field name="indications_attachment_temp" widget="attachment_preview" filename="indications_filename"/>
+                    <field name="indications_filename"/>
+<!--                    <field name="indications_attachment_id" widget="attachment_preview"/>-->
+        <button name="action_open_attachment"
+                type="object"
+                icon="fa-eye"
+                attrs="{'invisible': [('indications_attachment_temp', '=', False)]}"/>
+                </tree>
+                </field>
+                <footer class="oe_edit_only">
+                    <button special="save"
+                            string="Guardar"
+                            type="object"
+                            class="oe_highlight" invisible="1"/>
+                    <button string="Descartar" special="cancel" invisible="1"/>
                 </footer>
             </form>
         </field>
