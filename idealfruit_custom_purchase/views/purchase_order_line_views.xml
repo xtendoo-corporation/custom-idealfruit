@@ -4,6 +4,13 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
+             <xpath expr="//field[@name='order_line']" position="attributes">
+                <attribute name="options">{'always_open_form_view': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="editable">False</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
              <xpath expr="//notebook/page[@name='purchase_delivery_invoice']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
@@ -31,23 +38,20 @@
             <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
                 <field name="sale_order_id" attrs="{'readonly': [('state', 'in', ('purchase', 'done', 'cancel'))]}"/>
                 <button name="action_abrir_productor_wizard"
-                    string="Productores"
-                    type="object"
-                    class="oe_highlight"/>
+                        type="object"
+                        icon="fa-solid fa-user"
+                        class="btn btn-outline-primary"
+                        help="Productores"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
 
                 <field name="is_documented" invisible="1"/>
                 <button name="action_abrir_indications_wizard"
                         type="object"
-                        class="btn btn-outline-primary"
-                        icon="fa-file-text-o"
-                        attrs="{'invisible': [('is_documented', '=', True)]}"/>
-                <button name="action_abrir_indications_wizard"
-                        type="object"
                         class="btn btn-outline-success"
                         icon="fa-file-text-o"
-                        attrs="{'invisible': [('is_documented', '=', False)]}"/>
+                        attrs="{'invisible': [('is_documented', '=', False)]}"
+                        help="Indicaciones"/>
                 <field name="palet_type_id"/>
                 <field name="is_palet_base"/>
                 <field name="order_id" invisible="1"/>
@@ -65,6 +69,69 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/tree//button[@name='action_purchase_history']" position="attributes">
                 <attribute name="invisible">True</attribute>
+            </xpath>
+
+            <!-- Vista form de las lineas -->
+            <xpath expr="//field[@name='order_line']/form" position="replace">
+                <form string="Purchase Order Line">
+                    <field name="state" invisible="1"/>
+                    <field name="display_type" invisible="1"/>
+                    <group attrs="{'invisible': [('display_type', '!=', False)]}">
+                        <group>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="product_id" context="{'partner_id': parent.partner_id}" widget="many2one_barcode" domain="[('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+                            <label for="product_qty"/>
+                            <div class="o_row">
+                                <field name="product_qty"/>
+                                <field name="product_uom" groups="uom.group_uom" attrs="{'required': [('display_type', '=', False)]}"/>
+                            </div>
+                            <field name="box"/>
+                            <field name="qty_delivered"/>
+                            <field name="unit_box"/>
+                            <field name="product_qty"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_variety_id"/>
+                            <field name="price_unit"/>
+                            <field name="palet_type_id"/>
+                            <field name="is_palet_base"/>
+                            <field name="base_palet_line_ids" invisible="1" widget="many2many_tags"/>
+                            <field name="base_palet_line_id_number" string="Nº" attrs="{'invisible': [('base_palet_line_id_number', '=', 0)]}"/>
+                            <field name="base_palet_line_id" attrs="{'readonly': [('is_palet_base', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Productores">
+                            <field name="productor_ids">
+                                <tree string="Productores" editable="bottom">
+                                    <field name="related_partner_id" invisible="1"/>
+                                    <field name="partner_id" options="{'no_create': True, 'no_quick_create': True}" domain="[('parent_id','=',related_partner_id),('type','=','productor')]"/>
+                                    <field name="product_variety_id"  required="1" string="Variedad" domain="[('id', 'in', product_variety_available_ids)]"/>
+                                    <field name="product_variety_available_ids" string="Variedades Disponibles" widget="many2many_tags" invisible="1"/>
+                                    <field name="box" sum="Cajas Entregadas"/>
+                                    <field name="unit_box"/>
+                                    <field name="quantity" sum="Kilos Entregdos"/>
+                                    <field name="referencia_palet"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Indicaciones">
+                            <field name="indications_ids">
+                                <tree string="Indicaciones" editable="bottom">
+                                    <field name="indications" invisible="0"/>
+                                    <field name="indications_attachment_temp" widget="attachment_preview" filename="indications_filename"/>
+                                    <field name="indications_filename"/>
+                                    <button name="action_open_attachment"
+                                            type="object"
+                                            icon="fa-eye"
+                                            attrs="{'invisible': [('indications_attachment_temp', '=', False)]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
             </xpath>
         </field>
     </record>

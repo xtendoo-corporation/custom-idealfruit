@@ -4,7 +4,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='other_information']" position="after">
+            <xpath expr="//page[@name='order_lines']" position="before">
                 <page string="Lineas de compra" name="purchase_lines">
 <!--                    <field name="purchase_line_ids">-->
 <!--                    </field>-->
@@ -13,8 +13,9 @@
                             <field name="product_id"/>
                             <field name="name"/>
                             <button name="action_abrir_productor_wizard_only_see"
-                                    string="Productores"
+                                    help="Productores"
                                     type="object"
+                                    icon="fa-solid fa-user"
                                     class="oe_highlight"/>
                             <field name="product_variety_id"/>
                             <field name="box" string="Cajas Pedidas" sum="Total Cajas Pedidas"/>
@@ -28,15 +29,16 @@
                             <field name="base_palet_line_id_number"/>
                             <field name="base_palet_line_id"/>
                             <field name="is_documented" invisible="1"/>
-                            <button name="action_abrir_indications_wizard_only_see"
-                                    type="object"
-                                    class="btn btn-outline-primary"
-                                    icon="fa-file-text-o"
-                                    attrs="{'invisible': [('is_documented', '=', True)]}"/>
+<!--                            <button name="action_abrir_indications_wizard_only_see"-->
+<!--                                    type="object"-->
+<!--                                    class="btn btn-outline-primary"-->
+<!--                                    icon="fa-file-text-o"-->
+<!--                                    attrs="{'invisible': [('is_documented', '=', True)]}"/>-->
                             <button name="action_abrir_indications_wizard_only_see"
                                     type="object"
                                     class="btn btn-outline-success"
                                     icon="fa-file-text-o"
+                                    help="Indicaciones"
                                     attrs="{'invisible': [('is_documented', '=', False)]}"/>
 
                         </tree>
